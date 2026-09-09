@@ -1,12 +1,20 @@
-# Secrets and overrides
+# Secrets and machine-local overrides
 *.key
 *.pem
 *.secret
 *.env
+*.env.*
 *.local
+*.local.*
 .ssh/config
 
-# OS temp files
-.DS_Store
-*~
+# Backup and temporary files
+*.bak
+*.bak.*
+*.orig
 *.swp
+*~
+
+# OS-specific files
+.DS_Store
+Thumbs.db
