@@ -1,0 +1,10 @@
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+[pull]
+	rebase = true
+[user]
+	name = SabidMahmud
+	email = sabidmahmud96@gmail.com

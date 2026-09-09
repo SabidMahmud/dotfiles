@@ -1,0 +1,12 @@
+# Secrets and overrides
+*.key
+*.pem
+*.secret
+*.env
+*.local
+.ssh/config
+
+# OS temp files
+.DS_Store
+*~
+*.swp

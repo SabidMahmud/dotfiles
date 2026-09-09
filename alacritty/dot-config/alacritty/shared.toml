@@ -1,0 +1,20 @@
+[env]
+TERM = "xterm-256color"
+
+[terminal.shell]
+program = "zellij"
+
+[window]
+padding.x = 16
+padding.y = 14
+decorations = "None"
+opacity = 2
+
+
+[keyboard]
+bindings = [
+{ key = "F11", action = "ToggleFullscreen" }
+]
+
+[terminal]
+# blur = true
