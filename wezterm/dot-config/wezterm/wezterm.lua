@@ -3,10 +3,10 @@ local config = wezterm.config_builder()
 
 config.term = "xterm-256color"
 -- config.default_prog = { "tmux" }
-config.default_prog = { "tmux" }
--- Alacritty-like look & feel
+config.default_prog = { "zellij" }
+
 config.window_decorations = "RESIZE" -- No title bar, but resizable
-config.enable_tab_bar = false -- Hide tabs (zellij handles this)
+config.enable_tab_bar = false
 config.window_padding = {
 	left = 16,
 	right = 16,
@@ -15,7 +15,7 @@ config.window_padding = {
 }
 
 config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
-config.font_size = 11.0
+config.font_size = 12.0
 
 -- Load theme colors
 local success, theme = pcall(require, "theme")
