@@ -53,7 +53,27 @@ stow_packages() {
 }
 
 # ---------------------------------------------------------------------------
-# 3. Optional: set Zsh as the default shell
+# 3. Install Oh My Zsh custom plugins
+# ---------------------------------------------------------------------------
+install_omz_plugins() {
+    local custom="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+    if [ -d "$HOME/.oh-my-zsh" ]; then
+        echo "==> Installing Oh My Zsh custom plugins..."
+        if [ ! -d "$custom/plugins/zsh-autosuggestions" ]; then
+            git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
+                "$custom/plugins/zsh-autosuggestions"
+        fi
+        if [ ! -d "$custom/plugins/zsh-syntax-highlighting" ]; then
+            git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting \
+                "$custom/plugins/zsh-syntax-highlighting"
+        fi
+    else
+        echo "WARNING: Oh My Zsh not found. Install it first: https://ohmyz.sh"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# 4. Optional: set Zsh as the default shell
 # ---------------------------------------------------------------------------
 set_default_shell() {
     if [ "$SHELL" != "$(which zsh)" ]; then
@@ -86,6 +106,7 @@ echo " Dotfiles installer — github.com/SabidMahmud/dotfiles"
 echo "======================================================"
 
 install_packages
+install_omz_plugins
 stow_packages
 set_default_shell
 remind_local_file
