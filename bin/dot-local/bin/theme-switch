@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 # theme-switch — Unified Linux Theme Switcher
-# Changes Alacritty, Zellij, Neovim, Btop, Yazi, and Desktop Wallpaper simultaneously.
-#
-# Usage:
-#   theme-switch             (interactive menu)
-#   theme-switch <theme-name> (direct selection)
-#   theme-switch -w | wallpaper (interactive wallpaper selection for current theme)
 
 set -e
 
@@ -27,14 +21,12 @@ apply_wallpaper() {
     
     echo "  -> Setting wallpaper: $(basename "$WALLPAPER")..."
 
-    # GNOME (Ubuntu, Fedora, Debian GNOME, Arch GNOME)
     if command -v gsettings &>/dev/null; then
         gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER"
         gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER"
         gsettings set org.gnome.desktop.background picture-options 'zoom'
         gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-        # Set accent color if specified in theme
         case "$THEME" in
             catppuccin)  ACCENT="magenta" ;;
             everforest)  ACCENT="bark" ;;
@@ -56,7 +48,6 @@ apply_wallpaper() {
         fi
     fi
 
-    # Hyprland / Wayland (swww or hyprpaper)
     if command -v swww &>/dev/null; then
         swww img "$WALLPAPER" --transition-type fade 2>/dev/null || true
     elif command -v hyprctl &>/dev/null && command -v hyprpaper &>/dev/null; then
@@ -64,13 +55,11 @@ apply_wallpaper() {
         hyprctl hyprpaper wallpaper ",$WALLPAPER" 2>/dev/null || true
     fi
 
-    # Sway (swaybg)
     if command -v swaymsg &>/dev/null && command -v swaybg &>/dev/null; then
         pkill swaybg 2>/dev/null || true
         swaybg -i "$WALLPAPER" -m fill &>/dev/null &
     fi
 
-    # X11 (feh or nitrogen)
     if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
         if command -v feh &>/dev/null; then
             feh --bg-fill "$WALLPAPER" 2>/dev/null || true
@@ -80,7 +69,6 @@ apply_wallpaper() {
     fi
 }
 
-# --- Wallpaper Selection Mode ---
 if [[ "$1" == "-w" || "$1" == "--wallpaper" || "$1" == "wallpaper" || "$1" == "wallpapers" ]]; then
     if [ ! -f "$HOME/.config/current-theme" ]; then
         echo "Error: No theme currently active. Switch to a theme first."
@@ -92,10 +80,8 @@ if [[ "$1" == "-w" || "$1" == "--wallpaper" || "$1" == "wallpaper" || "$1" == "w
     
     if [ ! -d "$WALLPAPER_DIR" ]; then
         echo "No 'wallpapers' directory found for theme '$THEME'."
-        echo "Checking for a default background..."
         WALLPAPER=$(find "$SELECTED_DIR" -maxdepth 1 -name "background.*" | head -n 1)
         if [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ]; then
-            echo "Only one background found: $(basename "$WALLPAPER")"
             apply_wallpaper "$WALLPAPER" "$THEME"
             echo "$WALLPAPER" > "$HOME/.config/current-wallpaper-$THEME"
             exit 0
@@ -112,7 +98,10 @@ if [[ "$1" == "-w" || "$1" == "--wallpaper" || "$1" == "wallpaper" || "$1" == "w
         exit 1
     fi
     
-    if command -v gum &>/dev/null; then
+    if [ "$TERM_PROGRAM" = "WezTerm" ] && command -v wezterm &>/dev/null && command -v fzf &>/dev/null; then
+        export FZF_WP_DIR="$WALLPAPER_DIR"
+        WP_NAME=$(printf "%s\n" "${AVAILABLE_WALLPAPERS[@]}" | fzf --prompt="Select Wallpaper > " --height=20 --reverse --preview 'wezterm imgcat --width ${FZF_PREVIEW_COLUMNS} "$FZF_WP_DIR/{}"')
+    elif command -v gum &>/dev/null; then
         WP_NAME=$(gum choose "${AVAILABLE_WALLPAPERS[@]}" --header "Select Wallpaper for $THEME:" --height 14)
     elif command -v fzf &>/dev/null; then
         WP_NAME=$(printf "%s\n" "${AVAILABLE_WALLPAPERS[@]}" | fzf --prompt="Select Wallpaper > " --height=14 --reverse)
@@ -136,9 +125,6 @@ if [[ "$1" == "-w" || "$1" == "--wallpaper" || "$1" == "wallpaper" || "$1" == "w
     exit 0
 fi
 
-# --- Normal Theme Selection Mode ---
-
-# List available themes
 mapfile -t AVAILABLE_THEMES < <(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort)
 
 if [ ${#AVAILABLE_THEMES[@]} -eq 0 ]; then
@@ -146,7 +132,6 @@ if [ ${#AVAILABLE_THEMES[@]} -eq 0 ]; then
     exit 1
 fi
 
-# Determine theme selection
 THEME="$1"
 if [ -z "$THEME" ]; then
     if command -v gum &>/dev/null; then
@@ -162,13 +147,11 @@ if [ -z "$THEME" ]; then
     fi
 fi
 
-# Exit if user cancelled
 if [ -z "$THEME" ]; then
     echo "No theme selected."
     exit 0
 fi
 
-# Validate theme directory
 SELECTED_DIR="$THEMES_DIR/$THEME"
 if [ ! -d "$SELECTED_DIR" ]; then
     echo "Error: Theme '$THEME' does not exist in $THEMES_DIR"
@@ -177,20 +160,17 @@ fi
 
 echo "==> Applying theme: $THEME"
 
-# ---------------------------------------------------------------------------
-# 1. Alacritty
-# ---------------------------------------------------------------------------
 if [ -f "$SELECTED_DIR/alacritty.toml" ]; then
-    echo "  -> Updating Alacritty theme..."
     mkdir -p "$HOME/.config/alacritty"
     cp "$SELECTED_DIR/alacritty.toml" "$HOME/.config/alacritty/theme.toml"
 fi
 
-# ---------------------------------------------------------------------------
-# 2. Zellij
-# ---------------------------------------------------------------------------
+if [ -f "$SELECTED_DIR/wezterm.lua" ]; then
+    mkdir -p "$HOME/.config/wezterm"
+    cp "$SELECTED_DIR/wezterm.lua" "$HOME/.config/wezterm/theme.lua"
+fi
+
 if [ -f "$SELECTED_DIR/zellij.kdl" ]; then
-    echo "  -> Updating Zellij theme..."
     mkdir -p "$HOME/.config/zellij/themes"
     cp "$SELECTED_DIR/zellij.kdl" "$HOME/.config/zellij/themes/$THEME.kdl"
     if [ -f "$HOME/.config/zellij/config.kdl" ]; then
@@ -198,20 +178,12 @@ if [ -f "$SELECTED_DIR/zellij.kdl" ]; then
     fi
 fi
 
-# ---------------------------------------------------------------------------
-# 3. Neovim
-# ---------------------------------------------------------------------------
 if [ -f "$SELECTED_DIR/neovim.lua" ]; then
-    echo "  -> Updating Neovim theme..."
     mkdir -p "$HOME/.config/nvim/lua/plugins"
     cp "$SELECTED_DIR/neovim.lua" "$HOME/.config/nvim/lua/plugins/theme.lua"
 fi
 
-# ---------------------------------------------------------------------------
-# 4. Btop
-# ---------------------------------------------------------------------------
 if [ -f "$SELECTED_DIR/btop.theme" ]; then
-    echo "  -> Updating Btop theme..."
     mkdir -p "$HOME/.config/btop/themes"
     cp "$SELECTED_DIR/btop.theme" "$HOME/.config/btop/themes/$THEME.theme"
     if [ -f "$HOME/.config/btop/btop.conf" ]; then
@@ -219,20 +191,12 @@ if [ -f "$SELECTED_DIR/btop.theme" ]; then
     fi
 fi
 
-# ---------------------------------------------------------------------------
-# 5. Yazi
-# ---------------------------------------------------------------------------
 if [ -f "$SELECTED_DIR/yazi.toml" ]; then
-    echo "  -> Updating Yazi theme..."
     mkdir -p "$HOME/.config/yazi"
     cp "$SELECTED_DIR/yazi.toml" "$HOME/.config/yazi/theme.toml"
 fi
 
-# ---------------------------------------------------------------------------
-# 6. Desktop Wallpaper & Accent Color (Distro-agnostic)
-# ---------------------------------------------------------------------------
 WALLPAPER=""
-# Check if we have a saved wallpaper for this theme
 if [ -f "$HOME/.config/current-wallpaper-$THEME" ]; then
     SAVED_WP=$(cat "$HOME/.config/current-wallpaper-$THEME")
     if [ -f "$SAVED_WP" ]; then
@@ -240,21 +204,16 @@ if [ -f "$HOME/.config/current-wallpaper-$THEME" ]; then
     fi
 fi
 
-# Fallback 1: Try the wallpapers directory
 if [ -z "$WALLPAPER" ] && [ -d "$SELECTED_DIR/wallpapers" ]; then
     WALLPAPER=$(find "$SELECTED_DIR/wallpapers" -maxdepth 1 -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" -o -name "*.webp" \) | sort | head -n 1)
 fi
 
-# Fallback 2: Try background.* in the root theme dir
 if [ -z "$WALLPAPER" ]; then
     WALLPAPER=$(find "$SELECTED_DIR" -maxdepth 1 -name "background.*" | head -n 1)
 fi
 
 apply_wallpaper "$WALLPAPER" "$THEME"
 
-# ---------------------------------------------------------------------------
-# 7. Persist active theme name
-# ---------------------------------------------------------------------------
 mkdir -p "$HOME/.config"
 echo "$THEME" > "$HOME/.config/current-theme"
 if [ -n "$WALLPAPER" ]; then
