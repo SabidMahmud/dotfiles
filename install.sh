@@ -89,6 +89,31 @@ install_packages
 stow_packages
 set_default_shell
 remind_local_file
+install_extended_tools
 
 echo ""
 echo "==> Done. Open a new shell session for all changes to take effect."
+
+# ---------------------------------------------------------------------------
+# 5. Install extended tools not in standard distro repos
+# ---------------------------------------------------------------------------
+install_extended_tools() {
+    echo ""
+    echo "==> The following tools are recommended but require manual installation:"
+    echo "    - WezTerm:  https://wezfurlong.org/wezterm/installation.html"
+    echo "    - Zellij:   https://zellij.dev/documentation/installation.html"
+    echo "    - Yazi:     https://yazi-rs.github.io/docs/installation"
+    echo "    - Btop:     sudo apt install btop  (or pacman / dnf)"
+    echo "    - Gum:      https://github.com/charmbracelet/gum#installation"
+    echo "    - Mise:     https://mise.jdx.dev/getting-started.html"
+    echo ""
+    echo "    Or use the package manager shortcuts below:"
+
+    if command -v apt &>/dev/null; then
+        echo "    sudo apt install btop"
+    elif command -v pacman &>/dev/null; then
+        echo "    sudo pacman -S btop zellij"
+    elif command -v dnf &>/dev/null; then
+        echo "    sudo dnf install btop"
+    fi
+}

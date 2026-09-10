@@ -2,7 +2,6 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.term = "xterm-256color"
--- config.default_prog = { "tmux" }
 config.default_prog = { "zellij" }
 
 config.window_decorations = "RESIZE" -- No title bar, but resizable
