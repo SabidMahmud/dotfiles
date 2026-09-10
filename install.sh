@@ -44,6 +44,9 @@ stow_packages() {
 
     for dir in */; do
         pkg="${dir%/}"
+        if [[ "$pkg" == "assets" ]]; then
+            continue
+        fi
         echo "    Stowing $pkg..."
         stow --dotfiles -R "$pkg"
     done

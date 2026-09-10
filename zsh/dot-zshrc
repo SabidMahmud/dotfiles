@@ -118,7 +118,17 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/home/mirok/.local/bin:$PATH"
 # <<< Codex installer <<<
 
-# kimi-code
-export ANTHROPIC_BASE_URL="REDACTED_API_URL"
-export ANTHROPIC_AUTH_TOKEN="REDACTED_API_KEY"
-export ANTHROPIC_API_KEY="REDACTED_API_KEY"
+# Machine-local environment variables (API keys, tokens, private URLs).
+# This file is NOT tracked by git. Create ~/.zshrc.local on each machine.
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# Yazi terminal file manager wrapper: changes directory on exit
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+

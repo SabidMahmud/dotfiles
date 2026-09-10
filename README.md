@@ -17,6 +17,7 @@ Personal configuration files for a Linux development environment, managed with [
 | `lazygit` | Lazygit terminal UI configuration |
 | `lazydocker` | Lazydocker terminal UI configuration |
 | `mise` | mise-en-place dev environment tool configuration |
+| `yazi` | Yazi terminal file manager configuration and Gruvbox theme |
 
 ## Requirements
 
