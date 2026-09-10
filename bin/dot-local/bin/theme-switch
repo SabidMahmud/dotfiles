@@ -165,6 +165,15 @@ if [ -f "$SELECTED_DIR/alacritty.toml" ]; then
     cp "$SELECTED_DIR/alacritty.toml" "$HOME/.config/alacritty/theme.toml"
 fi
 
+if [ -f "$SELECTED_DIR/tmux.conf" ]; then
+    mkdir -p "$HOME/.config/tmux"
+    cp "$SELECTED_DIR/tmux.conf" "$HOME/.config/tmux/theme.conf"
+    # Reload tmux live if running
+    if command -v tmux &>/dev/null && tmux info &>/dev/null; then
+        tmux source-file "$HOME/.config/tmux/tmux.conf" 2>/dev/null || true
+    fi
+fi
+
 if [ -f "$SELECTED_DIR/wezterm.lua" ]; then
     mkdir -p "$HOME/.config/wezterm"
     cp "$SELECTED_DIR/wezterm.lua" "$HOME/.config/wezterm/theme.lua"
