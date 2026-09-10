@@ -1,9 +1,12 @@
-source ~/.local/share/omakub/defaults/bash/rc
+[ -f ~/.local/share/omakub/defaults/bash/rc ] && source ~/.local/share/omakub/defaults/bash/rc
 
 # Editor used by CLI
 export EDITOR="nvim"
 export SUDO_EDITOR="$EDITOR"
 
+# Ensure ~/.local/bin is in PATH
+export PATH="$HOME/.local/bin:$PATH"
 
-# Added by Antigravity CLI installer
-export PATH="/home/mirok/.local/bin:$PATH"
+# Theme switcher shortcut
+alias theme="theme-switch"
+

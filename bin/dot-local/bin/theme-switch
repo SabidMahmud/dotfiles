@@ -1,0 +1,176 @@
+#!/usr/bin/env bash
+# theme-switch — Unified Linux Theme Switcher
+# Changes Alacritty, Zellij, Neovim, Btop, Yazi, and Desktop Wallpaper simultaneously.
+#
+# Usage:
+#   theme-switch             (interactive menu)
+#   theme-switch <theme-name> (direct selection)
+
+set -e
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+THEMES_DIR="$DOTFILES_DIR/themes"
+
+if [ ! -d "$THEMES_DIR" ]; then
+    echo "Error: Themes directory not found at $THEMES_DIR"
+    exit 1
+fi
+
+# List available themes
+mapfile -t AVAILABLE_THEMES < <(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort)
+
+if [ ${#AVAILABLE_THEMES[@]} -eq 0 ]; then
+    echo "Error: No themes found in $THEMES_DIR"
+    exit 1
+fi
+
+# Determine theme selection
+THEME="$1"
+if [ -z "$THEME" ]; then
+    if command -v gum &>/dev/null; then
+        THEME=$(gum choose "${AVAILABLE_THEMES[@]}" --header "Select System Theme:" --height 14)
+    elif command -v fzf &>/dev/null; then
+        THEME=$(printf "%s\n" "${AVAILABLE_THEMES[@]}" | fzf --prompt="Select Theme > " --height=14 --reverse)
+    else
+        echo "Select a theme:"
+        select opt in "${AVAILABLE_THEMES[@]}"; do
+            THEME="$opt"
+            break
+        done
+    fi
+fi
+
+# Exit if user cancelled
+if [ -z "$THEME" ]; then
+    echo "No theme selected."
+    exit 0
+fi
+
+# Validate theme directory
+SELECTED_DIR="$THEMES_DIR/$THEME"
+if [ ! -d "$SELECTED_DIR" ]; then
+    echo "Error: Theme '$THEME' does not exist in $THEMES_DIR"
+    exit 1
+fi
+
+echo "==> Applying theme: $THEME"
+
+# ---------------------------------------------------------------------------
+# 1. Alacritty
+# ---------------------------------------------------------------------------
+if [ -f "$SELECTED_DIR/alacritty.toml" ]; then
+    echo "  -> Updating Alacritty theme..."
+    mkdir -p "$HOME/.config/alacritty"
+    cp "$SELECTED_DIR/alacritty.toml" "$HOME/.config/alacritty/theme.toml"
+fi
+
+# ---------------------------------------------------------------------------
+# 2. Zellij
+# ---------------------------------------------------------------------------
+if [ -f "$SELECTED_DIR/zellij.kdl" ]; then
+    echo "  -> Updating Zellij theme..."
+    mkdir -p "$HOME/.config/zellij/themes"
+    cp "$SELECTED_DIR/zellij.kdl" "$HOME/.config/zellij/themes/$THEME.kdl"
+    if [ -f "$HOME/.config/zellij/config.kdl" ]; then
+        sed -i "s/^theme \".*\"/theme \"$THEME\"/" "$HOME/.config/zellij/config.kdl"
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# 3. Neovim
+# ---------------------------------------------------------------------------
+if [ -f "$SELECTED_DIR/neovim.lua" ]; then
+    echo "  -> Updating Neovim theme..."
+    mkdir -p "$HOME/.config/nvim/lua/plugins"
+    cp "$SELECTED_DIR/neovim.lua" "$HOME/.config/nvim/lua/plugins/theme.lua"
+fi
+
+# ---------------------------------------------------------------------------
+# 4. Btop
+# ---------------------------------------------------------------------------
+if [ -f "$SELECTED_DIR/btop.theme" ]; then
+    echo "  -> Updating Btop theme..."
+    mkdir -p "$HOME/.config/btop/themes"
+    cp "$SELECTED_DIR/btop.theme" "$HOME/.config/btop/themes/$THEME.theme"
+    if [ -f "$HOME/.config/btop/btop.conf" ]; then
+        sed -i "s/^color_theme = .*/color_theme = \"$THEME\"/" "$HOME/.config/btop/btop.conf"
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# 5. Yazi
+# ---------------------------------------------------------------------------
+if [ -f "$SELECTED_DIR/yazi.toml" ]; then
+    echo "  -> Updating Yazi theme..."
+    mkdir -p "$HOME/.config/yazi"
+    cp "$SELECTED_DIR/yazi.toml" "$HOME/.config/yazi/theme.toml"
+fi
+
+# ---------------------------------------------------------------------------
+# 6. Desktop Wallpaper & Accent Color (Distro-agnostic)
+# ---------------------------------------------------------------------------
+WALLPAPER=$(find "$SELECTED_DIR" -maxdepth 1 -name "background.*" | head -n 1)
+
+if [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ]; then
+    echo "  -> Setting wallpaper: $(basename "$WALLPAPER")..."
+
+    # GNOME (Ubuntu, Fedora, Debian GNOME, Arch GNOME)
+    if command -v gsettings &>/dev/null; then
+        gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER"
+        gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER"
+        gsettings set org.gnome.desktop.background picture-options 'zoom'
+        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+        # Set accent color if specified in theme
+        case "$THEME" in
+            catppuccin)  ACCENT="magenta" ;;
+            everforest)  ACCENT="bark" ;;
+            gruvbox)     ACCENT="sage" ;;
+            kanagawa)    ACCENT="purple" ;;
+            matte-black) ACCENT="orange" ;;
+            nord)        ACCENT="blue" ;;
+            osaka-jade)  ACCENT="green" ;;
+            ristretto)   ACCENT="grey" ;;
+            rose-pine)   ACCENT="red" ;;
+            tokyo-night) ACCENT="purple" ;;
+            *)           ACCENT="" ;;
+        esac
+
+        if [ -n "$ACCENT" ]; then
+            gsettings set org.gnome.desktop.interface accent-color "$ACCENT" 2>/dev/null || true
+            gsettings set org.gnome.desktop.interface gtk-theme "Yaru-$ACCENT-dark" 2>/dev/null || true
+            gsettings set org.gnome.desktop.interface icon-theme "Yaru-$ACCENT" 2>/dev/null || true
+        fi
+    fi
+
+    # Hyprland / Wayland (swww or hyprpaper)
+    if command -v swww &>/dev/null; then
+        swww img "$WALLPAPER" --transition-type fade 2>/dev/null || true
+    elif command -v hyprctl &>/dev/null && command -v hyprpaper &>/dev/null; then
+        hyprctl hyprpaper preload "$WALLPAPER" 2>/dev/null || true
+        hyprctl hyprpaper wallpaper ",$WALLPAPER" 2>/dev/null || true
+    fi
+
+    # Sway (swaybg)
+    if command -v swaymsg &>/dev/null && command -v swaybg &>/dev/null; then
+        pkill swaybg 2>/dev/null || true
+        swaybg -i "$WALLPAPER" -m fill &>/dev/null &
+    fi
+
+    # X11 (feh or nitrogen)
+    if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+        if command -v feh &>/dev/null; then
+            feh --bg-fill "$WALLPAPER" 2>/dev/null || true
+        elif command -v nitrogen &>/dev/null; then
+            nitrogen --set-zoom-fill "$WALLPAPER" --save 2>/dev/null || true
+        fi
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# 7. Persist active theme name
+# ---------------------------------------------------------------------------
+mkdir -p "$HOME/.config"
+echo "$THEME" > "$HOME/.config/current-theme"
+
+echo "==> Successfully switched to $THEME!"

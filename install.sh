@@ -44,7 +44,7 @@ stow_packages() {
 
     for dir in */; do
         pkg="${dir%/}"
-        if [[ "$pkg" == "assets" ]]; then
+        if [[ "$pkg" == "assets" || "$pkg" == "themes" ]]; then
             continue
         fi
         echo "    Stowing $pkg..."

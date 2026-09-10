@@ -132,3 +132,5 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+# Theme switcher shortcut
+alias theme="theme-switch"

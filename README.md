@@ -18,6 +18,36 @@ Personal configuration files for a Linux development environment, managed with [
 | `lazydocker` | Lazydocker terminal UI configuration |
 | `mise` | mise-en-place dev environment tool configuration |
 | `yazi` | Yazi terminal file manager configuration and Gruvbox theme |
+| `bin` | Custom CLI utilities including the unified `theme-switch` script |
+
+## Theme Switcher
+
+A unified, distro-agnostic theme switcher is included and symlinked to `~/.local/bin/theme-switch` (aliased as `theme`).
+
+Run the interactive menu:
+
+```sh
+theme
+```
+
+Or specify a theme directly:
+
+```sh
+theme gruvbox
+theme catppuccin
+theme tokyo-night
+```
+
+The switcher simultaneously updates:
+
+- Terminal emulator (Alacritty)
+- Terminal multiplexer (Zellij)
+- Neovim colorscheme
+- btop++ system monitor
+- Yazi file manager
+- Desktop wallpaper and accent color (supports GNOME, Hyprland, Sway, and X11)
+
+Available themes: `catppuccin`, `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `tokyo-night`.
 
 ## Requirements
 
