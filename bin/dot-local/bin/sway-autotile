@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""
+Dynamic window tiling daemon for Sway (Hyprland / Omarchy dwindle style).
+Automatically switches the split orientation (horizontal vs vertical)
+depending on the aspect ratio (width vs height) of the focused window.
+Written using Python's standard library with zero external dependencies.
+"""
+
+import json
+import os
+import socket
+import struct
+import subprocess
+import sys
+
+MAGIC = b"i3-ipc"
+TYPE_COMMAND = 0
+TYPE_SUBSCRIBE = 2
+EVENT_WINDOW = (1 << 31) | 3
+
+
+def recv_exact(sock, n):
+    buf = bytearray()
+    while len(buf) < n:
+        chunk = sock.recv(n - len(buf))
+        if not chunk:
+            raise ConnectionResetError("Sway IPC socket closed")
+        buf.extend(chunk)
+    return bytes(buf)
+
+
+def main():
+    socket_path = os.environ.get("SWAYSOCK")
+    if not socket_path:
+        try:
+            socket_path = subprocess.check_output(
+                ["sway", "--get-socketpath"], text=True
+            ).strip()
+        except Exception:
+            sys.exit(1)
+
+    try:
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock.connect(socket_path)
+    except Exception:
+        sys.exit(1)
+
+    # Subscribe to window events
+    sub_payload = json.dumps(["window"]).encode("utf-8")
+    header = MAGIC + struct.pack("<II", len(sub_payload), TYPE_SUBSCRIBE)
+    sock.sendall(header + sub_payload)
+
+    # Read subscription response
+    res_header = recv_exact(sock, 14)
+    res_len = struct.unpack("<I", res_header[6:10])[0]
+    recv_exact(sock, res_len)
+
+    # Main event loop
+    while True:
+        try:
+            hdr = recv_exact(sock, 14)
+            if hdr[:6] != MAGIC:
+                continue
+            payload_len, msg_type = struct.unpack("<II", hdr[6:14])
+            payload_data = recv_exact(sock, payload_len)
+
+            if msg_type == EVENT_WINDOW:
+                data = json.loads(payload_data.decode("utf-8"))
+                change = data.get("change")
+                if change in ("focus", "new"):
+                    con = data.get("container")
+                    if not con:
+                        continue
+                    # Skip floating containers
+                    if con.get("floating") and con.get("floating") != "auto_off":
+                        continue
+                    rect = con.get("rect", {})
+                    w = rect.get("width", 0)
+                    h = rect.get("height", 0)
+                    if w <= 0 or h <= 0:
+                        continue
+
+                    split = "horizontal" if w >= h else "vertical"
+                    subprocess.run(["swaymsg", "-q", f"split {split}"], check=False)
+        except Exception:
+            break
+
+
+if __name__ == "__main__":
+    main()

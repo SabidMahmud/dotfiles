@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# sway-powermenu — Minimal interactive power menu for Waybar & Sway
+
+set -e
+
+entries="  Lock\n󰒲  Suspend\n  Logout\n  Reboot\n  Shutdown"
+
+selected=$(echo -e "$entries" | (wofi --dmenu --prompt "Power Menu" --width 240 --height 240 --insensitive 2>/dev/null || wmenu -p "Power Menu"))
+
+case "$selected" in
+    *"Lock"*)
+        hyprlock
+        ;;
+    *"Suspend"*)
+        systemctl suspend
+        ;;
+    *"Logout"*)
+        swaymsg exit
+        ;;
+    *"Reboot"*)
+        systemctl reboot
+        ;;
+    *"Shutdown"*)
+        systemctl poweroff
+        ;;
+esac

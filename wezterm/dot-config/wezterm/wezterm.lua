@@ -7,13 +7,13 @@ config.default_prog = { "zellij" }
 config.window_decorations = "RESIZE" -- No title bar, but resizable
 config.enable_tab_bar = false
 config.window_padding = {
-	left = 16,
-	right = 16,
-	top = 14,
-	bottom = 14,
+	left = 4,
+	right = 4,
+	top = 4,
+	bottom = 4,
 }
 
-config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
+config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 12.0
 
 -- Load theme colors

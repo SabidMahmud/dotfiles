@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# sway-wallpaper — Launch or update swaybg using the active theme's wallpaper
+
+set -e
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+
+# 1. Identify active theme from ~/.config/current-theme
+THEME=""
+if [ -f "$HOME/.config/current-theme" ]; then
+    THEME="$(cat "$HOME/.config/current-theme" 2>/dev/null || true)"
+fi
+
+# 2. Get wallpaper configured for the active theme
+WALLPAPER=""
+if [ -n "$THEME" ] && [ -f "$HOME/.config/current-wallpaper-$THEME" ]; then
+    SAVED_WP="$(cat "$HOME/.config/current-wallpaper-$THEME" 2>/dev/null || true)"
+    if [ -n "$SAVED_WP" ] && [ -f "$SAVED_WP" ]; then
+        WALLPAPER="$SAVED_WP"
+    fi
+fi
+
+# 3. Fallback: Search the active theme's wallpapers directory
+if [ -z "$WALLPAPER" ] || [ ! -f "$WALLPAPER" ]; then
+    if [ -n "$THEME" ] && [ -d "$DOTFILES_DIR/themes/$THEME" ]; then
+        WALLPAPER=$(find "$DOTFILES_DIR/themes/$THEME" -maxdepth 2 -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" -o -name "*.webp" \) 2>/dev/null | head -n 1)
+    fi
+fi
+
+# 4. Ultimate Fallback: Default to Gruvbox wallpaper
+if [ -z "$WALLPAPER" ] || [ ! -f "$WALLPAPER" ]; then
+    WALLPAPER="$DOTFILES_DIR/themes/gruvbox/background.jpg"
+fi
+
+# 5. Apply via swaybg
+if [ -f "$WALLPAPER" ] && command -v swaybg &>/dev/null; then
+    pkill swaybg 2>/dev/null || true
+    swaybg -i "$WALLPAPER" -m fill &
+fi

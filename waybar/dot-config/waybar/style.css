@@ -1,0 +1,302 @@
+/* =============================================================================
+   Waybar — Minimal Gruvbox Island Theme
+   Handcrafted, cohesive status bar styling
+   ============================================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "CaskaydiaMono Nerd Font", monospace;
+    font-size: 14px;
+    font-weight: 500;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    text-shadow: none;
+}
+
+window#waybar {
+    background-color: #1d2021;
+    border-bottom: 1px solid #3c3836;
+    color: #ebdbb2;
+}
+
+/* -----------------------------------------------------------------------------
+   Continuous Topbar Container
+   ----------------------------------------------------------------------------- */
+.modules-left,
+.modules-center,
+.modules-right {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0 4px;
+}
+
+.modules-left {
+    padding-left: 6px;
+}
+
+.modules-right {
+    padding-right: 6px;
+}
+
+/* -----------------------------------------------------------------------------
+   Workspaces (Sway)
+   ----------------------------------------------------------------------------- */
+#workspaces {
+    padding: 0;
+}
+
+#workspaces button {
+    padding: 2px 8px;
+    margin: 2px 1px;
+    border-radius: 6px;
+    color: #7c6f64;
+    background: transparent;
+    transition: all 0.15s ease;
+}
+
+#workspaces button:hover {
+    background-color: #32302f;
+    color: #ebdbb2;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    background-color: #d79921;
+    color: #1d2021;
+    font-weight: 700;
+}
+
+#workspaces button.urgent {
+    background-color: #ea6962;
+    color: #1d2021;
+}
+
+/* -----------------------------------------------------------------------------
+   Clock (Center Island)
+   ----------------------------------------------------------------------------- */
+#clock {
+    padding: 2px 10px;
+    color: #d4be98;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+#clock:hover {
+    color: #fbf1c7;
+}
+
+/* -----------------------------------------------------------------------------
+   Submap & Modes
+   ----------------------------------------------------------------------------- */
+#submap,
+#mode {
+    background-color: #d65d0e;
+    color: #1d2021;
+    padding: 2px 8px;
+    margin: 2px 2px;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+/* -----------------------------------------------------------------------------
+   Right Modules — Unified subtle items
+   ----------------------------------------------------------------------------- */
+#pulseaudio,
+#pulseaudio-microphone,
+#backlight,
+#battery,
+#bluetooth,
+#network,
+#cpu,
+#memory {
+    padding: 2px 8px;
+    margin: 2px 1px;
+    border-radius: 6px;
+    color: #d4be98;
+    background: transparent;
+    transition: all 0.15s ease;
+}
+
+#pulseaudio:hover,
+#pulseaudio-microphone:hover,
+#backlight:hover,
+#battery:hover,
+#bluetooth:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover {
+    background-color: #32302f;
+    color: #fbf1c7;
+}
+
+/* -----------------------------------------------------------------------------
+   Volume & Audio Slider
+   ----------------------------------------------------------------------------- */
+#volume,
+.volume,
+#group-volume {
+    padding: 0 4px;
+}
+
+#volume #pulseaudio,
+.volume #pulseaudio,
+#group-volume #pulseaudio {
+    padding: 2px 6px;
+    margin: 0;
+}
+
+#pulseaudio.muted {
+    color: #7c6f64;
+}
+
+#pulseaudio-slider {
+    padding: 0 6px 0 2px;
+}
+
+#pulseaudio-slider trough {
+    min-height: 4px;
+    min-width: 60px;
+    border-radius: 2px;
+    background-color: #3c3836;
+}
+
+#pulseaudio-slider highlight {
+    min-width: 4px;
+    border-radius: 2px;
+    background-color: #7daea3;
+}
+
+#pulseaudio-slider slider {
+    min-height: 10px;
+    min-width: 10px;
+    border-radius: 5px;
+    background-color: #d4be98;
+    border: none;
+    box-shadow: none;
+}
+
+#pulseaudio-slider slider:hover {
+    background-color: #fbf1c7;
+}
+
+/* -----------------------------------------------------------------------------
+   Microphone
+   ----------------------------------------------------------------------------- */
+#pulseaudio.microphone {
+    color: #7daea3;
+}
+
+#pulseaudio.microphone.source-muted,
+#pulseaudio-microphone.source-muted {
+    color: #ea6962;
+    font-weight: 700;
+}
+
+/* -----------------------------------------------------------------------------
+   Backlight / Brightness
+   ----------------------------------------------------------------------------- */
+#backlight {
+    color: #d8a657;
+}
+
+/* -----------------------------------------------------------------------------
+   Battery
+   ----------------------------------------------------------------------------- */
+#battery {
+    color: #a9b665;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #a9b665;
+}
+
+#battery.warning:not(.charging) {
+    color: #d8a657;
+}
+
+#battery.critical:not(.charging) {
+    color: #ea6962;
+    animation-name: pulse-critical;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes pulse-critical {
+    from {
+        color: #ea6962;
+    }
+    to {
+        color: #fbf1c7;
+        background-color: #ea6962;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   Bluetooth
+   ----------------------------------------------------------------------------- */
+#bluetooth {
+    color: #7daea3;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #7c6f64;
+}
+
+/* -----------------------------------------------------------------------------
+   Network
+   ----------------------------------------------------------------------------- */
+#network {
+    color: #89b482;
+}
+
+#network.disconnected {
+    color: #7c6f64;
+}
+
+/* -----------------------------------------------------------------------------
+   CPU & Memory
+   ----------------------------------------------------------------------------- */
+#cpu {
+    color: #d3869b;
+}
+
+#memory {
+    color: #e78a4e;
+}
+
+/* -----------------------------------------------------------------------------
+   Tooltips
+   ----------------------------------------------------------------------------- */
+tooltip {
+    background-color: #1d2021;
+    border: 1px solid #3c3836;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+tooltip label {
+    color: #ebdbb2;
+    font-size: 11px;
+}
+
+/* -----------------------------------------------------------------------------
+   Power Button
+   ----------------------------------------------------------------------------- */
+#custom-power {
+    color: #ea6962;
+    padding: 2px 10px;
+    margin: 2px 2px 2px 4px;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.15s ease;
+}
+
+#custom-power:hover {
+    background-color: #ea6962;
+    color: #1d2021;
+}

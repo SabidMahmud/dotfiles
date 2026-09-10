@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# brightness-step — Fast, unprivileged backlight control using systemd-logind.
+# Usage: brightness-step [+5|-5|VALUE]
+
+set -e
+
+DIR="/sys/class/backlight/amdgpu_bl1"
+if [ ! -d "$DIR" ]; then
+    DIR=$(find /sys/class/backlight -mindepth 1 -maxdepth 1 2>/dev/null | head -n 1)
+fi
+
+if [ -z "$DIR" ] || [ ! -d "$DIR" ]; then
+    echo "No backlight device found." >&2
+    exit 1
+fi
+
+DEVICE=$(basename "$DIR")
+MAX=$(cat "$DIR/max_brightness")
+CUR=$(cat "$DIR/brightness")
+
+STEP=$(( MAX * 5 / 100 ))
+if [ "$STEP" -lt 1 ]; then STEP=1; fi
+
+ARG="${1:-+5}"
+
+if [[ "$ARG" == +* ]]; then
+    DELTA="${ARG#+}"
+    STEP=$(( MAX * DELTA / 100 ))
+    VAL=$(( CUR + STEP ))
+    if [ "$VAL" -gt "$MAX" ]; then VAL="$MAX"; fi
+elif [[ "$ARG" == -* ]]; then
+    DELTA="${ARG#-}"
+    STEP=$(( MAX * DELTA / 100 ))
+    VAL=$(( CUR - STEP ))
+    if [ "$VAL" -lt 1 ]; then VAL=1; fi
+else
+    VAL="$ARG"
+fi
+
+busctl call org.freedesktop.login1 /org/freedesktop/login1/session/auto \
+    org.freedesktop.login1.Session SetBrightness "ssu" "backlight" "$DEVICE" "$VAL"
