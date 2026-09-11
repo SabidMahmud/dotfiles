@@ -21,11 +21,11 @@ set $menu pkill -x wofi || wofi --show drun
 font pango:JetBrainsMono Nerd Font, CaskaydiaMono Nerd Font 10
 
 ### Appearance & Gaps
-gaps inner 8
-gaps outer 4
+gaps inner 2
+gaps outer 2
 default_border pixel 2
 default_floating_border pixel 2
-smart_gaps on
+smart_gaps off
 smart_borders on
 
 # Color Palette (Gruvbox matching dotfiles)

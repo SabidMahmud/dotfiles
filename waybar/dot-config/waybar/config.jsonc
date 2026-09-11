@@ -14,11 +14,11 @@
         "group/volume",
         "pulseaudio#microphone",
         "backlight",
-        "battery",
         "bluetooth",
         "network",
         "cpu",
         "memory",
+        "battery",
         "custom/power"
     ],
     "sway/workspaces": {
@@ -71,13 +71,13 @@
     },
     "clock": {
         "format": "󰥔 {:%a, %d %b  %I:%M %p}",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "tooltip-format": "<tt>{calendar}</tt>",
         "calendar": {
             "format": {
                 "today": "<span color='#d79921'><b>{}</b></span>"
             }
         },
-        "on-click": "chromium --app=https://calendar.google.com || x-www-browser https://calendar.google.com"
+        "on-click": "vivaldi --app=https://calendar.google.com || x-www-browser https://calendar.google.com"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",

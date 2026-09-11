@@ -2,15 +2,16 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.term = "xterm-256color"
-config.default_prog = { "zellij" }
+-- config.default_prog = {}
 
 config.window_decorations = "RESIZE" -- No title bar, but resizable
+config.window_background_opacity = 0.99
 config.enable_tab_bar = false
 config.window_padding = {
-	left = 4,
-	right = 4,
-	top = 4,
-	bottom = 4,
+	left = 8,
+	right = 8,
+	top = 8,
+	bottom = 8,
 }
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
