@@ -1,0 +1,59 @@
+# Solarized Dark theme for Yazi
+# Matches Alacritty, WezTerm, Zellij, and Neovim color schemes
+
+[mgr]
+cwd = { fg = "#2aa198" }
+
+# Find
+find_keyword  = { fg = "#002b36", bg = "#b58900", bold = true }
+find_position = { fg = "#6c71c4", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#2aa198", italic = true }
+
+# Marker
+marker_copied   = { fg = "#859900", bg = "#859900" }
+marker_cut      = { fg = "#dc322f", bg = "#dc322f" }
+marker_marked   = { fg = "#268bd2", bg = "#268bd2" }
+marker_selected = { fg = "#b58900", bg = "#b58900" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#002b36", bg = "#859900" }
+count_cut      = { fg = "#002b36", bg = "#dc322f" }
+count_selected = { fg = "#002b36", bg = "#b58900" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#073642" }
+
+[tabs]
+active   = { fg = "#002b36", bg = "#2aa198", bold = true }
+inactive = { fg = "#839496", bg = "#073642" }
+
+[mode]
+normal_main = { fg = "#002b36", bg = "#268bd2", bold = true }
+normal_alt  = { fg = "#268bd2", bg = "#073642" }
+select_main = { fg = "#002b36", bg = "#b58900", bold = true }
+select_alt  = { fg = "#b58900", bg = "#073642" }
+unset_main  = { fg = "#002b36", bg = "#dc322f", bold = true }
+unset_alt   = { fg = "#dc322f", bg = "#073642" }
+
+[status]
+perm_sep   = { fg = "#073642" }
+perm_type  = { fg = "#859900" }
+perm_read  = { fg = "#b58900" }
+perm_write = { fg = "#dc322f" }
+perm_exec  = { fg = "#2aa198" }
+
+progress_label  = { fg = "#839496", bold = true }
+progress_normal = { fg = "#268bd2", bg = "#073642" }
+progress_error  = { fg = "#dc322f", bg = "#073642" }
+
+[which]
+border          = { fg = "#268bd2" }
+cols            = 3
+cand            = { fg = "#2aa198" }
+rest            = { fg = "#586e75" }
+desc            = { fg = "#839496" }
+separator_style = { fg = "#073642" }

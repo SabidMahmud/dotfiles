@@ -138,10 +138,11 @@ bindsym $mod+Shift+0 move container to workspace number 10
 
 # Layout & Tiling
 bindsym $mod+f fullscreen toggle
+bindsym $mod+m exec ~/.local/bin/sway-maximize
+# bindsym $mod+w exec ~/.local/bin/sway-maximize
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+e layout toggle split
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
 
 # Scratchpad (Sticky temporary window)
 bindsym $mod+Shift+minus move scratchpad
@@ -191,10 +192,10 @@ bar {
 }
 
 ### Autostart Daemons & Integrations
-# 1. Dynamic Dwindle Autotiling (Omarchy behavior)
+# 1. Dynamic Dwindle Autotiling
 exec_always ~/.local/bin/sway-autotile
 
-# 2. Dynamic Wallpaper (Syncs with theme-switch)
+# 2. Dynamic Wallpaper 
 exec_always ~/.local/bin/sway-wallpaper
 
 # 3. Wayland Environment & Screen Sharing Portals

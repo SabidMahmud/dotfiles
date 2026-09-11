@@ -37,6 +37,7 @@ apply_wallpaper() {
             osaka-jade)  ACCENT="green" ;;
             ristretto)   ACCENT="grey" ;;
             rose-pine)   ACCENT="red" ;;
+            solarized-dark) ACCENT="teal" ;;
             tokyo-night) ACCENT="purple" ;;
             *)           ACCENT="" ;;
         esac
@@ -98,9 +99,15 @@ if [[ "$1" == "-w" || "$1" == "--wallpaper" || "$1" == "wallpaper" || "$1" == "w
         exit 1
     fi
     
-    if [ "$TERM_PROGRAM" = "WezTerm" ] && command -v wezterm &>/dev/null && command -v fzf &>/dev/null; then
+    if command -v fzf &>/dev/null; then
         export FZF_WP_DIR="$WALLPAPER_DIR"
-        WP_NAME=$(printf "%s\n" "${AVAILABLE_WALLPAPERS[@]}" | fzf --prompt="Select Wallpaper > " --height=20 --reverse --preview 'wezterm imgcat --width ${FZF_PREVIEW_COLUMNS} "$FZF_WP_DIR/{}"')
+        WP_NAME=$(printf "%s\n" "${AVAILABLE_WALLPAPERS[@]}" | fzf \
+            --ansi \
+            --prompt="Select Wallpaper ($THEME) > " \
+            --height=100% \
+            --reverse \
+            --preview-window="right:65%:wrap" \
+            --preview='wallpaper-preview "$FZF_WP_DIR/{}"')
     elif command -v gum &>/dev/null; then
         WP_NAME=$(gum choose "${AVAILABLE_WALLPAPERS[@]}" --header "Select Wallpaper for $THEME:" --height 14)
     elif command -v fzf &>/dev/null; then
@@ -134,10 +141,17 @@ fi
 
 THEME="$1"
 if [ -z "$THEME" ]; then
-    if command -v gum &>/dev/null; then
+    if command -v fzf &>/dev/null; then
+        export FZF_THEMES_DIR="$THEMES_DIR"
+        THEME=$(printf "%s\n" "${AVAILABLE_THEMES[@]}" | fzf \
+            --ansi \
+            --prompt="Select System Theme > " \
+            --height=100% \
+            --reverse \
+            --preview-window="right:65%:wrap" \
+            --preview='wallpaper-preview "$FZF_THEMES_DIR/{}"')
+    elif command -v gum &>/dev/null; then
         THEME=$(gum choose "${AVAILABLE_THEMES[@]}" --header "Select System Theme:" --height 14)
-    elif command -v fzf &>/dev/null; then
-        THEME=$(printf "%s\n" "${AVAILABLE_THEMES[@]}" | fzf --prompt="Select Theme > " --height=14 --reverse)
     else
         echo "Select a theme:"
         select opt in "${AVAILABLE_THEMES[@]}"; do
