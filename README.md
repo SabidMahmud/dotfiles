@@ -112,6 +112,8 @@ A live image preview is shown in the fzf picker. For best results (high-resoluti
 - **Core**: Git, [GNU Stow](https://www.gnu.org/software/stow/), Zsh, Python 3, Neovim, Tmux, curl, wget, ripgrep, fzf
 - **Desktop (Sway / Wayland)**: Sway, Waybar, Wofi, Hyprlock, swaybg, swayidle, grim, slurp, wl-clipboard, brightnessctl, playerctl, nautilus, JetBrainsMono Nerd Font
 
+For a complete breakdown of what each dependency is used for, as well as optional/extended tools (like WezTerm, Zellij, and Yazi), see the **[Dependencies List](dependencies.md)**.
+
 ## Installation
 
 Clone the repository to your home directory:
