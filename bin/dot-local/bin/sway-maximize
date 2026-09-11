@@ -1,0 +1,237 @@
+#!/usr/bin/env python3
+"""
+sway-maximize: Pseudo-maximize toggle for Sway windows.
+Expands the focused window to cover the entire workspace under Waybar,
+without entering true fullscreen (Waybar remains visible, apps keep their tabs).
+
+Preserves the exact tiling tree layout, split orientation (vertical vs horizontal),
+and sibling position, so restoring returns the window to its exact place.
+"""
+
+import json
+import os
+import re
+import subprocess
+import sys
+
+STATE_DIR = "/tmp"
+
+
+def get_waybar_height():
+    """Detect Waybar height and position from its config file."""
+    config_paths = [
+        os.path.expanduser("~/.config/waybar/config.jsonc"),
+        os.path.expanduser("~/.config/waybar/config"),
+    ]
+    for path in config_paths:
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    content = re.sub(
+                        r"/\*.*?\*/", "", re.sub(r"//.*", "", f.read()), flags=re.DOTALL
+                    )
+                    data = json.loads(content)
+                    pos = data.get("position", "top")
+                    height = int(data.get("height", 30))
+                    m_top = int(data.get("margin-top", 0))
+                    m_bottom = int(data.get("margin-bottom", 0))
+                    return pos, height + m_top + m_bottom
+            except Exception:
+                pass
+    return "top", 30
+
+
+def find_focused_info(node, current_output=None, current_ws=None):
+    """Recursively find the focused container and its parent output/workspace."""
+    if node.get("type") == "output":
+        current_output = node
+    elif node.get("type") == "workspace":
+        current_ws = node
+
+    if node.get("focused"):
+        return node, current_output, current_ws
+
+    for child in node.get("nodes", []) + node.get("floating_nodes", []):
+        res, out, ws = find_focused_info(child, current_output, current_ws)
+        if res:
+            return res, out, ws
+    return None, None, None
+
+
+def find_parent_and_index(tree, target_id):
+    """Find the parent container and child index of a container in the tiling tree."""
+    def rec(parent):
+        for idx, child in enumerate(parent.get("nodes", [])):
+            if child.get("id") == target_id:
+                return parent, idx
+            p, i = rec(child)
+            if p:
+                return p, i
+        return None, None
+
+    return rec(tree)
+
+
+def node_exists(tree, target_id):
+    """Check if a container ID exists anywhere in the tree."""
+    if tree.get("id") == target_id:
+        return True
+    for child in tree.get("nodes", []) + tree.get("floating_nodes", []):
+        if node_exists(child, target_id):
+            return True
+    return False
+
+
+def main():
+    try:
+        tree = json.loads(subprocess.check_output(["swaymsg", "-t", "get_tree"]))
+        outputs = json.loads(subprocess.check_output(["swaymsg", "-t", "get_outputs"]))
+    except Exception as e:
+        sys.stderr.write(f"Error querying sway IPC: {e}\n")
+        sys.exit(1)
+
+    focused, focused_output, _ = find_focused_info(tree)
+    if not focused or focused.get("type") in ("root", "output", "workspace"):
+        sys.exit(0)
+
+    con_id = focused["id"]
+    marks = focused.get("marks", [])
+    is_maximized = "_maximized" in marks
+    state_file = os.path.join(STATE_DIR, f"sway-max-{con_id}.json")
+
+    # If window is in true fullscreen, disable it first
+    if focused.get("fullscreen_mode", 0) > 0:
+        subprocess.run(["swaymsg", f"[con_id={con_id}] fullscreen disable"], check=False)
+
+    if is_maximized:
+        # UNMAXIMIZE:
+        if "_max_floating" in marks:
+            cmd = f"[con_id={con_id}] unmark _maximized; [con_id={con_id}] unmark _max_floating; [con_id={con_id}] resize set 960 640; [con_id={con_id}] move position center"
+            subprocess.run(["swaymsg", cmd], check=False)
+        else:
+            # Restore tiled window to its exact previous position
+            restored = False
+            if os.path.exists(state_file):
+                try:
+                    with open(state_file, "r") as f:
+                        state = json.load(f)
+                    sibling_id = state.get("sibling_id")
+                    split = state.get("split", "horizontal")
+                    position = state.get("position", "after")
+
+                    if sibling_id and node_exists(tree, sibling_id):
+                        subprocess.run(
+                            ["swaymsg", f"[con_id={sibling_id}] focus; split {split}"],
+                            check=False,
+                        )
+                        subprocess.run(
+                            ["swaymsg", f"[con_id={con_id}] focus; floating disable"],
+                            check=False,
+                        )
+                        if position == "before":
+                            move_dir = "move up" if split == "vertical" else "move left"
+                            subprocess.run(
+                                ["swaymsg", f"[con_id={con_id}] focus; {move_dir}"],
+                                check=False,
+                            )
+                        restored = True
+                except Exception:
+                    pass
+
+            if not restored:
+                subprocess.run(
+                    ["swaymsg", f"[con_id={con_id}] floating disable"],
+                    check=False,
+                )
+
+            subprocess.run(
+                [
+                    "swaymsg",
+                    f"[con_id={con_id}] unmark _maximized; [con_id={con_id}] unmark _max_tiled",
+                ],
+                check=False,
+            )
+
+        if os.path.exists(state_file):
+            try:
+                os.remove(state_file)
+            except OSError:
+                pass
+        sys.exit(0)
+
+    # MAXIMIZE:
+    # Save layout info if this window is tiled
+    floating_type = focused.get("floating")
+    is_already_floating = floating_type in ("user_on", "auto_on")
+
+    if not is_already_floating:
+        parent, idx = find_parent_and_index(tree, con_id)
+        if parent and len(parent.get("nodes", [])) > 1:
+            nodes = parent["nodes"]
+            if idx > 0:
+                sibling = nodes[idx - 1]
+                pos = "after"
+            else:
+                sibling = nodes[1]
+                pos = "before"
+
+            split = "vertical" if parent.get("layout") == "splitv" else "horizontal"
+            state = {
+                "sibling_id": sibling["id"],
+                "split": split,
+                "position": pos,
+            }
+            try:
+                with open(state_file, "w") as f:
+                    json.dump(state, f)
+            except Exception:
+                pass
+
+    # Determine target output rectangle
+    out_rect = None
+    if focused_output and "rect" in focused_output:
+        out_rect = focused_output["rect"]
+    else:
+        matched = next((o for o in outputs if o.get("focused")), outputs[0] if outputs else None)
+        if matched:
+            out_rect = matched["rect"]
+
+    if not out_rect:
+        sys.exit(0)
+
+    bar_pos, bar_height = get_waybar_height()
+    ox = out_rect["x"]
+    oy = out_rect["y"]
+    ow = out_rect["width"]
+    oh = out_rect["height"]
+
+    if bar_pos == "top":
+        target_x = ox
+        target_y = oy + bar_height
+        target_w = ow
+        target_h = oh - bar_height
+    elif bar_pos == "bottom":
+        target_x = ox
+        target_y = oy
+        target_w = ow
+        target_h = oh - bar_height
+    else:
+        target_x = ox
+        target_y = oy
+        target_w = ow
+        target_h = oh
+
+    mark_origin = "_max_floating" if is_already_floating else "_max_tiled"
+
+    cmd = (
+        f"[con_id={con_id}] mark --add _maximized; "
+        f"[con_id={con_id}] mark --add {mark_origin}; "
+        f"[con_id={con_id}] floating enable; "
+        f"[con_id={con_id}] resize set {target_w} {target_h}; "
+        f"[con_id={con_id}] move absolute position {target_x} {target_y}"
+    )
+    subprocess.run(["swaymsg", cmd], check=False)
+
+
+if __name__ == "__main__":
+    main()
