@@ -1,5 +1,13 @@
 # dotfiles
 
+![Busy Setup](assets/screenshots/busy.png)
+
+<details>
+  <summary>Clean Desktop</summary>
+  <br>
+  <img src="assets/screenshots/desktop-clean.png" width="100%">
+</details>
+
 Personal configuration files for a Linux development environment and Sway (Wayland) desktop, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 ## Contents
