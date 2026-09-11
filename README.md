@@ -24,7 +24,7 @@ Personal configuration files for a Linux development environment and Sway (Wayla
 | `lazydocker` | Lazydocker terminal UI configuration |
 | `mise` | mise-en-place dev environment tool configuration |
 | `yazi` | Yazi terminal file manager configuration and Gruvbox theme |
-| `bin` | Custom CLI utilities including `theme-switch`, `sway-autotile`, `sway-powermenu`, and `sway-wallpaper` |
+| `bin` | Custom CLI utilities including `theme-switch`, `sway-autotile`, `sway-powermenu`, `sway-wallpaper`, `sway-maximize`, `wallpaper-preview`, and `brightness-step` |
 
 ## Desktop Environment (Sway & Wayland)
 
@@ -53,9 +53,10 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 | `Super + Shift + h / j / k / l` (or Arrows) | Move focused window container |
 | `Super + 1 .. 0` | Switch to workspace 1..10 |
 | `Super + Shift + 1 .. 0` | Move focused container to workspace 1..10 |
-| `Super + f` | Toggle fullscreen mode |
+| `Super + f` | Toggle true fullscreen mode |
+| `Super + m` or `Super + w` | Toggle pseudo-maximize (fill workspace under Waybar) |
 | `Super + Shift + Space` | Toggle floating mode |
-| `Super + e` / `s` / `w` | Layout toggle (split / stacking / tabbed) |
+| `Super + e` / `s` | Layout toggle (split / stacking) |
 | `Super + -` / `Super + Shift + -` | Scratchpad show / move container to scratchpad |
 | `Super + r` | Enter window resize mode (`hjkl` / arrows to resize, `Enter` or `Esc` to exit) |
 | `Super + Escape` | Lock screen (`hyprlock`) |
@@ -92,7 +93,7 @@ The switcher simultaneously updates:
 - Yazi file manager
 - Desktop wallpaper and accent color (supports Sway via `swaybg`, Hyprland, GNOME, and X11)
 
-Available themes: `catppuccin`, `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `tokyo-night`.
+Available themes: `catppuccin`, `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `solarized-dark`, `tokyo-night`.
 
 ### Multiple Wallpapers Per Theme
 
@@ -104,7 +105,7 @@ theme wallpaper
 theme -w
 ```
 
-If running inside WezTerm, a live image preview is shown in the fzf picker.
+A live image preview is shown in the fzf picker. For best results (high-resolution terminal previews), install `chafa` (`sudo apt install chafa`). Without `chafa`, the preview will automatically use a pixelated Python PIL ANSI half-block fallback to avoid hanging issues caused by fzf/Zellij interacting with native terminal image protocols.
 
 ## Requirements
 
@@ -194,8 +195,11 @@ dotfiles/
 │   └── dot-local/bin/
 │       ├── theme-switch       # symlinked to → ~/.local/bin/theme-switch
 │       ├── sway-autotile      # symlinked to → ~/.local/bin/sway-autotile
+│       ├── sway-maximize      # symlinked to → ~/.local/bin/sway-maximize
 │       ├── sway-powermenu     # symlinked to → ~/.local/bin/sway-powermenu
-│       └── sway-wallpaper    # symlinked to → ~/.local/bin/sway-wallpaper
+│       ├── sway-wallpaper     # symlinked to → ~/.local/bin/sway-wallpaper
+│       ├── wallpaper-preview  # symlinked to → ~/.local/bin/wallpaper-preview
+│       └── brightness-step    # symlinked to → ~/.local/bin/brightness-step
 ├── nvim/
 │   └── dot-config/nvim/       # symlinked to → ~/.config/nvim/
 ├── zsh/
