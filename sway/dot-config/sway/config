@@ -1,4 +1,3 @@
-# Sway Configuration — Omarchy-inspired Dynamic Tiling
 # Location: ~/.config/sway/config
 
 ### Variables
@@ -11,24 +10,24 @@ set $down j
 set $up k
 set $right l
 
-# Preferred terminal (falls back cleanly if one is missing)
+# Preferred terminal
 set $term wezterm
 
 # Application Launcher (Toggle: opens if closed, closes if open)
 set $menu pkill -x wofi || wofi --show drun
 
 # Font
-font pango:JetBrainsMono Nerd Font, CaskaydiaMono Nerd Font 10
+font pango:JetBrainsMono Nerd Font, CaskaydiaMono Nerd Font 11
 
 ### Appearance & Gaps
-gaps inner 2
-gaps outer 2
+gaps inner 4 
+gaps outer 8 
 default_border pixel 2
 default_floating_border pixel 2
 smart_gaps off
 smart_borders on
 
-# Color Palette (Gruvbox matching dotfiles)
+# Color Palette
 # class                 border  bground text    indicator child_border
 client.focused          #d79921 #282828 #fbf1c7 #d79921   #d79921
 client.focused_inactive #3c3836 #282828 #d5c4a1 #3c3836   #3c3836
