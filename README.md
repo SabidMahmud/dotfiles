@@ -1,5 +1,7 @@
 # dotfiles
 
+> *After six years of exploring Linux, I finally have a workspace I can proudly call my own. These are the configurations that make it happen.*
+
 ![Busy Setup](assets/screenshots/busy.png)
 
 <details>
