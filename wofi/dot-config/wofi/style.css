@@ -1,29 +1,33 @@
+@import url('/home/mirok/.config/wofi/theme.css');
+/* @import url('./theme.css'); */
+
 window {
     margin: 0px;
-    border: 2px solid #d79921;
-    border-radius: 14px;
-    background-color: rgba(40, 40, 40, 0.95);
+    border: 2px solid @theme_accent;
+    border-radius: 0px;
+    background-color: @theme_bg;
     font-family: "JetBrainsMono Nerd Font", "CaskaydiaMono Nerd Font", monospace;
-    font-size: 14px;
-    color: #ebdbb2;
+    font-size: 15px;
+    font-weight: 700;
+    color: @theme_text;
 }
 
 #input {
-    margin: 14px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid #504945;
-    color: #fbf1c7;
-    background-color: #1d2021;
+    margin: 10px;
+    padding: 8px 12px;
+    border-radius: 0px;
+    border: 2px solid @theme_border;
+    color: @theme_text_light;
+    background-color: @theme_input_bg;
 }
 
 #input:focus {
-    border: 1px solid #d79921;
+    border: 2px solid @theme_accent;
     outline: none;
 }
 
 #inner-box {
-    margin: 6px 14px 14px 14px;
+    margin: 4px 10px 10px 10px;
     background-color: transparent;
 }
 
@@ -37,26 +41,70 @@ window {
 #scroll {
     margin: 0px;
     border: none;
+    overflow-x: hidden;
+}
+
+/* Collapse every node of the GTK ScrolledWindow scrollbar widget tree */
+scrollbar {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+scrollbar slider {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+scrollbar trough {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+scrollbar button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
 }
 
 #text {
-    margin: 4px;
+    margin: 2px 8px;
     border: none;
-    color: #ebdbb2;
+    color: @theme_text;
+    min-width: 0;
+}
+
+#img {
+    margin-right: 4px;
 }
 
 #entry {
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 6px 10px;
+    border-radius: 0px;
     margin-bottom: 2px;
     background-color: transparent;
+    min-width: 0;
 }
 
 #entry:selected {
-    background-color: #d79921;
+    background-color: @theme_accent;
 }
 
 #entry:selected #text {
-    color: #282828;
+    color: @theme_selected_text;
     font-weight: bold;
 }

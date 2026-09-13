@@ -5,7 +5,7 @@ config.term = "xterm-256color"
 -- config.default_prog = {}
 
 config.window_decorations = "RESIZE" -- No title bar, but resizable
-config.window_background_opacity = 0.99
+config.window_background_opacity = 0.98
 config.enable_tab_bar = false
 config.window_padding = {
 	left = 8,
@@ -15,7 +15,7 @@ config.window_padding = {
 }
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
-config.font_size = 12.0
+config.font_size = 14.0
 
 -- Load theme colors
 local success, theme = pcall(require, "theme")

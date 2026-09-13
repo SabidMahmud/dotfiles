@@ -5,7 +5,14 @@ set -e
 
 entries="  Lock\n󰒲  Suspend\n  Logout\n  Reboot\n  Shutdown"
 
-selected=$(echo -e "$entries" | (wofi --dmenu --prompt "Power Menu" --width 240 --height 240 --insensitive 2>/dev/null || wmenu -p "Power Menu"))
+if command -v wofi &>/dev/null; then
+    selected=$(echo -e "$entries" | wofi --dmenu --prompt "Power Menu" --width 240 --height 240 --insensitive 2>/dev/null)
+elif command -v wmenu &>/dev/null; then
+    selected=$(echo -e "$entries" | wmenu -p "Power Menu")
+else
+    echo "Error: no menu program found (wofi or wmenu required)" >&2
+    exit 1
+fi
 
 case "$selected" in
     *"Lock"*)

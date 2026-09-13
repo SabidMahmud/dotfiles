@@ -219,6 +219,35 @@ if [ -f "$SELECTED_DIR/yazi.toml" ]; then
     cp "$SELECTED_DIR/yazi.toml" "$HOME/.config/yazi/theme.toml"
 fi
 
+    mkdir -p "$HOME/.config/swaync"
+if [ -f "$SELECTED_DIR/swaync.css" ]; then
+    mkdir -p "$HOME/.config/swaync"
+    cp "$SELECTED_DIR/swaync.css" "$HOME/.config/swaync/theme.css"
+    if command -v swaync-client &>/dev/null; then
+        swaync-client -rs 2>/dev/null || true
+    fi
+fi
+
+if [ -f "$SELECTED_DIR/wofi.css" ]; then
+    mkdir -p "$HOME/.config/wofi"
+    cp "$SELECTED_DIR/wofi.css" "$HOME/.config/wofi/theme.css"
+fi
+
+if [ -f "$SELECTED_DIR/hyprlock.conf" ]; then
+    mkdir -p "$HOME/.config/hypr"
+    cp "$SELECTED_DIR/hyprlock.conf" "$HOME/.config/hypr/hyprlock.conf"
+fi
+
+if [ -f "$SELECTED_DIR/waybar.css" ]; then
+    mkdir -p "$HOME/.config/waybar"
+    cp "$SELECTED_DIR/waybar.css" "$HOME/.config/waybar/theme.css"
+    if command -v killall &>/dev/null; then
+        killall -SIGUSR2 waybar 2>/dev/null || true
+    fi
+fi
+
+
+
 WALLPAPER=""
 if [ -f "$HOME/.config/current-wallpaper-$THEME" ]; then
     SAVED_WP=$(cat "$HOME/.config/current-wallpaper-$THEME")
