@@ -3,6 +3,7 @@
 ### Variables
 # Mod4 = Super (Windows key)
 set $mod Mod4
+floating_modifier $mod normal
 
 # Vim-style directional navigation
 set $left h
@@ -203,9 +204,24 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 
 # 4. Tray Applets
 exec nm-applet --indicator
+exec blueman-applet
 
-# 5. Idle Manager & Screen Lock
+# 5. Clipboard history daemon (cliphist)
+exec_always wl-paste --watch cliphist store
+
+# Clipboard history picker (cliphist + wofi, toggles on second Super+V)
+bindsym $mod+v exec pkill -x wofi || (cliphist list | wofi --dmenu -p "󰅍 Clipboard" | cliphist decode | wl-copy)
+
+# 6. Idle Manager & Screen Lock
 exec swayidle -w \
     timeout 600 'hyprlock' \
     timeout 900 'swaymsg "output * power off"' \
     resume 'swaymsg "output * power on"'
+
+# swaync
+exec swaync
+# Toggle the notification center panel with Super+Shift+N
+bindsym $mod+Shift+n exec swaync-client -t -sw
+
+# Display management (nwg-displays)
+bindsym $mod+Shift+d exec nwg-displays
