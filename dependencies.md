@@ -15,7 +15,7 @@ These are strictly required for the dotfiles (shell, git, editor, multiplexer, a
 | `fzf` | Fuzzy finder (used for directory jumping, theme-switching, and Neovim). |
 | `neovim` | The primary text editor (LazyVim requires >= 0.9.0). |
 | `tmux` | Fallback terminal multiplexer (when Zellij is not in use). |
-| `python3` | Required for scripting utilities like `wallpaper-preview` (which uses `PIL`). |
+| `python3` | Required for scripting utilities like `wallpaper-preview` and `sway-autotile`. |
 
 ## Desktop Packages (Sway / Wayland)
 These packages are installed automatically if a graphical session (`$WAYLAND_DISPLAY` or `$DISPLAY`) is detected, or if `install.sh` is run with the `--desktop` flag.
@@ -24,6 +24,7 @@ These packages are installed automatically if a graphical session (`$WAYLAND_DIS
 | :--- | :--- |
 | `sway` | Wayland tiling window manager. |
 | `waybar` | Status bar for Sway/Wayland. |
+| `swaync` | SwayNotificationCenter daemon and control center UI. |
 | `wofi` | Application launcher and power menu UI. |
 | `swaybg` | Wallpaper daemon. |
 | `swayidle` | Idle management daemon (used to trigger the screen locker). |
@@ -34,6 +35,12 @@ These packages are installed automatically if a graphical session (`$WAYLAND_DIS
 | `playerctl` | Command-line media player control (used by Waybar and hotkeys). |
 | `nautilus` | Default graphical file manager (GNOME Files). |
 | `hyprlock` | Fast, GPU-accelerated screen locker (requires separate install on older distros). |
+| `pavucontrol` | PulseAudio/PipeWire GUI volume mixer (launched from Waybar audio widget). |
+| `blueman` | Bluetooth manager GUI and tray applet (`blueman-applet`, `blueman-manager`). |
+| `cliphist` | Wayland clipboard history manager; stores clipboard entries and pipes into `wofi --dmenu` (`Super+V`). |
+| `nwg-displays` | Graphical display/monitor layout manager for wlroots-based compositors (Sway). |
+| `kanshi` | *Optional, recommended with nwg-displays*: Auto-applies display profiles on output change (multi-monitor switching). |
+| `power-profiles-daemon` | CPU power profile manager (performance / balanced / power-saver). Integrated into Waybar — click to cycle profiles. Also used by Omarchy. |
 | `chafa` | *Optional, but highly recommended*: True-color terminal image renderer for high-res `fzf` wallpaper previews. |
 
 ## Extended Tools
@@ -48,9 +55,3 @@ These are standalone modern tools that heavily enhance the workflow, but often n
 | **Gum** | [Install Guide](https://github.com/charmbracelet/gum#installation) (Optional fallback for `theme-switch` UI) |
 | **Mise** | [Install Guide](https://mise.jdx.dev/getting-started.html) (Dev environment manager, replaces asdf/nvm/pyenv) |
 
-## Python Dependencies
-If `python3` is installed, the `wallpaper-preview` script also requires the Python Imaging Library (PIL) for its fallback text-block preview rendering. This is usually provided by your system's package manager:
-
-- Ubuntu/Debian: `sudo apt install python3-pil`
-- Arch Linux: `sudo pacman -S python-pillow`
-- Fedora: `sudo dnf install python3-pillow`

@@ -25,8 +25,9 @@ Personal configuration files for a Linux development environment and Sway (Wayla
 | `tmux` | Tmux terminal multiplexer configuration |
 | `zellij` | Zellij terminal multiplexer configuration and themes |
 | `sway` | Sway Wayland tiling window manager (Omarchy-inspired dynamic tiling) |
-| `waybar` | Waybar status bar configuration with Gruvbox theme styling |
+| `waybar` | Waybar status bar configuration (fully themeable via `theme-switch`) |
 | `wofi` | Wofi Wayland application launcher and power menu styling |
+| `swaync` | SwayNotificationCenter styling and configuration |
 | `hyprlock` | Hyprlock fast Wayland screen locker configuration |
 | `btop` | btop++ system monitor configuration and themes |
 | `fastfetch` | Fastfetch system information configuration |
@@ -41,7 +42,7 @@ Personal configuration files for a Linux development environment and Sway (Wayla
 The graphical environment is built on [Sway](https://swaywm.org/) with an Omarchy-inspired workflow:
 
 - **Dynamic Tiling (`sway-autotile`)**: A background IPC daemon that automatically alternates horizontal and vertical window splits based on the active container's aspect ratio, providing a seamless dwindle-style tiling experience (similar to Hyprland / Omarchy).
-- **Status Bar ([Waybar](https://github.com/Alexays/Waybar))**: Top status bar styled with Gruvbox colors displaying active workspaces, window title, CPU, memory, battery, audio, network applet, clock, and an interactive power button.
+- **Status Bar ([Waybar](https://github.com/Alexays/Waybar))**: Top status bar displaying active workspaces, window title, CPU, memory, battery, audio, network applet, clock, and an interactive power button.
 - **Application Launcher ([Wofi](https://hg.sr.ht/~scoopta/wofi))**: Fast Wayland menu for launching desktop applications (`Super + Space` or `Super + d`).
 - **Screen Locker ([Hyprlock](https://github.com/hyprwm/hyprlock))**: High-performance Wayland screen locker displaying system time, active user, and password authentication (`Super + Escape` or automatic idle lock via `swayidle`).
 - **Power Menu (`sway-powermenu`)**: Wofi-powered dialog for lock, suspend, logout, reboot, and poweroff (`Super + BackSpace`).
@@ -75,6 +76,9 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 | `Print` | Fullscreen screenshot to clipboard |
 | `Super + Shift + r` | Reload Sway configuration |
 | `Super + Shift + e` | Prompt to exit Sway session |
+| `Super + v` | Clipboard history picker (`cliphist` + `wofi`) |
+| `Super + Shift + d` | Display manager (`nwg-displays`) |
+| `Super + Shift + n` | Toggle notification panel (`swaync`) |
 
 ## Theme Switcher
 
@@ -99,8 +103,10 @@ The switcher simultaneously updates:
 - Terminal emulators (Alacritty, WezTerm)
 - Terminal multiplexers (Zellij, Tmux — reloads live if running)
 - Neovim colorscheme
+- Waybar, Wofi, and SwayNC styling
 - btop++ system monitor
 - Yazi file manager
+- Screen locker colors (Hyprlock)
 - Desktop wallpaper and accent color (supports Sway via `swaybg`, Hyprland, GNOME, and X11)
 
 Available themes: `catppuccin`, `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `solarized-dark`, `tokyo-night`.
@@ -115,12 +121,12 @@ theme wallpaper
 theme -w
 ```
 
-A live image preview is shown in the fzf picker. For best results (high-resolution terminal previews), install `chafa` (`sudo apt install chafa`). Without `chafa`, the preview will automatically use a pixelated Python PIL ANSI half-block fallback to avoid hanging issues caused by fzf/Zellij interacting with native terminal image protocols.
+A live image preview is shown in the fzf picker. For best results (high-resolution terminal previews), install `chafa` (`sudo apt install chafa`).
 
 ## Requirements
 
 - **Core**: Git, [GNU Stow](https://www.gnu.org/software/stow/), Zsh, Python 3, Neovim, Tmux, curl, wget, ripgrep, fzf
-- **Desktop (Sway / Wayland)**: Sway, Waybar, Wofi, Hyprlock, swaybg, swayidle, grim, slurp, wl-clipboard, brightnessctl, playerctl, nautilus, JetBrainsMono Nerd Font
+- **Desktop (Sway / Wayland)**: Sway, Waybar, SwayNC, Wofi, Hyprlock, swaybg, swayidle, grim, slurp, wl-clipboard, brightnessctl, playerctl, nautilus, pavucontrol, blueman, cliphist, nwg-displays, kanshi, power-profiles-daemon, JetBrainsMono Nerd Font
 
 For a complete breakdown of what each dependency is used for, as well as optional/extended tools (like WezTerm, Zellij, and Yazi), see the **[Dependencies List](dependencies.md)**.
 
@@ -155,13 +161,13 @@ The script will:
 Install any recommended extended tools if not already present on your distro:
 
 ```sh
-# Terminal & multiplexers
-wezterm
-zellij
+# Terminal & multiplexers (examples for apt)
+# https://wezfurlong.org/wezterm/installation.html
+# https://zellij.dev/documentation/installation.html
 
 # Terminal file manager & monitor
-yazi
-btop
+# https://yazi-rs.github.io/docs/installation
+sudo apt install btop
 ```
 
 Apply your preferred theme:
