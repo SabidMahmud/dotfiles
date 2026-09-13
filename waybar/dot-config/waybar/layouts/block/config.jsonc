@@ -16,6 +16,7 @@
     ],
     "modules-right": [
         "sway/submap",
+        "tray",
         "custom/notification",
         "group/volume",
         "pulseaudio#microphone",
@@ -32,6 +33,10 @@
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{name}"
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
     },
     "battery": {
         "interval": 60,

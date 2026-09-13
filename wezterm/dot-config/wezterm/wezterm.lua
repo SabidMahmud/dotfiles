@@ -5,7 +5,7 @@ config.term = "xterm-256color"
 -- config.default_prog = {}
 
 config.window_decorations = "RESIZE" -- No title bar, but resizable
-config.window_background_opacity = 0.98
+config.window_background_opacity = 0.95
 config.enable_tab_bar = false
 config.window_padding = {
 	left = 8,

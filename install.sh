@@ -15,7 +15,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # ---------------------------------------------------------------------------
 install_packages() {
     local core_packages=(stow git zsh curl wget ripgrep fzf neovim tmux python3 btop)
-    local desktop_packages=(sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon)
+    local desktop_packages=(sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon kdeconnect)
 
     local target_packages=("${core_packages[@]}")
     local install_desktop=false
@@ -151,15 +151,17 @@ install_extended_tools() {
     echo "    - Gum:       https://github.com/charmbracelet/gum#installation"
     echo "    - Mise:      https://mise.jdx.dev/getting-started.html"
     echo "    - Hyprlock:  https://github.com/hyprwm/hyprlock"
+    echo "    - Scrcpy:    Available in repos (Android screen mirroring)"
+    echo "    - LocalSend: https://localsend.org/ (Cross-platform file sharing)"
     echo ""
     echo "    Package manager quick-install for remaining packages:"
 
     if command -v apt &>/dev/null; then
-        echo "    sudo apt install btop sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa"
+        echo "    sudo apt install btop sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa kdeconnect scrcpy"
     elif command -v pacman &>/dev/null; then
-        echo "    sudo pacman -S btop zellij hyprlock sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa"
+        echo "    sudo pacman -S btop zellij hyprlock sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa kdeconnect scrcpy"
     elif command -v dnf &>/dev/null; then
-        echo "    sudo dnf install btop hyprlock sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa"
+        echo "    sudo dnf install btop hyprlock sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa kdeconnect scrcpy"
     fi
 }
 

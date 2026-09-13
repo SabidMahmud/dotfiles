@@ -27,7 +27,7 @@ Personal configuration files for a Linux development environment and Sway (Wayla
 | `sway` | Sway Wayland tiling window manager (Omarchy-inspired dynamic tiling) |
 | `waybar` | Waybar status bar configuration (fully themeable via `theme-switch`) |
 | `wofi` | Wofi Wayland application launcher and power menu styling |
-| `swaync` | SwayNotificationCenter styling and configuration |
+| `swaync` | SwayNotificationCenter styling and configuration (with system audio alerts) |
 | `hyprlock` | Hyprlock fast Wayland screen locker configuration |
 | `btop` | btop++ system monitor configuration and themes |
 | `fastfetch` | Fastfetch system information configuration |
@@ -65,7 +65,7 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 | `Super + 1 .. 0` | Switch to workspace 1..10 |
 | `Super + Shift + 1 .. 0` | Move focused container to workspace 1..10 |
 | `Super + f` | Toggle true fullscreen mode |
-| `Super + m` or `Super + w` | Toggle pseudo-maximize (fill workspace under Waybar) |
+| `Super + m` | Toggle pseudo-maximize (fill workspace under Waybar) |
 | `Super + Shift + Space` | Toggle floating mode |
 | `Super + e` / `s` | Layout toggle (split / stacking) |
 | `Super + -` / `Super + Shift + -` | Scratchpad show / move container to scratchpad |
@@ -79,6 +79,15 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 | `Super + v` | Clipboard history picker (`cliphist` + `wofi`) |
 | `Super + Shift + d` | Display manager (`nwg-displays`) |
 | `Super + Shift + n` | Toggle notification panel (`swaync`) |
+
+## Ecosystem & Android Integration
+
+To achieve a seamless "Apple-like" ecosystem between the Linux desktop and Android devices, this setup utilizes:
+
+- **KDE Connect** (or **Valent**): Connects your Android phone to the desktop. Notifications are piped directly into `swaync`, the clipboard is synchronized, and media controls map to Waybar.
+- **System Tray**: The `kdeconnect-indicator` runs in the Waybar system tray for quick access to battery stats and device settings.
+- **Audio Alerts**: Custom `paplay` sound triggers are configured in `swaync` to play an audio chime when notifications (like phone calls or text messages) arrive.
+- **LocalSend & Scrcpy** (Recommended Extended Tools): Use LocalSend for instant AirDrop-like file transfers, and Scrcpy for low-latency screen mirroring and remote control of your phone.
 
 ## Theme Switcher
 

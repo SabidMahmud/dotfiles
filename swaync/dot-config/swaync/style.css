@@ -32,6 +32,11 @@
   outline: none;
 }
 
+.notification-row:focus,
+.notification-row:hover {
+  background: transparent;
+}
+
 .notification {
   border-radius: 6px;
   margin: 6px 10px;

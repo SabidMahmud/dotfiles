@@ -41,6 +41,7 @@ These packages are installed automatically if a graphical session (`$WAYLAND_DIS
 | `nwg-displays` | Graphical display/monitor layout manager for wlroots-based compositors (Sway). |
 | `kanshi` | *Optional, recommended with nwg-displays*: Auto-applies display profiles on output change (multi-monitor switching). |
 | `power-profiles-daemon` | CPU power profile manager (performance / balanced / power-saver). Integrated into Waybar — click to cycle profiles. Also used by Omarchy. |
+| `kdeconnect` (or `valent`) | Android device integration (notifications, clipboard sync, caller ID, media control). Valent is recommended for Sway as a lightweight GTK alternative. |
 | `chafa` | *Optional, but highly recommended*: True-color terminal image renderer for high-res `fzf` wallpaper previews. |
 
 ## Extended Tools
@@ -52,6 +53,8 @@ These are standalone modern tools that heavily enhance the workflow, but often n
 | **Zellij** | [Install Guide](https://zellij.dev/documentation/installation.html) (Modern terminal multiplexer) |
 | **Yazi** | [Install Guide](https://yazi-rs.github.io/docs/installation) (Terminal file manager written in Rust) |
 | **Btop** | Available in most package managers (`sudo apt install btop`) |
+| **Scrcpy** | Available in most package managers (Low-latency Android screen mirroring and remote control) |
+| **LocalSend** | [Install Guide](https://localsend.org/) (AirDrop alternative for cross-platform local file sharing) |
 | **Gum** | [Install Guide](https://github.com/charmbracelet/gum#installation) (Optional fallback for `theme-switch` UI) |
 | **Mise** | [Install Guide](https://mise.jdx.dev/getting-started.html) (Dev environment manager, replaces asdf/nvm/pyenv) |
 

@@ -1,0 +1,29 @@
+theme = "default"
+client_id = "f6730be628cc425a83cc154ffec51c4b"
+client_port = 8080
+playback_format = """
+{track} • {artists}
+{album}
+{metadata}"""
+app_refresh_duration_in_ms = 32
+playback_refresh_duration_in_ms = 0
+cover_image_refresh_duration_in_ms = 2000
+page_size_in_rows = 20
+track_table_item_max_len = 32
+play_icon = "▶"
+pause_icon = "▌▌"
+liked_icon = "♥"
+border_type = "Rounded"
+progress_bar_type = "Line"
+playback_window_position = "Top"
+playback_window_width = 6
+enable_media_control = true
+default_device = "spotify-player"
+
+[device]
+name = "spotify-player"
+device_type = "speaker"
+volume = 100
+bitrate = 320
+audio_cache = true
+normalization = false
