@@ -1,0 +1,225 @@
+@import url("theme.css");
+
+/* =============================================================================
+   Waybar — Solid Block / Material Dashboard
+   ============================================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "CaskaydiaMono Nerd Font", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+window#waybar {
+    background-color: @base;
+    color: @text;
+    border-bottom: 1px solid @mantle;
+}
+
+/* -----------------------------------------------------------------------------
+   Containers
+   ----------------------------------------------------------------------------- */
+.modules-left,
+.modules-center,
+.modules-right {
+    background: transparent;
+}
+
+/* -----------------------------------------------------------------------------
+   Workspaces (Solid Color Block)
+   ----------------------------------------------------------------------------- */
+#workspaces {
+    padding: 0;
+    margin: 0;
+}
+
+#workspaces button {
+    padding: 0 14px;
+    margin: 0;
+    color: @overlay0;
+    background: transparent;
+    transition: all 0.2s ease;
+    font-weight: 600;
+}
+
+#workspaces button:hover {
+    background-color: @surface0;
+    color: @text;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: @base;
+    background-color: @blue;
+    font-weight: 800;
+}
+
+#workspaces button.urgent {
+    color: @base;
+    background-color: @red;
+}
+
+/* -----------------------------------------------------------------------------
+   Window Title
+   ----------------------------------------------------------------------------- */
+#window {
+    color: @subtext0;
+    padding-left: 16px;
+    font-style: normal;
+}
+
+window#waybar.empty #window {
+    padding: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Center Clock (Block Style)
+   ----------------------------------------------------------------------------- */
+#clock {
+    color: @text;
+    background-color: @surface0;
+    padding: 0 20px;
+    font-weight: 700;
+    border-left: 1px solid @mantle;
+    border-right: 1px solid @mantle;
+}
+
+#clock:hover {
+    color: @blue;
+}
+
+/* -----------------------------------------------------------------------------
+   Right Modules (Solid Blocks)
+   ----------------------------------------------------------------------------- */
+#custom-notification,
+#pulseaudio,
+#pulseaudio-microphone,
+#backlight,
+#battery,
+#bluetooth,
+#network,
+#cpu,
+#memory,
+#custom-power,
+#power-profiles-daemon,
+#group-volume {
+    padding: 0 10px;
+    margin: 0;
+    background: @surface0;
+    border-left: 1px solid @mantle;
+    transition: all 0.2s ease;
+}
+
+#custom-notification:hover,
+#pulseaudio:hover,
+#pulseaudio-microphone:hover,
+#backlight:hover,
+#battery:hover,
+#bluetooth:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover,
+#power-profiles-daemon:hover {
+    background-color: @surface1;
+}
+
+/* -----------------------------------------------------------------------------
+   Volume Group Fixes
+   ----------------------------------------------------------------------------- */
+#group-volume { 
+    padding: 0; 
+}
+#group-volume #pulseaudio { 
+    border-left: none; 
+    background: transparent; 
+    padding-right: 6px; 
+}
+#pulseaudio-slider { 
+    margin-right: 10px; 
+}
+#pulseaudio-slider trough { 
+    min-height: 4px; 
+    min-width: 50px; 
+    background-color: @mantle; 
+    border-radius: 2px; 
+}
+#pulseaudio-slider highlight { 
+    background-color: @blue; 
+    border-radius: 2px; 
+}
+#pulseaudio-slider slider { 
+    min-height: 10px; 
+    min-width: 10px; 
+    border-radius: 5px; 
+    background-color: @text; 
+}
+
+/* -----------------------------------------------------------------------------
+   Colors
+   ----------------------------------------------------------------------------- */
+#custom-notification { color: @subtext0; }
+#custom-notification.notification { color: @yellow_bright; }
+#custom-notification.dnd-none, #custom-notification.dnd-notification { color: @overlay0; }
+
+#pulseaudio-microphone { color: @mauve; }
+#pulseaudio-microphone.source-muted { color: @red; font-weight: 800; }
+
+#backlight { color: @yellow; }
+#bluetooth { color: @blue; }
+#bluetooth.disabled, #bluetooth.off { color: @overlay0; }
+#network { color: @teal; }
+#network.disconnected { color: @red; }
+#cpu { color: @peach; }
+#memory { color: @green; }
+
+#battery { color: @green; }
+#battery.charging, #battery.plugged { color: @teal; }
+#battery.warning:not(.charging) { color: @yellow; }
+#battery.critical:not(.charging) {
+    color: @base;
+    background-color: @red;
+    animation-name: pulse-critical;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes pulse-critical {
+    from { background-color: @red; }
+    to { background-color: @surface1; color: @red; }
+}
+
+#power-profiles-daemon { color: @subtext0; }
+#power-profiles-daemon.performance { color: @red; }
+#power-profiles-daemon.balanced { color: @yellow; }
+#power-profiles-daemon.power-saver { color: @green; }
+
+/* -----------------------------------------------------------------------------
+   Power Button (Solid Accent Block)
+   ----------------------------------------------------------------------------- */
+#custom-power {
+    color: @base;
+    background-color: @red;
+    padding: 0 16px;
+    font-size: 14px;
+}
+#custom-power:hover {
+    background-color: @yellow_bright;
+}
+
+/* -----------------------------------------------------------------------------
+   Tooltips
+   ----------------------------------------------------------------------------- */
+tooltip {
+    background-color: @base;
+    border: 1px solid @mantle;
+    padding: 6px 10px;
+}
+tooltip label {
+    color: @text;
+}

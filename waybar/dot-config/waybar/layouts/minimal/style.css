@@ -1,0 +1,273 @@
+@import url("theme.css");
+
+/* =============================================================================
+   Waybar — Sharp / Minimal TUI Design
+   ============================================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "CaskaydiaMono Nerd Font", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+window#waybar {
+    background-color: alpha(@base, 0.95);
+    border-bottom: 1px solid @mantle;
+    color: @text;
+    border-radius: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Container Alignments
+   ----------------------------------------------------------------------------- */
+.modules-left,
+.modules-center,
+.modules-right {
+    background: transparent;
+    padding: 0 4px;
+}
+
+.modules-left { padding-left: 6px; }
+.modules-right { padding-right: 6px; }
+
+/* -----------------------------------------------------------------------------
+   Workspaces (Underline / TUI Style)
+   ----------------------------------------------------------------------------- */
+#workspaces {
+    padding: 0;
+    margin: 0;
+}
+
+#workspaces button {
+    padding: 0px 6px;
+    margin: 4px 2px;
+    border-radius: 0px;
+    color: @overlay0;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    transition: all 0.1s ease;
+    font-weight: 600;
+}
+
+#workspaces button:hover {
+    background-color: @surface0;
+    color: @text;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: @yellow_bright;
+    border-bottom: 2px solid @yellow_bright;
+    font-weight: 800;
+}
+
+#workspaces button.urgent {
+    color: @red;
+    border-bottom: 2px solid @red;
+}
+
+/* -----------------------------------------------------------------------------
+   Window Title
+   ----------------------------------------------------------------------------- */
+#window {
+    color: @subtext0;
+    padding: 2px 8px;
+    margin: 2px 4px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+window#waybar.empty #window {
+    padding: 0;
+    margin: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Center Clock
+   ----------------------------------------------------------------------------- */
+#clock {
+    padding: 2px 10px;
+    margin: 2px 0;
+    color: @subtext1;
+    font-weight: 700;
+}
+
+#clock:hover {
+    color: @blue;
+}
+
+/* -----------------------------------------------------------------------------
+   Submap & Modes
+   ----------------------------------------------------------------------------- */
+#submap,
+#mode {
+    background-color: @orange;
+    color: @base;
+    padding: 0px 6px;
+    margin: 2px 2px;
+}
+
+/* -----------------------------------------------------------------------------
+   Right Modules — Minimal Text
+   ----------------------------------------------------------------------------- */
+#custom-notification,
+#pulseaudio,
+#pulseaudio-microphone,
+#backlight,
+#battery,
+#bluetooth,
+#network,
+#cpu,
+#memory,
+#custom-power,
+#power-profiles-daemon {
+    padding: 0px 6px;
+    margin: 3px 1px;
+    background: transparent;
+    transition: all 0.1s ease;
+    border-radius: 2px;
+}
+
+#custom-notification:hover,
+#pulseaudio:hover,
+#pulseaudio-microphone:hover,
+#backlight:hover,
+#battery:hover,
+#bluetooth:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover,
+#power-profiles-daemon:hover {
+    background-color: @surface0;
+    color: @text;
+}
+
+/* -----------------------------------------------------------------------------
+   Module Colors
+   ----------------------------------------------------------------------------- */
+#custom-notification { color: @subtext0; }
+#custom-notification.notification { color: @yellow_bright; }
+#custom-notification.dnd-none, #custom-notification.dnd-notification { color: @overlay0; opacity: 0.5; }
+
+#pulseaudio-microphone { color: @blue; }
+#pulseaudio-microphone.source-muted { color: @red; font-weight: 700; }
+
+#backlight { color: @yellow; }
+#bluetooth { color: @blue; }
+#bluetooth.disabled, #bluetooth.off { color: @overlay0; }
+#network { color: @teal; }
+#network.disconnected { color: @overlay0; }
+#cpu { color: @mauve; }
+#memory { color: @peach; }
+
+/* -----------------------------------------------------------------------------
+   Battery
+   ----------------------------------------------------------------------------- */
+#battery { color: @green; }
+#battery.charging, #battery.plugged { color: @green; }
+#battery.warning:not(.charging) { color: @yellow; }
+#battery.critical:not(.charging) {
+    color: @red;
+    animation-name: pulse-critical;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes pulse-critical {
+    from { color: @red; }
+    to { color: @subtext1; background-color: @red; }
+}
+
+/* -----------------------------------------------------------------------------
+   Power Profiles Daemon
+   ----------------------------------------------------------------------------- */
+#power-profiles-daemon { color: @subtext0; }
+#power-profiles-daemon.performance { color: @red; }
+#power-profiles-daemon.balanced { color: @yellow; }
+#power-profiles-daemon.power-saver { color: @green; }
+
+/* -----------------------------------------------------------------------------
+   Volume Group & Slider (Minimal)
+   ----------------------------------------------------------------------------- */
+#group-volume {
+    padding: 0;
+    margin: 3px 1px;
+    border-radius: 2px;
+}
+
+#group-volume:hover {
+    background-color: @surface0;
+}
+
+#group-volume #pulseaudio {
+    padding: 0 4px 0 6px;
+    margin: 0;
+}
+
+#pulseaudio.muted {
+    color: @overlay0;
+}
+
+#pulseaudio-slider {
+    padding: 0 6px 0 2px;
+    margin: 0;
+}
+
+#pulseaudio-slider trough {
+    min-height: 2px;
+    min-width: 40px;
+    background-color: @surface1;
+}
+
+#pulseaudio-slider highlight {
+    min-width: 2px;
+    background-color: @blue;
+}
+
+#pulseaudio-slider slider {
+    min-height: 8px;
+    min-width: 8px;
+    background-color: @subtext0;
+}
+
+#pulseaudio-slider slider:hover {
+    background-color: @blue;
+}
+
+/* -----------------------------------------------------------------------------
+   Power Button (Sharp)
+   ----------------------------------------------------------------------------- */
+#custom-power {
+    color: @red;
+    background: transparent;
+    padding: 0px 8px;
+    margin: 3px 1px 3px 4px;
+    transition: all 0.1s ease;
+}
+
+#custom-power:hover {
+    background-color: @red;
+    color: @base;
+}
+
+/* -----------------------------------------------------------------------------
+   Tooltips
+   ----------------------------------------------------------------------------- */
+tooltip {
+    background-color: alpha(@base, 0.95);
+    border: 1px solid @mantle;
+    border-radius: 2px;
+    padding: 4px 8px;
+}
+
+tooltip label {
+    color: @text;
+    font-size: 12px;
+}

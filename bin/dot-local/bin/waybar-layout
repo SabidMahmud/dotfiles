@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# waybar-layout — Switch between Waybar layouts
+
+WAYBAR_DIR="$HOME/.config/waybar"
+DOTFILES_WAYBAR_DIR="$HOME/dotfiles/waybar/dot-config/waybar"
+
+LAYOUT_DIR="$DOTFILES_WAYBAR_DIR/layouts"
+
+if [ -z "$1" ]; then
+    echo "Usage: waybar-layout [layout_name]"
+    echo "Available layouts:"
+    ls -1 "$LAYOUT_DIR"
+    exit 1
+fi
+
+LAYOUT="$1"
+
+if [ ! -d "$LAYOUT_DIR/$LAYOUT" ]; then
+    echo "Error: Layout '$LAYOUT' does not exist in $LAYOUT_DIR"
+    exit 1
+fi
+
+# We symlink inside the dotfiles repo so Stow handles it transparently
+cd "$DOTFILES_WAYBAR_DIR"
+
+ln -sf "layouts/$LAYOUT/config.jsonc" "config.jsonc"
+ln -sf "layouts/$LAYOUT/style.css" "style.css"
+
+echo "Waybar layout switched to '$LAYOUT'"
+
+# Reload waybar if running, otherwise start it
+if pgrep -x waybar > /dev/null; then
+    killall -SIGUSR2 waybar
+    echo "Waybar reloaded."
+else
+    nohup waybar >/dev/null 2>&1 &
+    echo "Waybar started."
+fi

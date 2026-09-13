@@ -1,0 +1,206 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-bottom": 0,
+    "spacing": 6,
+    "modules-left": [
+        "sway/workspaces",
+        "sway/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "sway/submap",
+        "custom/notification",
+        "group/volume",
+        "pulseaudio#microphone",
+        "backlight",
+        "bluetooth",
+        "network",
+        "cpu",
+        "memory",
+        "battery",
+        "power-profiles-daemon",
+        "custom/power"
+    ],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}"
+    },
+    "battery": {
+        "interval": 60,
+        "format": "{icon} {capacity}%",
+        "format-icons": {
+            "default": [
+                "󰂎",
+                "󰁺",
+                "󰁻",
+                "󰁼",
+                "󰁽",
+                "󰁾",
+                "󰁿",
+                "󰂀",
+                "󰂁",
+                "󰂂",
+                "󰁹"
+            ],
+            "charging": [
+                "󰢟",
+                "󰢜",
+                "󰂆",
+                "󰂇",
+                "󰂈",
+                "󰢝",
+                "󰂉",
+                "󰢞",
+                "󰂊",
+                "󰂋",
+                "󰂅"
+            ]
+        },
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "tooltip-format": "{time} ({capacity}%)"
+    },
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱 {num_connections}",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "blueman-manager",
+        "on-click-right": "wezterm -e bluetoothctl"
+    },
+    "cpu": {
+        "interval": 10,
+        "format": " {usage}%",
+        "max-length": 10,
+        "on-click": "wezterm -e btop"
+    },
+    "memory": {
+        "interval": 30,
+        "format": " {percentage}%",
+        "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
+        "on-click": "wezterm -e btop"
+    },
+    "network": {
+        "format-wifi": "󰤨 ",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰤭 ",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 25,
+        "on-click-right": "nm-connection-editor",
+        "on-click": "wezterm -e nmtui connect"
+    },
+    "clock": {
+        "format": "󰥔 {:%a, %d %b  %I:%M %p}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "format": {
+                "today": "<span color='#d79921'><b>{}</b></span>"
+            }
+        },
+        "on-click": "x-www-browser https://calendar.google.com"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
+        },
+        "scroll-step": 2,
+        "ignored-sinks": [
+            "Easy Effects Sink"
+        ],
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
+    "group/volume": {
+        "orientation": "horizontal",
+        "modules": [
+            "pulseaudio",
+            "pulseaudio/slider"
+        ]
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+        "scroll-step": 5,
+        "tooltip-format": "Microphone: {volume}%"
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ],
+        "on-scroll-up": "~/.local/bin/brightness-step +5",
+        "on-scroll-down": "~/.local/bin/brightness-step -5",
+        "tooltip-format": "Brightness: {percent}%"
+    },
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "~/.local/bin/sway-powermenu"
+    },
+    "sway/window": {
+        "format": "{}",
+        "max-length": 40,
+        "tooltip": false
+    },
+    "custom/notification": {
+        "exec": "swaync-client -swb",
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂚",
+            "none": "󰂜",
+            "dnd-notification": "󰂛",
+            "dnd-none": "󱊡",
+            "inhibited-notification": "󰂚",
+            "inhibited-none": "󰂜",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󱊡"
+        },
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "tooltip": false,
+        "escape": true
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Profile: {profile}\nDriver: {driver}",
+        "format-icons": {
+            "default": "󰁘",
+            "performance": "󰐍",
+            "balanced": "󰿥",
+            "power-saver": "󰿦"
+        }
+    }
+}

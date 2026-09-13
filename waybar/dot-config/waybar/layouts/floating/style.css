@@ -1,0 +1,97 @@
+@import url("theme.css");
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "CaskaydiaMono Nerd Font", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+window#waybar { background: transparent; color: @text; }
+
+.modules-left, .modules-center, .modules-right {
+    background-color: alpha(@base, 0.95);
+    border: 1px solid @mantle;
+    border-radius: 12px;
+    padding: 2px 6px;
+}
+
+#workspaces { padding: 0 4px; margin: 0; }
+#workspaces button {
+    padding: 2px 8px; margin: 4px 2px; border-radius: 8px;
+    color: @overlay0; background: transparent;
+    transition: all 0.2s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+    font-weight: 700;
+}
+#workspaces button:hover { background-color: @surface0; color: @text; }
+#workspaces button.focused, #workspaces button.active {
+    background-color: @blue; color: @base; font-weight: 800; padding: 2px 14px;
+}
+#workspaces button.urgent { background-color: @red; color: @base; }
+
+#window { color: @subtext0; padding: 2px 8px; margin: 4px 4px; font-weight: 600; }
+window#waybar.empty #window { padding: 0; margin: 0; }
+
+#clock { padding: 2px 10px; margin: 4px 0; color: @text; font-weight: 700; letter-spacing: 0.3px; }
+#clock:hover { color: @blue; }
+
+#submap, #mode { background-color: @orange; color: @base; padding: 2px 8px; margin: 4px 2px; border-radius: 8px; font-weight: 800; }
+
+#custom-notification, #pulseaudio, #pulseaudio-microphone, #backlight, #battery, #bluetooth, #network, #cpu, #memory, #custom-power, #power-profiles-daemon {
+    padding: 2px 8px; margin: 4px 2px; border-radius: 8px; background: @surface0; transition: all 0.2s ease;
+}
+#custom-notification:hover, #pulseaudio:hover, #pulseaudio-microphone:hover, #backlight:hover, #battery:hover, #bluetooth:hover, #network:hover, #cpu:hover, #memory:hover, #power-profiles-daemon:hover {
+    background-color: @surface1; color: @text;
+}
+
+#custom-notification { color: @subtext0; }
+#custom-notification.notification { color: @yellow_bright; background-color: alpha(@yellow, 0.2); }
+#custom-notification.dnd-none, #custom-notification.dnd-notification { color: @overlay0; opacity: 0.5; }
+
+#pulseaudio-microphone { color: @mauve; }
+#pulseaudio-microphone.source-muted { color: @red; font-weight: 800; background-color: alpha(@red, 0.2); }
+
+#backlight { color: @yellow; }
+#bluetooth { color: @blue; }
+#bluetooth.disabled, #bluetooth.off { color: @overlay0; }
+#network { color: @teal; }
+#network.disconnected { color: @overlay0; background-color: alpha(@red, 0.1); }
+#cpu { color: @peach; }
+#memory { color: @green; }
+
+#battery { color: @green; }
+#battery.charging, #battery.plugged { color: @teal; background-color: alpha(@teal, 0.2); }
+#battery.warning:not(.charging) { color: @yellow; background-color: alpha(@yellow, 0.2); }
+#battery.critical:not(.charging) {
+    color: @red; background-color: alpha(@red, 0.2);
+    animation: pulse-critical 1s infinite alternate ease-in-out;
+}
+@keyframes pulse-critical {
+    from { color: @red; background-color: alpha(@red, 0.2); }
+    to { color: @base; background-color: @red; }
+}
+
+#power-profiles-daemon { color: @subtext0; }
+#power-profiles-daemon.performance { color: @red; background-color: alpha(@red, 0.2); }
+#power-profiles-daemon.balanced { color: @yellow; background-color: alpha(@yellow, 0.2); }
+#power-profiles-daemon.power-saver { color: @green; background-color: alpha(@green, 0.2); }
+
+#group-volume { padding: 0; margin: 4px 2px; border-radius: 8px; background-color: @surface0; transition: all 0.2s ease; }
+#group-volume:hover { background-color: @surface1; }
+#group-volume #pulseaudio { background: transparent; padding: 2px 4px 2px 8px; margin: 0; color: @blue; }
+#pulseaudio.muted { color: @overlay0; }
+#pulseaudio-slider { padding: 0 8px 0 2px; margin: 0; background: transparent; }
+#pulseaudio-slider trough { min-height: 4px; min-width: 60px; border-radius: 2px; background-color: @mantle; }
+#pulseaudio-slider highlight { min-width: 4px; border-radius: 2px; background-color: @blue; }
+#pulseaudio-slider slider { min-height: 10px; min-width: 10px; border-radius: 5px; background-color: @text; }
+#pulseaudio-slider slider:hover { background-color: @blue; }
+
+#custom-power { color: @red; background-color: alpha(@red, 0.15); padding: 2px 10px; margin: 4px 4px 4px 2px; border-radius: 8px; font-size: 14px; transition: all 0.2s ease; }
+#custom-power:hover { background-color: @red; color: @base; }
+
+tooltip { background-color: alpha(@base, 0.95); border: 1px solid @mantle; border-radius: 8px; padding: 8px 12px; }
+tooltip label { color: @text; font-size: 12px; }
