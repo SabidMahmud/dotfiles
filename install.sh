@@ -14,8 +14,8 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # 1. Detect package manager and install core & desktop dependencies
 # ---------------------------------------------------------------------------
 install_packages() {
-    local core_packages=(stow git zsh curl wget ripgrep fzf neovim tmux python3)
-    local desktop_packages=(sway waybar wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus)
+    local core_packages=(stow git zsh curl wget ripgrep fzf neovim tmux python3 btop)
+    local desktop_packages=(sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon)
 
     local target_packages=("${core_packages[@]}")
     local install_desktop=false
@@ -51,7 +51,7 @@ install_packages() {
         if [ "$install_desktop" = true ]; then
             target_packages+=(hyprlock)
         fi
-        sudo pacman -Sy --noconfirm "${target_packages[@]}"
+        sudo pacman -Syu --noconfirm "${target_packages[@]}"
 
     elif command -v dnf &>/dev/null; then
         echo "==> Detected dnf (Fedora/RHEL). Installing packages..."
@@ -84,7 +84,7 @@ stow_packages() {
             continue
         fi
         echo "    Stowing $pkg..."
-        stow --dotfiles -R "$pkg"
+        stow --dotfiles -R --target "$HOME" "$pkg"
     done
 }
 
@@ -93,18 +93,19 @@ stow_packages() {
 # ---------------------------------------------------------------------------
 install_omz_plugins() {
     local custom="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-    if [ -d "$HOME/.oh-my-zsh" ]; then
-        echo "==> Installing Oh My Zsh custom plugins..."
-        if [ ! -d "$custom/plugins/zsh-autosuggestions" ]; then
-            git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
-                "$custom/plugins/zsh-autosuggestions"
-        fi
-        if [ ! -d "$custom/plugins/zsh-syntax-highlighting" ]; then
-            git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting \
-                "$custom/plugins/zsh-syntax-highlighting"
-        fi
-    else
-        echo "WARNING: Oh My Zsh not found. Install it first: https://ohmyz.sh"
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+        echo "==> Oh My Zsh not found. Installing..."
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    fi
+    
+    echo "==> Installing Oh My Zsh custom plugins..."
+    if [ ! -d "$custom/plugins/zsh-autosuggestions" ]; then
+        git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
+            "$custom/plugins/zsh-autosuggestions"
+    fi
+    if [ ! -d "$custom/plugins/zsh-syntax-highlighting" ]; then
+        git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting \
+            "$custom/plugins/zsh-syntax-highlighting"
     fi
 }
 
@@ -113,8 +114,12 @@ install_omz_plugins() {
 # ---------------------------------------------------------------------------
 set_default_shell() {
     if [ "$SHELL" != "$(which zsh)" ]; then
-        echo "==> Setting Zsh as the default shell..."
-        chsh -s "$(which zsh)"
+        if grep -Fxq "$(which zsh)" /etc/shells 2>/dev/null; then
+            echo "==> Setting Zsh as the default shell..."
+            chsh -s "$(which zsh)"
+        else
+            echo "WARNING: $(which zsh) is not in /etc/shells. Please add it and run 'chsh -s \$(which zsh)' manually."
+        fi
     fi
 }
 
@@ -143,19 +148,18 @@ install_extended_tools() {
     echo "    - WezTerm:   https://wezfurlong.org/wezterm/installation.html"
     echo "    - Zellij:    https://zellij.dev/documentation/installation.html"
     echo "    - Yazi:      https://yazi-rs.github.io/docs/installation"
-    echo "    - Btop:      sudo apt install btop  (or pacman / dnf)"
     echo "    - Gum:       https://github.com/charmbracelet/gum#installation"
     echo "    - Mise:      https://mise.jdx.dev/getting-started.html"
     echo "    - Hyprlock:  https://github.com/hyprwm/hyprlock"
     echo ""
-    echo "    Package manager quick-install:"
+    echo "    Package manager quick-install for remaining packages:"
 
     if command -v apt &>/dev/null; then
-        echo "    sudo apt install btop sway waybar wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus"
+        echo "    sudo apt install btop sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa"
     elif command -v pacman &>/dev/null; then
-        echo "    sudo pacman -S btop zellij hyprlock sway waybar wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus"
+        echo "    sudo pacman -S btop zellij hyprlock sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa"
     elif command -v dnf &>/dev/null; then
-        echo "    sudo dnf install btop hyprlock sway waybar wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus"
+        echo "    sudo dnf install btop hyprlock sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa"
     fi
 }
 

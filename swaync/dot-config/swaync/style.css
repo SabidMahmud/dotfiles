@@ -1,0 +1,67 @@
+@import 'theme.css';
+
+* {
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+}
+
+.control-center {
+  background-color: @theme_bg_color;
+  border-radius: 8px;
+  border: 2px solid @theme_border_color;
+}
+
+.widget-title {
+  color: @theme_text_color;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.widget-title > button {
+  background-color: @theme_bg_color;
+  color: @theme_text_color;
+  border: 1px solid @theme_border_color;
+  border-radius: 4px;
+}
+
+.widget-title > button:hover {
+  background-color: @theme_border_color;
+}
+
+.notification-row {
+  outline: none;
+}
+
+.notification {
+  border-radius: 6px;
+  margin: 6px 10px;
+  background-color: @theme_notif_bg;
+  padding: 10px;
+  border: 1px solid @theme_border_color;
+}
+
+.notification-content {
+  background: transparent;
+}
+
+.summary {
+  color: @theme_text_color;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.body {
+  color: @theme_text_color;
+  font-size: 0.9rem;
+}
+
+.widget-dnd {
+  margin: 10px;
+}
+
+.widget-dnd > switch {
+  background: @theme_notif_bg;
+}
+.widget-dnd > switch:checked {
+  background: @theme_accent_color;
+}
