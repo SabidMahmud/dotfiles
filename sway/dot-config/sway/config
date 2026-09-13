@@ -205,6 +205,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 # 4. Tray Applets
 exec nm-applet --indicator
 exec blueman-applet
+exec kdeconnect-indicator
 
 # 5. Clipboard history daemon (cliphist)
 exec_always wl-paste --watch cliphist store
