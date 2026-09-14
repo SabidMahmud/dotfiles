@@ -10,6 +10,9 @@ These are strictly required for the dotfiles (shell, git, editor, multiplexer, a
 | `stow` | GNU Stow, used for managing and symlinking the dotfiles. |
 | `git` | Version control and downloading plugins. |
 | `zsh` | The primary interactive shell. |
+| `starship` | The cross-shell prompt framework (installed automatically by `install.sh`). |
+| `Nerd Fonts` | A patched font is required (e.g. JetBrainsMono Nerd Font) for icons in Starship, Waybar, and terminal. |
+| `zoxide` | A smarter `cd` command (installed automatically by `install.sh`). |
 | `curl` / `wget` | Downloading external resources, fonts, and scripts. |
 | `ripgrep` | Fast file searching (used heavily by Neovim and fzf). |
 | `fzf` | Fuzzy finder (used for directory jumping, theme-switching, and Neovim). |

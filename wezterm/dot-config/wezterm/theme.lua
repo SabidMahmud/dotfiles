@@ -1,16 +1,16 @@
 return {
   colors = {
-    foreground = "#ebddf4",
-    background = "#010b17",
-    cursor_bg = "#15fca2",
-    cursor_fg = "#010b17",
-    cursor_border = "#15fca2",
-    selection_fg = "#ebddf4",
-    selection_bg = "#135080",
-    scrollbar_thumb = "#62686c",
-    split = "#0b3b61",
-    ansi = { "#0b3b61", "#ff3a3a", "#52ffcf", "#fff383", "#1376f8", "#c792ea", "#ff5dd4", "#8f9bb3" },
-    brights = { "#62686c", "#ff54b0", "#73ffd8", "#fcf4ad", "#378dfe", "#ae81ff", "#ff69d7", "#ebddf4" },
-    indexed = { [16] = "#ff69d7", [17] = "#ff5dd4" },
+    foreground = "#CBE0F0",
+    background = "#011423",
+    cursor_bg = "#47FF9C",
+    cursor_fg = "#011423",
+    cursor_border = "#47FF9C",
+    selection_fg = "#CBE0F0",
+    selection_bg = "#214969",
+    scrollbar_thumb = "#214969",
+    split = "#214969",
+    ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
+    brights = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
+    indexed = { [16] = "#FFE073", [17] = "#E52E2E" },
   }
 }

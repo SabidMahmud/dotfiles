@@ -89,23 +89,31 @@ stow_packages() {
 }
 
 # ---------------------------------------------------------------------------
-# 3. Install Oh My Zsh custom plugins
+# 3. Install Starship, Zoxide, and Zsh plugins
 # ---------------------------------------------------------------------------
-install_omz_plugins() {
-    local custom="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-    if [ ! -d "$HOME/.oh-my-zsh" ]; then
-        echo "==> Oh My Zsh not found. Installing..."
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+install_zsh_plugins_and_starship() {
+    echo "==> Installing Starship prompt..."
+    if ! command -v starship &> /dev/null; then
+        mkdir -p ~/.local/bin
+        curl -sS https://starship.rs/install.sh | sh -s -- -y --bin-dir ~/.local/bin
     fi
+
+    echo "==> Installing zoxide (smarter cd command)..."
+    if ! command -v zoxide &> /dev/null; then
+        curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+    fi
+
+    local plugin_dir="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins"
+    mkdir -p "$plugin_dir"
     
-    echo "==> Installing Oh My Zsh custom plugins..."
-    if [ ! -d "$custom/plugins/zsh-autosuggestions" ]; then
+    echo "==> Installing Zsh plugins..."
+    if [ ! -d "$plugin_dir/zsh-autosuggestions" ]; then
         git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
-            "$custom/plugins/zsh-autosuggestions"
+            "$plugin_dir/zsh-autosuggestions"
     fi
-    if [ ! -d "$custom/plugins/zsh-syntax-highlighting" ]; then
+    if [ ! -d "$plugin_dir/zsh-syntax-highlighting" ]; then
         git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting \
-            "$custom/plugins/zsh-syntax-highlighting"
+            "$plugin_dir/zsh-syntax-highlighting"
     fi
 }
 
@@ -173,7 +181,7 @@ echo " Dotfiles installer — github.com/SabidMahmud/dotfiles"
 echo "======================================================"
 
 install_packages "$@"
-install_omz_plugins
+install_zsh_plugins_and_starship
 stow_packages
 set_default_shell
 remind_local_file

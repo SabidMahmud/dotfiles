@@ -17,7 +17,7 @@ Personal configuration files for a Linux development environment and Sway (Wayla
 | Package | Description |
 | :--- | :--- |
 | `bash` | Bash shell configuration (`.bashrc`) |
-| `zsh` | Zsh configuration and Powerlevel10k prompt (`.zshrc`, `.p10k.zsh`) |
+| `zsh` | Zsh configuration and Starship prompt (`.zshrc`) |
 | `git` | Git global configuration and aliases (`.gitconfig`) |
 | `nvim` | Neovim configuration built on [LazyVim](https://www.lazyvim.org/) |
 | `alacritty` | Alacritty terminal emulator configuration |
@@ -118,7 +118,7 @@ The switcher simultaneously updates:
 - Screen locker colors (Hyprlock)
 - Desktop wallpaper and accent color (supports Sway via `swaybg`, Hyprland, GNOME, and X11)
 
-Available themes: `catppuccin`, `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `solarized-dark`, `tokyo-night`.
+Available themes: `catppuccin`, `coolnight` (Original colorscheme by Josean Martinez), `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `solarized-dark`, `tokyo-night`.
 
 ### Multiple Wallpapers Per Theme
 
@@ -161,7 +161,7 @@ The script will:
 1. Detect your package manager (`apt`, `pacman`, or `dnf`) and install core dependencies (plus desktop packages if a graphical session or `--desktop` is detected).
 2. Symlink all configurations into your home directory via `stow --dotfiles`.
 3. Ensure custom executable scripts in `~/.local/bin/` have executable permissions.
-4. Install Oh My Zsh custom plugins (`zsh-autosuggestions`, `zsh-syntax-highlighting`).
+4. Install Starship prompt, Zoxide, and Zsh plugins (`zsh-autosuggestions`, `zsh-syntax-highlighting`).
 5. Set Zsh as your default shell if it is not already.
 6. Remind you to create `~/.zshrc.local` for machine-specific secrets.
 
@@ -231,7 +231,6 @@ dotfiles/
 │   └── dot-config/nvim/       # symlinked to → ~/.config/nvim/
 ├── zsh/
 │   ├── dot-zshrc              # symlinked to → ~/.zshrc
-│   └── dot-p10k.zsh           # symlinked to → ~/.p10k.zsh
 ├── tmux/
 │   └── dot-config/tmux/
 │       ├── tmux.conf          # symlinked to → ~/.config/tmux/tmux.conf

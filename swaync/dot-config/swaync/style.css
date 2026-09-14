@@ -1,20 +1,27 @@
 @import 'theme.css';
 
+:root {
+  --notification-icon-size: 48px;
+  --notification-app-icon-size: 18px;
+}
+
 * {
   font-family: "JetBrainsMono Nerd Font", sans-serif;
+  color: @theme_text_color;
 }
 
 .control-center {
   background-color: @theme_bg_color;
   border-radius: 8px;
   border: 2px solid @theme_border_color;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .widget-title {
   color: @theme_text_color;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  padding: 10px;
+  padding: 12px 14px;
 }
 
 .widget-title > button {
@@ -22,6 +29,7 @@
   color: @theme_text_color;
   border: 1px solid @theme_border_color;
   border-radius: 4px;
+  padding: 4px 8px;
 }
 
 .widget-title > button:hover {
@@ -32,8 +40,7 @@
   outline: none;
 }
 
-.notification-row:focus,
-.notification-row:hover {
+.notification-row .notification-background {
   background: transparent;
 }
 
@@ -45,28 +52,101 @@
   border: 1px solid @theme_border_color;
 }
 
-.notification-content {
+/* Grouped Notifications Fix */
+.notification-group {
   background: transparent;
+}
+.notification-group .notification-group-headers {
+  color: @theme_text_color;
+}
+.notification-group .notification-group-headers .notification-group-header,
+.notification-group .notification-group-headers .notification-group-icon {
+  color: @theme_text_color;
+}
+.notification-group.collapsed .notification-row .notification {
+  background-color: @theme_notif_bg;
+}
+.notification-group.collapsed:hover .notification-row:not(:only-child) .notification {
+  background-color: @theme_bg_color;
+}
+
+/* Fix popup and list notification hover background */
+.notification-row .notification-background .notification .notification-default-action:hover,
+.control-center .control-center-list .notification .notification-default-action:hover {
+  background-color: @theme_bg_color;
+}
+
+/* Urgency styling */
+.notification.critical {
+  border: 1px solid #f38ba8;
+}
+
+.notification.low {
+  opacity: 0.85;
 }
 
 .summary {
   color: @theme_text_color;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: bold;
+}
+
+.time {
+  color: @theme_text_color;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-right: 24px;
 }
 
 .body {
   color: @theme_text_color;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
+/* Close button */
+.close-button {
+  background: transparent;
+  color: @theme_text_color;
+  border-radius: 100%;
+  border: none;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+.close-button:hover {
+  background: @theme_border_color;
+}
+
+/* Action buttons (e.g. 2FA copy, quick reply) */
+.notification-action > button {
+  background: @theme_bg_color;
+  border: 1px solid @theme_border_color;
+  color: @theme_text_color;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: 4px;
+}
+
+.notification-action > button:hover {
+  background: @theme_border_color;
+}
+
+/* DnD Switch */
 .widget-dnd {
-  margin: 10px;
+  margin: 6px 14px;
 }
 
 .widget-dnd > switch {
   background: @theme_notif_bg;
+  border-radius: 12px;
+  border: 1px solid @theme_border_color;
 }
+
 .widget-dnd > switch:checked {
   background: @theme_accent_color;
+}
+
+.widget-dnd > switch slider {
+  background: @theme_text_color;
+  border-radius: 100%;
 }

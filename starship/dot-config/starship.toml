@@ -1,0 +1,144 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+add_newline = true
+
+format = """
+$os\
+$directory\
+$git_branch\
+$git_status\
+$line_break\
+$character"""
+
+right_format = """
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+$docker_context\
+$conda\
+$cmd_duration\
+$time\
+"""
+
+[os]
+disabled = false
+format = "[$symbol]($style) "
+style = "bold white"
+
+[os.symbols]
+Ubuntu = ""
+Macos = ""
+Windows = ""
+Arch = "󰣇"
+Manjaro = ""
+Linux = ""
+Debian = "󰣚"
+Fedora = "󰣛"
+Alpine = ""
+
+[directory]
+style = "bold cyan"
+read_only = " "
+truncation_length = 4
+truncation_symbol = "…/"
+format = "[ ](bold blue)[$path]($style)[$read_only]($read_only_style) "
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = " "
+style = "bold green"
+format = "[on ](white)[ ](bold green)[$symbol$branch]($style) "
+
+[git_status]
+style = "bold red"
+format = '[$all_status$ahead_behind]($style) '
+
+[nodejs]
+symbol = ""
+style = "bold green"
+format = '[$symbol( $version)]($style) '
+
+[c]
+symbol = " "
+style = "bold cyan"
+format = '[$symbol( $version)]($style) '
+
+[rust]
+symbol = ""
+style = "bold red"
+format = '[$symbol( $version)]($style) '
+
+[golang]
+symbol = ""
+style = "bold cyan"
+format = '[$symbol( $version)]($style) '
+
+[php]
+symbol = ""
+style = "bold purple"
+format = '[$symbol( $version)]($style) '
+
+[java]
+symbol = " "
+style = "bold red"
+format = '[$symbol( $version)]($style) '
+
+[kotlin]
+symbol = ""
+style = "bold purple"
+format = '[$symbol( $version)]($style) '
+
+[haskell]
+symbol = ""
+style = "bold cyan"
+format = '[$symbol( $version)]($style) '
+
+[python]
+symbol = " "
+style = "bold yellow"
+format = '[$symbol( $version)(\(#$virtualenv\))]($style) '
+
+[docker_context]
+symbol = " "
+style = "bold blue"
+format = '[$symbol$context]($style) '
+
+[conda]
+symbol = " "
+style = "bold blue"
+format = '[$symbol$environment]($style) '
+ignore_base = false
+
+[time]
+disabled = false
+time_format = "%I:%M %p"
+style = "bold white"
+format = '[$time]($style)'
+
+[cmd_duration]
+show_milliseconds = true
+format = "[took $duration]($style) "
+style = "bold yellow"
+disabled = false
+show_notifications = false
+min_time = 2000
+
+[character]
+disabled = false
+success_symbol = '[❯](bold green)'
+error_symbol = '[❯](bold red)'
+vimcmd_symbol = '[❮](bold green)'
+vimcmd_replace_one_symbol = '[❮](bold purple)'
+vimcmd_replace_symbol = '[❮](bold purple)'
+vimcmd_visual_symbol = '[❮](bold yellow)'
