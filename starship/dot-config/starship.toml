@@ -123,13 +123,13 @@ ignore_base = false
 [time]
 disabled = false
 time_format = "%I:%M %p"
-style = "bold white"
+style = "white"
 format = '[$time]($style)'
 
 [cmd_duration]
 show_milliseconds = true
 format = "[took $duration]($style) "
-style = "bold yellow"
+style = "yellow"
 disabled = false
 show_notifications = false
 min_time = 2000
