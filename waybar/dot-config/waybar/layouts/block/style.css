@@ -225,3 +225,24 @@ tooltip {
 tooltip label {
     color: @text;
 }
+
+/* -----------------------------------------------------------------------------
+   Media Player Group
+   ----------------------------------------------------------------------------- */
+#media {
+    color: #42ff9f;
+    margin-left: 30px;
+    background: transparent;
+}
+#custom-media-animation {
+    font-size: 13px;
+    padding-right: 10px;
+}
+#custom-media-now-playing {
+    padding-right: 10px;
+}
+#custom-media-time {
+    color: rgba(113, 113, 122, 1);
+    font-size: 14px;
+}
+
