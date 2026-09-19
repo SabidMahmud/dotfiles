@@ -31,8 +31,12 @@ These packages are installed automatically if a graphical session (`$WAYLAND_DIS
 | `wofi` | Application launcher and power menu UI. |
 | `swaybg` | Wallpaper daemon. |
 | `swayidle` | Idle management daemon (used to trigger the screen locker). |
-| `grim` | Screenshot utility for Wayland. |
-| `slurp` | Region selection utility for screenshots (pairs with `grim`). |
+| `flameshot` | Primary screenshot utility for annotations and capturing. |
+| `xdg-desktop-portal` | Required for screen sharing and Flameshot under Wayland. |
+| `xdg-desktop-portal-wlr` | wlroots backend for xdg-desktop-portal (required for Sway). |
+| `xdg-desktop-portal-gtk` | GTK backend for xdg-desktop-portal (provides file picker dialogs). |
+| `grim` | CLI screenshot utility (fallback/scripting). |
+| `slurp` | Region selection utility (pairs with `grim`). |
 | `wl-clipboard` | Command-line copy/paste utilities (`wl-copy`, `wl-paste`) for Wayland. |
 | `brightnessctl` | Command-line backlight control. |
 | `playerctl` | Command-line media player control (used by Waybar and hotkeys). |

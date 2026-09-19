@@ -72,8 +72,7 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 | `Super + r` | Enter window resize mode (`hjkl` / arrows to resize, `Enter` or `Esc` to exit) |
 | `Super + Escape` | Lock screen (`hyprlock`) |
 | `Super + BackSpace` | Power menu (`sway-powermenu`) |
-| `Super + Shift + s` | Screenshot selected area (`grim` + `slurp` to clipboard) |
-| `Print` | Fullscreen screenshot to clipboard |
+| `Super + Shift + s` | Screenshot (`flameshot`) |
 | `Super + Shift + r` | Reload Sway configuration |
 | `Super + Shift + e` | Prompt to exit Sway session |
 | `Super + v` | Clipboard history picker (`cliphist` + `wofi`) |
