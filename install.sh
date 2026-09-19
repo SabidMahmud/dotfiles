@@ -55,10 +55,36 @@ install_packages() {
 
     elif command -v dnf &>/dev/null; then
         echo "==> Detected dnf (Fedora/RHEL). Installing packages..."
+        local fedora_packages=()
+        for pkg in "${target_packages[@]}"; do
+            case "$pkg" in
+                kdeconnect)
+                    fedora_packages+=(kde-connect)
+                    ;;
+                power-profiles-daemon)
+                    # Skip: Fedora uses tuned-ppd (preinstalled) which provides ppd-service and conflicts with power-profiles-daemon
+                    ;;
+                nwg-displays)
+                    # Handled via Copr below
+                    ;;
+                *)
+                    fedora_packages+=("$pkg")
+                    ;;
+            esac
+        done
+
+        sudo dnf install -y "${fedora_packages[@]}"
+
+        # Attempt installation of Copr-backed packages (hyprlock, nwg-displays)
         if [ "$install_desktop" = true ]; then
-            target_packages+=(hyprlock)
+            echo "==> Enabling Copr repositories for hyprlock and nwg-displays..."
+            sudo dnf copr enable -y solopasha/hyprland 2>/dev/null || true
+            sudo dnf copr enable -y tofik/nwg-shell 2>/dev/null || true
+
+            echo "==> Installing optional desktop packages (hyprlock, nwg-displays)..."
+            sudo dnf install -y hyprlock 2>/dev/null || echo "NOTE: hyprlock could not be installed via dnf Copr."
+            sudo dnf install -y nwg-displays 2>/dev/null || echo "NOTE: nwg-displays could not be installed via dnf Copr."
         fi
-        sudo dnf install -y "${target_packages[@]}"
 
     else
         echo "WARNING: Could not detect a supported package manager."
@@ -169,7 +195,10 @@ install_extended_tools() {
     elif command -v pacman &>/dev/null; then
         echo "    sudo pacman -S btop zellij hyprlock sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa kdeconnect scrcpy"
     elif command -v dnf &>/dev/null; then
-        echo "    sudo dnf install btop hyprlock sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon chafa kdeconnect scrcpy"
+        echo "    sudo dnf install btop sway waybar swaync wofi swaybg swayidle grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist kanshi chafa kde-connect scrcpy"
+        echo "    # For hyprlock and nwg-displays (Copr):"
+        echo "    sudo dnf copr enable -y solopasha/hyprland && sudo dnf install -y hyprlock"
+        echo "    sudo dnf copr enable -y tofik/nwg-shell && sudo dnf install -y nwg-displays"
     fi
 }
 

@@ -6,10 +6,10 @@
     "margin-left": 0,
     "margin-right": 0,
     "margin-bottom": 0,
-    "spacing": 4,
+    "spacing": 1,
     "modules-left": [
-        "sway/workspaces",
-        "sway/window"
+        "sway/workspaces"
+        // "sway/window"
     ],
     "modules-center": [
         "clock"
@@ -18,7 +18,7 @@
         "sway/submap",
         "tray",
         "custom/notification",
-        "group/volume",
+        "pulseaudio",
         "pulseaudio#microphone",
         "backlight",
         "bluetooth",

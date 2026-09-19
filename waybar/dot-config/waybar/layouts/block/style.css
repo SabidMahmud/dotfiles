@@ -39,7 +39,7 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0 14px;
+    padding: 0 4px;
     margin: 0;
     color: @overlay0;
     background: transparent;

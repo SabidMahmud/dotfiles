@@ -41,10 +41,10 @@ window#waybar.empty #window { padding: 0; margin: 0; }
 
 #submap, #mode { background-color: @orange; color: @base; padding: 2px 8px; margin: 4px 2px; border-radius: 8px; font-weight: 800; }
 
-#custom-notification, #pulseaudio, #pulseaudio-microphone, #backlight, #battery, #bluetooth, #network, #cpu, #memory, #custom-power, #power-profiles-daemon {
+#custom-notification, #pulseaudio, #pulseaudio-microphone, #backlight, #battery, #bluetooth, #network, #cpu, #memory, #custom-power, #power-profiles-daemon, #tray {
     padding: 2px 8px; margin: 4px 2px; border-radius: 8px; background: @surface0; transition: all 0.2s ease;
 }
-#custom-notification:hover, #pulseaudio:hover, #pulseaudio-microphone:hover, #backlight:hover, #battery:hover, #bluetooth:hover, #network:hover, #cpu:hover, #memory:hover, #power-profiles-daemon:hover {
+#custom-notification:hover, #pulseaudio:hover, #pulseaudio-microphone:hover, #backlight:hover, #battery:hover, #bluetooth:hover, #network:hover, #cpu:hover, #memory:hover, #power-profiles-daemon:hover, #tray:hover {
     background-color: @surface1; color: @text;
 }
 

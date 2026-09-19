@@ -1,3 +1,4 @@
+-- Original colorscheme by Josean Martinez
 return {
   colors = {
     foreground = "#CBE0F0",
