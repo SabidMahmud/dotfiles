@@ -148,7 +148,7 @@ bindsym XF86AudioPrev exec playerctl previous 2>/dev/null
 # Session controls
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -B 'Yes, exit sway' 'swaymsg exit'
-bindsym $mod+Escape exec hyprlock
+bindsym $mod+Escape exec eval $($lock_cmd)
 bindsym $mod+BackSpace exec ~/.local/bin/sway-powermenu
 
 # Window Resizing Mode
@@ -197,8 +197,10 @@ exec_always wl-paste --watch cliphist store
 bindsym $mod+v exec pkill -x wofi || (cliphist list | wofi --dmenu -p "󰅍 Clipboard" | cliphist decode | wl-copy)
 
 # 6. Idle Manager & Screen Lock
+# Use hyprlock if available, fall back to swaylock
+set $lock_cmd (command -v hyprlock > /dev/null && echo hyprlock || echo 'swaylock -f -c 000000')
 exec swayidle -w \
-    timeout 600 'hyprlock' \
+    timeout 600 'eval $($lock_cmd)' \
     timeout 900 'swaymsg "output * power off"' \
     resume 'swaymsg "output * power on"'
 
@@ -209,8 +211,8 @@ exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 1.2
 exec_always gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 exec_always gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 
-# swaync
-exec swaync
+# swaync — use exec_always so it restarts cleanly on swaymsg reload
+exec_always pkill swaync; swaync
 # Toggle the notification center panel with Super+Shift+N
 bindsym $mod+Shift+n exec swaync-client -t -sw
 
