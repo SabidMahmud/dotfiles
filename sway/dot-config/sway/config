@@ -37,27 +37,9 @@ client.urgent           #cc241d #282828 #fbf1c7 #cc241d   #cc241d
 
 
 ### Touchpad & Gestures
+# type:touchpad applies to all touchpad devices.
+# Add device-specific input blocks below only if a device needs different settings.
 input "type:touchpad" {
-    dwt disabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-    scroll_method two_finger
-    click_method clickfinger
-    tap_button_map lrm
-}
-
-input "1267:12458:ELAN0300:00_04F3:30AA_Touchpad" {
-    dwt disabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-    scroll_method two_finger
-    click_method clickfinger
-    tap_button_map lrm
-}
-
-input "2:14:ETPS/2_Elantech_Touchpad" {
     dwt disabled
     tap enabled
     natural_scroll enabled
@@ -219,6 +201,13 @@ exec swayidle -w \
     timeout 600 'hyprlock' \
     timeout 900 'swaymsg "output * power off"' \
     resume 'swaymsg "output * power on"'
+
+# 7. font scalling 
+exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 1.2
+
+# 8. GTK dark mode (applies to Thunar and all GTK3/4 apps)
+exec_always gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec_always gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 
 # swaync
 exec swaync
