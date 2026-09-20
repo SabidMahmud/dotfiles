@@ -1,5 +1,5 @@
-@import url('/home/mirok/.config/wofi/theme.css');
-/* @import url('./theme.css'); */
+@import url('./theme.css');
+/* @import url('/home/mirok/.config/wofi/theme.css'); */
 
 window {
     margin: 0px;
