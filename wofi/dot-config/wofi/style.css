@@ -1,5 +1,7 @@
-@import url('./theme.css');
-/* @import url('/home/mirok/.config/wofi/theme.css'); */
+/* GTK3 resolves @import relative to CWD, not the CSS file location.
+   install.sh patches the username in this path on first run. */
+@import url('/home/mirok/.config/wofi/theme.css');
+/* portable fallback (only works on GTK4): @import url('./theme.css'); */
 
 window {
     margin: 0px;
