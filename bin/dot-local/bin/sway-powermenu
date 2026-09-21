@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 # sway-powermenu — Minimal interactive power menu for Waybar & Sway
 
-set -e
+set -uo pipefail
 
 entries="  Lock\n󰒲  Suspend\n  Logout\n  Reboot\n  Shutdown"
 
+selected=""
 if command -v wofi &>/dev/null; then
-    selected=$(echo -e "$entries" | wofi --dmenu --prompt "Power Menu" --width 240 --height 240 --insensitive 2>/dev/null)
+    selected=$(echo -e "$entries" | wofi --dmenu --prompt "Power Menu" --width 240 --height 240 --insensitive 2>/dev/null) || true
 elif command -v wmenu &>/dev/null; then
-    selected=$(echo -e "$entries" | wmenu -p "Power Menu")
+    selected=$(echo -e "$entries" | wmenu -p "Power Menu") || true
 else
     echo "Error: no menu program found (wofi or wmenu required)" >&2
     exit 1
 fi
+
+# User dismissed the menu — exit gracefully
+[ -z "$selected" ] && exit 0
 
 case "$selected" in
     *"Lock"*)

@@ -219,7 +219,6 @@ if [ -f "$SELECTED_DIR/yazi.toml" ]; then
     cp "$SELECTED_DIR/yazi.toml" "$HOME/.config/yazi/theme.toml"
 fi
 
-    mkdir -p "$HOME/.config/swaync"
 if [ -f "$SELECTED_DIR/swaync.css" ]; then
     mkdir -p "$HOME/.config/swaync"
     cp "$SELECTED_DIR/swaync.css" "$HOME/.config/swaync/theme.css"

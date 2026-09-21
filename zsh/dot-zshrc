@@ -15,9 +15,13 @@ setopt SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 
-# Completion
+# Completion — only rescan once per day; use cached dump otherwise (~150ms saved)
 autoload -Uz compinit
-compinit
+if [[ -f ~/.zcompdump && $(date +%j) == $(date -r ~/.zcompdump +%j 2>/dev/null) ]]; then
+    compinit -C  # use cache, skip security check
+else
+    compinit     # full rescan + regenerate cache
+fi
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 

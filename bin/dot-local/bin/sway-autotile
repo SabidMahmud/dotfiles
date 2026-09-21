@@ -12,6 +12,7 @@ import socket
 import struct
 import subprocess
 import sys
+import time
 
 MAGIC = b"i3-ipc"
 TYPE_COMMAND = 0
@@ -87,4 +88,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Retry loop with exponential backoff so the daemon self-heals after
+    # IPC disconnects or transient errors without requiring a Sway reload.
+    backoff = 1
+    while True:
+        main()
+        time.sleep(backoff)
+        backoff = min(backoff * 2, 30)

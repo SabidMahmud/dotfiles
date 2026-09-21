@@ -37,27 +37,9 @@ client.urgent           #cc241d #282828 #fbf1c7 #cc241d   #cc241d
 
 
 ### Touchpad & Gestures
+# type:touchpad applies to all touchpad devices.
+# Add device-specific input blocks below only if a device needs different settings.
 input "type:touchpad" {
-    dwt disabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-    scroll_method two_finger
-    click_method clickfinger
-    tap_button_map lrm
-}
-
-input "1267:12458:ELAN0300:00_04F3:30AA_Touchpad" {
-    dwt disabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-    scroll_method two_finger
-    click_method clickfinger
-    tap_button_map lrm
-}
-
-input "2:14:ETPS/2_Elantech_Touchpad" {
     dwt disabled
     tap enabled
     natural_scroll enabled
@@ -166,7 +148,7 @@ bindsym XF86AudioPrev exec playerctl previous 2>/dev/null
 # Session controls
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -B 'Yes, exit sway' 'swaymsg exit'
-bindsym $mod+Escape exec hyprlock
+bindsym $mod+Escape exec eval $($lock_cmd)
 bindsym $mod+BackSpace exec ~/.local/bin/sway-powermenu
 
 # Window Resizing Mode
@@ -215,13 +197,22 @@ exec_always wl-paste --watch cliphist store
 bindsym $mod+v exec pkill -x wofi || (cliphist list | wofi --dmenu -p "󰅍 Clipboard" | cliphist decode | wl-copy)
 
 # 6. Idle Manager & Screen Lock
+# Use hyprlock if available, fall back to swaylock
+set $lock_cmd (command -v hyprlock > /dev/null && echo hyprlock || echo 'swaylock -f -c 000000')
 exec swayidle -w \
-    timeout 600 'hyprlock' \
+    timeout 600 'eval $($lock_cmd)' \
     timeout 900 'swaymsg "output * power off"' \
     resume 'swaymsg "output * power on"'
 
-# swaync
-exec swaync
+# 7. font scalling 
+exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 1.2
+
+# 8. GTK dark mode (applies to Thunar and all GTK3/4 apps)
+exec_always gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec_always gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+
+# swaync — use exec_always so it restarts cleanly on swaymsg reload
+exec_always pkill swaync; swaync
 # Toggle the notification center panel with Super+Shift+N
 bindsym $mod+Shift+n exec swaync-client -t -sw
 
