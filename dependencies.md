@@ -56,6 +56,7 @@ These are standalone modern tools that heavily enhance the workflow, but often n
 
 | Tool | Installation Link |
 | :--- | :--- |
+| **Kitty** | [Install Guide](https://sw.kovidgoyal.net/kitty/binary/) (Fast, feature-rich, GPU-based terminal emulator) |
 | **WezTerm** | [Install Guide](https://wezfurlong.org/wezterm/installation.html) (GPU-accelerated terminal) |
 | **Zellij** | [Install Guide](https://zellij.dev/documentation/installation.html) (Modern terminal multiplexer) |
 | **Yazi** | [Install Guide](https://yazi-rs.github.io/docs/installation) (Terminal file manager written in Rust) |

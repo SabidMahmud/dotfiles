@@ -15,7 +15,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # ---------------------------------------------------------------------------
 install_packages() {
     local core_packages=(stow git zsh curl wget ripgrep fzf neovim tmux python3 btop)
-    local desktop_packages=(sway waybar swaync wofi swaybg swayidle flameshot xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon kdeconnect)
+    local desktop_packages=(kitty sway waybar swaync wofi swaybg swayidle flameshot xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim slurp wl-clipboard brightnessctl playerctl nautilus pavucontrol blueman cliphist nwg-displays kanshi power-profiles-daemon kdeconnect)
 
     local target_packages=("${core_packages[@]}")
     local install_desktop=false

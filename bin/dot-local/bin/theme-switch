@@ -193,6 +193,14 @@ if [ -f "$SELECTED_DIR/wezterm.lua" ]; then
     cp "$SELECTED_DIR/wezterm.lua" "$HOME/.config/wezterm/theme.lua"
 fi
 
+if [ -f "$SELECTED_DIR/kitty.conf" ]; then
+    mkdir -p "$HOME/.config/kitty"
+    cp "$SELECTED_DIR/kitty.conf" "$HOME/.config/kitty/theme.conf"
+    if pgrep -x kitty &>/dev/null; then
+        kitten @ --to=unix:@mykitty set-colors --all "$HOME/.config/kitty/theme.conf" 2>/dev/null || true
+    fi
+fi
+
 if [ -f "$SELECTED_DIR/zellij.kdl" ]; then
     mkdir -p "$HOME/.config/zellij/themes"
     cp "$SELECTED_DIR/zellij.kdl" "$HOME/.config/zellij/themes/$THEME.kdl"
@@ -222,7 +230,7 @@ fi
 if [ -f "$SELECTED_DIR/swaync.css" ]; then
     mkdir -p "$HOME/.config/swaync"
     cp "$SELECTED_DIR/swaync.css" "$HOME/.config/swaync/theme.css"
-    if command -v swaync-client &>/dev/null; then
+    if pgrep -x swaync &>/dev/null; then
         swaync-client -rs 2>/dev/null || true
     fi
 fi
