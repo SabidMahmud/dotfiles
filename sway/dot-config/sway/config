@@ -12,7 +12,7 @@ set $up k
 set $right l
 
 # Preferred terminal
-set $term kitty
+set $term ~/.local/bin/kitty
 
 # Application Launcher (Toggle: opens if closed, closes if open)
 set $menu pkill -x wofi || wofi --show drun
