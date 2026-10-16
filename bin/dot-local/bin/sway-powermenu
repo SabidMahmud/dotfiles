@@ -20,7 +20,7 @@ fi
 
 case "$selected" in
     *"Lock"*)
-        hyprlock
+        ~/.local/bin/sway-lock
         ;;
     *"Suspend"*)
         systemctl suspend

@@ -35,7 +35,7 @@ Personal configuration files for a Linux development environment and Sway (Wayla
 | `lazydocker` | Lazydocker terminal UI configuration |
 | `mise` | mise-en-place dev environment tool configuration |
 | `yazi` | Yazi terminal file manager configuration and Gruvbox theme |
-| `bin` | Custom CLI utilities including `theme-switch`, `sway-autotile`, `sway-powermenu`, `sway-wallpaper`, `sway-maximize`, `wallpaper-preview`, and `brightness-step` |
+| `bin` | Custom CLI utilities including `theme-switch`, `sway-lock`, `sway-autotile`, `sway-powermenu`, `sway-wallpaper`, `sway-maximize`, `wallpaper-preview`, and `brightness-step` |
 
 ## Desktop Environment (Sway & Wayland)
 
@@ -220,6 +220,7 @@ dotfiles/
 ├── bin/
 │   └── dot-local/bin/
 │       ├── theme-switch       # symlinked to → ~/.local/bin/theme-switch
+│       ├── sway-lock          # symlinked to → ~/.local/bin/sway-lock
 │       ├── sway-autotile      # symlinked to → ~/.local/bin/sway-autotile
 │       ├── sway-maximize      # symlinked to → ~/.local/bin/sway-maximize
 │       ├── sway-powermenu     # symlinked to → ~/.local/bin/sway-powermenu
