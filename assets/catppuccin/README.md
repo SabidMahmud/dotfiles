@@ -12,6 +12,11 @@ are in `wallpapers/`, and the ready-to-use 3840 × 2160 PNGs are bundled in
 `themes/catppuccin-<flavour>/wallpapers/`. No download or renderer is needed
 to use the themes.
 
+The flavours and the original `catppuccin` theme also include the separate
+[CozyPixels collection](../cozypixels/README.md). Those imported wallpapers
+retain their original colours and artwork; they are separate from the five
+palette-specific designs generated here.
+
 To regenerate the wallpapers after editing their SVG templates or palettes,
 install `rsvg-convert` (librsvg), then run:
 

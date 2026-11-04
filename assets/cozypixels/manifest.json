@@ -1,0 +1,499 @@
+{
+  "repository": "https://github.com/SleepyCatHey/CozyPixels",
+  "commit": "e5eec73772ee690fccbbf279cf5a2dff15887bda",
+  "categories": [
+    "Catppuccin/Characters & People",
+    "Catppuccin/Pixel Art",
+    "Catppuccin/Seasonal & Weather"
+  ],
+  "themes": [
+    "catppuccin",
+    "catppuccin-latte",
+    "catppuccin-frappe",
+    "catppuccin-macchiato",
+    "catppuccin-mocha"
+  ],
+  "source_images": 38,
+  "unique_wallpapers": 36,
+  "wallpapers": [
+    {
+      "name": "cozypixels-biking-sunset.jpg",
+      "width": 2841,
+      "height": 2019,
+      "sha256": "02536e00abef58580c89a0d0a0dfd20faa47deb548ffb6ad8f1d1a9d4dae6700",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/biking-sunset.jpg",
+          "git_blob": "7b8c2a42e49acc267ffade9845bbe84f4232346d"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-cat-vibin.png",
+      "width": 1620,
+      "height": 1040,
+      "sha256": "1e0dbb1a9e0906b6080b907551acfc42452c9300f7a41860130135156ed5058a",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/cat-vibin.png",
+          "git_blob": "4fa67ad6da389aac43b6c41f292ffd3d92c141fd"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-cat-pacman.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "cdd44c24566b4e2995b493ac9fc33cef7265b96af7e97ca2abe2966a42b8a9bf",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/cat_pacman.png",
+          "git_blob": "cf5807a27d935e076f7b8e611e69a96f58eb632e"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-degirled.png",
+      "width": 5000,
+      "height": 2175,
+      "sha256": "3a59af8edff722d7573f76f456d1282e9ed25ef3f03049e1284eed3feac9ffda",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/degirled.png",
+          "git_blob": "b1a0942f3bdddd073b0359be541ab32ea0f4f8f0"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-fight.jpg",
+      "width": 1920,
+      "height": 877,
+      "sha256": "3e238e97d895251e69b0dd7b4fc7dcf120cfb7ffcb051153e7c7c10ee4f927b5",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/fight.jpg",
+          "git_blob": "8f9550b6e499c653073adce9a777d7350b5a6cdf"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-girl-stars.png",
+      "width": 2614,
+      "height": 1506,
+      "sha256": "7ea659442f149f2dde7843f9d75c7893dc19a81a3af63d78d694906455e7fe8d",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/girl-stars.png",
+          "git_blob": "18df612772ee8e6a4ea9fa8338e415692e6af7ea"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-painting-standing.jpg",
+      "width": 2500,
+      "height": 1580,
+      "sha256": "e4aedf97b6e7e2c223328692f248f0ca696f257134a3fdab8343d36e8d52b139",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/painting-standing.jpg",
+          "git_blob": "0346f88f972ac312074ae0b52e1191a293fb2586"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-napping.png",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "2a70ff8c06c0da323290624616e060a38ae8a66e8eb48797016df78f6ee2573d",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/pixel-napping.png",
+          "git_blob": "0dbdb9c101a57e37cad8eb3e520b90ba8fd93b77"
+        },
+        {
+          "path": "Catppuccin/Pixel Art/pixel-napping.png",
+          "git_blob": "0dbdb9c101a57e37cad8eb3e520b90ba8fd93b77"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-reading.png",
+      "width": 2880,
+      "height": 1620,
+      "sha256": "23138b4de012f3570527d26053b781640062768806bcd3ed1f3c53f092c34d05",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/pixel-reading.png",
+          "git_blob": "c8321c711cf41b7e3eeb9e79a80fb62112b2a8ef"
+        },
+        {
+          "path": "Catppuccin/Pixel Art/pixel-reading.png",
+          "git_blob": "c8321c711cf41b7e3eeb9e79a80fb62112b2a8ef"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-samurai.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "7dec0f45283ef101d4968c819b6035bc790a2435dfff5a09e1701b05c07bbacd",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/samurai.jpg",
+          "git_blob": "56e50e89da126f1840b17c9e3d5683d0c0b0a8b5"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-wanderer.jpg",
+      "width": 5333,
+      "height": 3000,
+      "sha256": "9ed69554144315f0f118a3da7dedbd4cbad84683d8b835ed605ac891137f4a2d",
+      "sources": [
+        {
+          "path": "Catppuccin/Characters & People/wanderer.jpg",
+          "git_blob": "d3a98b8436b22a98ad72c168a375e60a16f48bde"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-alley.png",
+      "width": 1456,
+      "height": 816,
+      "sha256": "bd5df91e11d925975aca73deec21fefd0a9c185dd0394c79d596db96417a156d",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/pixel-alley.png",
+          "git_blob": "58cdba921b2a034d6dd9d35a3e398ab503fc42e3"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-car.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "7c0a7b4f1c864308a52f9e6552b4a682464fe7ab85facf70f5a1a52ac00393c6",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/pixel-car.png",
+          "git_blob": "dd09627b59283b845c3cc8b693a3ac87bb0bbfe6"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-castle.png",
+      "width": 7680,
+      "height": 4320,
+      "sha256": "862410527bc5e60f019431f975b664ed22368c7875e2f4e6ab194c978ec6439c",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/pixel-castle.png",
+          "git_blob": "34f3246f3cec06aafda3a861b72465128795c28d"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-earth.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f006f1aeb5aea537129a5e16a8ae60376dfcd7c25f2f5daad372c25642c7ae28",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/pixel-earth.png",
+          "git_blob": "f2bb492b350e9b7bc46be948cc3ec0a971057771"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-galaxy.png",
+      "width": 7680,
+      "height": 4320,
+      "sha256": "fb8fe2302e129b4d61da309c90b9cc64902021e1b5f67b00d327135df3d355b4",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/pixel-galaxy.png",
+          "git_blob": "25c6c0fdeb1f979996bd994294ca95c3c823c082"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-planet.png",
+      "width": 1428,
+      "height": 500,
+      "sha256": "283bdc22d59e3da6c7075de7f586aeae5ae4eeeaa6648bf7972ddee1d8d0438a",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/pixel-planet.png",
+          "git_blob": "602a314d396280de48c4a260904a4e1a2853bcf1"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-pixel-prairie.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c8cc6899616ae6fe5bb638c6bee62e490a34411ed7c3358284089614de3a18c2",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/pixel-prairie.jpg",
+          "git_blob": "fd62d3eaea86ce93aac3ed92520906837d18b467"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-retro2-live.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "fb9b370a038fdbe321c98cd5170a3a5216d3890caa86d49296c4ed1d2b11e4cc",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/retro2_live.gif",
+          "git_blob": "1735ec87da3c5f94cad7855b36cbcdbd8350a57f"
+        }
+      ],
+      "conversion": {
+        "operation": "first frame of animated GIF as PNG",
+        "original": "assets/cozypixels/originals/retro2_live.gif"
+      }
+    },
+    {
+      "name": "cozypixels-voxel-city.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "28287032bb225f65e43dcabf1ac6afec70d316f690f3790fa62b4e34ceb884bd",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/voxel-city.jpg",
+          "git_blob": "101624252e50554029184eff86b259d0ca551c89"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-voxel-houses-monochrome.png",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "942824c1db18334ddbbbb0499e6e8f75e02fe05afc086e508e577828ff34f33c",
+      "sources": [
+        {
+          "path": "Catppuccin/Pixel Art/voxel-houses-monochrome.png",
+          "git_blob": "6b5cb2973df1124b4a6c59ec6dd8026b1a9baa1c"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-abandoned-trainstation.jpg",
+      "width": 2339,
+      "height": 1654,
+      "sha256": "a3ade77f6fb1dff140385947101a59b9c893dc223109905f427fdb10f6b09904",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/abandoned-trainstation.jpg",
+          "git_blob": "3f5fc90f7cbccb370cee532fe19b2bc6e0bc0eb0"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-c4-spring-sakura-sky.jpg",
+      "width": 2877,
+      "height": 1450,
+      "sha256": "4401ef4d965b91fcc1f4c87feb6f06b50df44d6f4a773626e7a8e390c8757acc",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/c4-spring-sakura-sky.jpg",
+          "git_blob": "1af672c544e4b23dd715965fa3ffd07ef0ea20f7"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-flowering-rain.png",
+      "width": 1950,
+      "height": 1092,
+      "sha256": "5bc68756a42f8a76e4077bffc4e5e108b8a2f8bfc0f0b2bb169feedc96a8c913",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/flowering-rain.png",
+          "git_blob": "22ab753e1e1a84d9b61a461525f8a1ed12743106"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-foggy-city.jpg",
+      "width": 5640,
+      "height": 2400,
+      "sha256": "6fd0d8122ff10e9253c8c8d80f4ce760a6eef04792313fae0949570927a2d0ec",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/foggy-city.jpg",
+          "git_blob": "6dfd54ae4bca6baf7267c77baab2563601668cb7"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-lovely-summer.jpg",
+      "width": 1920,
+      "height": 892,
+      "sha256": "2026c9372630060924bde8c87f43b52eae5d249018436ed0a414be48725bfb8d",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/lovely-summer.jpg",
+          "git_blob": "09248f44e81f373adfecfbaa36154860fc5e4dbb"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-misty-boat.jpg",
+      "width": 6600,
+      "height": 3600,
+      "sha256": "98b2b2273f969c9ec022401a6021ea15bd7d6ba7ea8b4b4bbc73854458cd4294",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/misty-boat.jpg",
+          "git_blob": "926a8ea67239de379e1f63006bfc96b114266d30"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-rainy-window.jpeg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "6319bb6a0859579038d3bb687aa39e17cc558810fe29fdcd74a53c5c51511fd4",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/rainy-window.jpeg",
+          "git_blob": "c8193c9f52a860d6982f1d90fa134b67697e9a15"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-snowflakes.jpg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "352ea630c2119567e3deac9fbfa1089664ae7a5984d965ee86e489e5283f7077",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/snowflakes.jpg",
+          "git_blob": "33a94267f6e159c977d24b84b7c2c5d7729737af"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-snowy-map.png",
+      "width": 1440,
+      "height": 900,
+      "sha256": "46cfa3f958f6d8a3afdab2aa46ec632b7fd820ae561270356a70c3c040116ba3",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/snowy-map.png",
+          "git_blob": "2403a749cf9b175daf146f07ed230b0774513d8f"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-snowy-train.jpg",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "d9b1d88343741aa0f7e74cd4a180c2b3233c68164621f3fe02dbc007c17f6fb6",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/snowy-train.jpg",
+          "git_blob": "0df1cba628c8edee3156a12851d8db97f17f7f57"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-storm.jpg",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "8356e3aee596063173855b2482a856fa6b60bf704df1ace0bd42ca0ce34ce164",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/storm.jpg",
+          "git_blob": "94503f8ed8e827e81faeed0318ab9c7b84708ad8"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-stormlight-archive.png",
+      "width": 5120,
+      "height": 2880,
+      "sha256": "339190fa3cacdf9e652fadbe1ff41fab656ed04bc623c02dd4195ca0a78aef0e",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/stormlight-archive.png",
+          "git_blob": "5956b34a479ed061f61627c20376be47982ef062"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-train-sideview.png",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "9147a9561a5c59900dfe5447dca607e7eb8c071f57990f78973363f502f48977",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/train-sideview.png",
+          "git_blob": "3069db9ae581a71dd045a3674abc9e8f1831cb33"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-train-station.jpg",
+      "width": 3200,
+      "height": 1800,
+      "sha256": "1ab85691a2d4fa6a135f4496bd996db96261415f2c3079274f0b92f1838b407d",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/train-station.jpg",
+          "git_blob": "326bf4376fd3fe45974d6e9cc5d0386cfca50a77"
+        }
+      ],
+      "conversion": null
+    },
+    {
+      "name": "cozypixels-waterfall.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "700d23a61529c62087b6b8476100d47a7c316509e16a5d366c4e7279ae8e2387",
+      "sources": [
+        {
+          "path": "Catppuccin/Seasonal & Weather/waterfall.png",
+          "git_blob": "5b6b50668f5e3ef6c89798570ae8653a89d31c4b"
+        }
+      ],
+      "conversion": null
+    }
+  ]
+}

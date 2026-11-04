@@ -192,6 +192,13 @@ and geometric tiles, rendered in that flavour's palette. Switching to Latte
 also selects the light desktop preference; the other flavours select dark.
 The existing `catppuccin` entry retains its previous configuration.
 
+The four flavours and the original `catppuccin` theme also include **36 unique
+wallpapers from [CozyPixels](https://github.com/SleepyCatHey/CozyPixels)**:
+Characters & People, Pixel Art, and Seasonal & Weather. Open `theme wallpaper`
+and filter by `cozypixels` to browse them. Duplicate images appear once per
+theme, and the animated GIF is available as a still PNG for Sway. Sources,
+checksums, and credits are recorded in [the collection documentation](assets/cozypixels/README.md).
+
 ```sh
 theme catppuccin-latte
 theme wallpaper
@@ -366,6 +373,7 @@ dotfiles/
 - **[Omarchy](https://github.com/omacom/omarchy), created by [DHH](https://dhh.dk/), and its contributors:** the upstream source for the imported `omarchy-*` themes, colour palettes, wallpapers, previews, and theme assets. This repository adapts that collection to its Sway desktop. The [collection documentation](assets/omarchy/README.md) records the release and pinned commit; the [import manifest](assets/omarchy/manifest.json) maps every imported file to its upstream path and checksum.
 - **[Omarchy's Quickshell image picker](https://github.com/omacom/omarchy/blob/84b3f2872b5023c13967543ed4a98b08fcac5b21/shell/plugins/image-picker/ImagePicker.qml):** the source of the angled carousel layout, overlapping previews, and image-mask treatment adapted for this repository's picker. Its [upstream copyright and MIT notice](quickshell/dot-config/quickshell/theme-picker/OMARCHY-LICENSE) are preserved alongside the implementation.
 - **[Catppuccin](https://catppuccin.com/) and its community:** the four official palettes used by the separately named Latte, Frappé, Macchiato, and Mocha themes. Their [palette source and license](assets/catppuccin/README.md) are documented separately. The additional geometric wallpapers for those four variants were generated for this repository.
+- **[CozyPixels](https://github.com/SleepyCatHey/CozyPixels), curated by [SleepyCatHey](https://github.com/SleepyCatHey), and the original wallpaper artists:** the additional Catppuccin wallpapers from Characters & People, Pixel Art, and Seasonal & Weather. The [collection documentation](assets/cozypixels/README.md) records the pinned source, deduplication, GIF conversion, and preserved license notice. CozyPixels notes that some original artist credits are unknown; this repository claims no authorship of the imported artwork.
 
 Individual theme designs and wallpaper artwork remain the work of their
 original creators. Omarchy is credited as the upstream project and curator of
@@ -379,4 +387,5 @@ Third-party code, themes, palettes, and artwork retain their respective
 copyrights and license terms. Preserved upstream notices are available for
 [the Omarchy collection](assets/omarchy/LICENSE),
 [the adapted Omarchy carousel](quickshell/dot-config/quickshell/theme-picker/OMARCHY-LICENSE),
-and [the Catppuccin palettes](assets/catppuccin/LICENSE).
+[the Catppuccin palettes](assets/catppuccin/LICENSE),
+and [the CozyPixels collection](assets/cozypixels/LICENSE).
