@@ -1,60 +1,60 @@
-# Omarchy Nord
+# Catppuccin Macchiato
 
 [mgr]
-hovered = { fg = "#d8dee9", bg = "#3b4252" }
+hovered = { fg = "#cad3f5", bg = "#363a4f" }
 preview_hovered = { underline = true }
-cwd = { fg = "#88c0d0" }
+cwd = { fg = "#8bd5ca" }
 
 # Find
-find_keyword  = { fg = "#2e3440", bg = "#ebcb8b", bold = true }
-find_position = { fg = "#b48ead", bg = "reset", bold = true }
+find_keyword  = { fg = "#24273a", bg = "#eed49f", bold = true }
+find_position = { fg = "#c6a0f6", bg = "reset", bold = true }
 
 # Symlink
-symlink_target = { fg = "#88c0d0", italic = true }
+symlink_target = { fg = "#8bd5ca", italic = true }
 
 # Marker
-marker_copied   = { fg = "#a3be8c", bg = "#a3be8c" }
-marker_cut      = { fg = "#bf616a", bg = "#bf616a" }
-marker_marked   = { fg = "#81a1c1", bg = "#81a1c1" }
-marker_selected = { fg = "#ebcb8b", bg = "#ebcb8b" }
+marker_copied   = { fg = "#a6da95", bg = "#a6da95" }
+marker_cut      = { fg = "#ed8796", bg = "#ed8796" }
+marker_marked   = { fg = "#8aadf4", bg = "#8aadf4" }
+marker_selected = { fg = "#eed49f", bg = "#eed49f" }
 marker_symbol   = "│"
 
 # Count
-count_copied   = { fg = "#2e3440", bg = "#a3be8c" }
-count_cut      = { fg = "#2e3440", bg = "#bf616a" }
-count_selected = { fg = "#2e3440", bg = "#ebcb8b" }
+count_copied   = { fg = "#24273a", bg = "#a6da95" }
+count_cut      = { fg = "#24273a", bg = "#ed8796" }
+count_selected = { fg = "#24273a", bg = "#eed49f" }
 
 # Border
 border_symbol = "│"
-border_style  = { fg = "#222730" }
+border_style  = { fg = "#1e2030" }
 
 [tabs]
-active   = { fg = "#2e3440", bg = "#88c0d0", bold = true }
-inactive = { fg = "#d8dee9", bg = "#222730" }
+active   = { fg = "#24273a", bg = "#8bd5ca", bold = true }
+inactive = { fg = "#cad3f5", bg = "#1e2030" }
 
 [mode]
-normal_main = { fg = "#2e3440", bg = "#81a1c1", bold = true }
-normal_alt  = { fg = "#81a1c1", bg = "#222730" }
-select_main = { fg = "#2e3440", bg = "#ebcb8b", bold = true }
-select_alt  = { fg = "#ebcb8b", bg = "#222730" }
-unset_main  = { fg = "#2e3440", bg = "#bf616a", bold = true }
-unset_alt   = { fg = "#bf616a", bg = "#222730" }
+normal_main = { fg = "#24273a", bg = "#8aadf4", bold = true }
+normal_alt  = { fg = "#8aadf4", bg = "#1e2030" }
+select_main = { fg = "#24273a", bg = "#eed49f", bold = true }
+select_alt  = { fg = "#eed49f", bg = "#1e2030" }
+unset_main  = { fg = "#24273a", bg = "#ed8796", bold = true }
+unset_alt   = { fg = "#ed8796", bg = "#1e2030" }
 
 [status]
-perm_sep   = { fg = "#222730" }
-perm_type  = { fg = "#a3be8c" }
-perm_read  = { fg = "#ebcb8b" }
-perm_write = { fg = "#bf616a" }
-perm_exec  = { fg = "#88c0d0" }
+perm_sep   = { fg = "#1e2030" }
+perm_type  = { fg = "#a6da95" }
+perm_read  = { fg = "#eed49f" }
+perm_write = { fg = "#ed8796" }
+perm_exec  = { fg = "#8bd5ca" }
 
-progress_label  = { fg = "#d8dee9", bold = true }
-progress_normal = { fg = "#81a1c1", bg = "#222730" }
-progress_error  = { fg = "#bf616a", bg = "#222730" }
+progress_label  = { fg = "#cad3f5", bold = true }
+progress_normal = { fg = "#8aadf4", bg = "#1e2030" }
+progress_error  = { fg = "#ed8796", bg = "#1e2030" }
 
 [which]
-border          = { fg = "#81a1c1" }
+border          = { fg = "#8aadf4" }
 cols            = 3
-cand            = { fg = "#88c0d0" }
-rest            = { fg = "#4c566a" }
-desc            = { fg = "#d8dee9" }
-separator_style = { fg = "#222730" }
+cand            = { fg = "#8bd5ca" }
+rest            = { fg = "#6e738d" }
+desc            = { fg = "#cad3f5" }
+separator_style = { fg = "#1e2030" }

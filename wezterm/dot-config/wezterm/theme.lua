@@ -1,14 +1,14 @@
--- Omarchy Nord
+-- Catppuccin Macchiato
 return {
   colors = {
-    foreground = "#d8dee9",
-    background = "#2e3440",
-    cursor_bg = "#d8dee9",
-    cursor_border = "#d8dee9",
-    cursor_fg = "#2e3440",
-    selection_bg = "#434c5e",
-    selection_fg = "#d8dee9",
-    ansi = { "#2e3440", "#bf616a", "#a3be8c", "#ebcb8b", "#81a1c1", "#b48ead", "#88c0d0", "#d8dee9" },
-    brights = { "#4c566a", "#bf616a", "#a3be8c", "#ebcb8b", "#81a1c1", "#b48ead", "#8fbcbb", "#d8dee9" },
+    foreground = "#cad3f5",
+    background = "#24273a",
+    cursor_bg = "#f4dbd6",
+    cursor_border = "#f4dbd6",
+    cursor_fg = "#181926",
+    selection_bg = "#494d64",
+    selection_fg = "#cad3f5",
+    ansi = { "#494d64", "#ed8796", "#a6da95", "#eed49f", "#8aadf4", "#f5bde6", "#8bd5ca", "#a5adcb" },
+    brights = { "#5b6078", "#ec7486", "#8ccf7f", "#e1c682", "#78a1f6", "#f2a9dd", "#63cbc0", "#b8c0e0" },
   },
 }
