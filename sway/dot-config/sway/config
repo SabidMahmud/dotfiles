@@ -24,9 +24,9 @@ set $lock_cmd ~/.local/bin/sway-lock
 font pango:JetBrainsMono Nerd Font, CaskaydiaMono Nerd Font 11
 
 ### Appearance & Gaps
-gaps inner 4 
-gaps outer 8 
-default_border pixel 2
+gaps inner 1
+gaps outer 2
+default_border pixel 1
 default_floating_border pixel 2
 smart_gaps off
 smart_borders on
@@ -191,6 +191,10 @@ exec_always ~/.local/bin/sway-wallpaper
 exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec systemctl --user start sway-session.target
+
+# OpenBangla input, including native Wayland applications.
+exec fcitx5 -d
+bindsym Ctrl+space exec fcitx5-remote -t
 
 # 4. Tray Applets
 exec nm-applet --indicator

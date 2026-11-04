@@ -1,0 +1,15 @@
+themes {
+  omarchy-osaka-jade {
+    bg "#111c18"
+    fg "#C1C497"
+    red "#FF5345"
+    green "#549e6a"
+    blue "#509475"
+    yellow "#459451"
+    magenta "#D2689C"
+    orange "#a2734b"
+    cyan "#2DD5B7"
+    black "#090f0d"
+    white "#F7E8B2"
+  }
+}

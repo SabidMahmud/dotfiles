@@ -1,0 +1,15 @@
+themes {
+  omarchy-lumon {
+    bg "#16242d"
+    fg "#d6e2ee"
+    red "#4d86b0"
+    green "#5e95bc"
+    blue "#6fb8e3"
+    yellow "#6fa4c9"
+    magenta "#8bc9eb"
+    orange "#8bc9eb"
+    cyan "#b4e4f6"
+    black "#0b1216"
+    white "#f2fcff"
+  }
+}

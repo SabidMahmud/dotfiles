@@ -1,0 +1,15 @@
+themes {
+  omarchy-matte-black {
+    bg "#121212"
+    fg "#bebebe"
+    red "#D35F5F"
+    green "#FFC107"
+    blue "#e68e0d"
+    yellow "#b91c1c"
+    magenta "#D35F5F"
+    orange "#c63d3d"
+    cyan "#bebebe"
+    black "#090909"
+    white "#bebebe"
+  }
+}

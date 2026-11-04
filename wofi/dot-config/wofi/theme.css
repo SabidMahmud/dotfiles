@@ -1,8 +1,7 @@
-/* Original colorscheme by Josean Martinez */
-@define-color theme_bg rgba(1, 11, 23, 0.95);
-@define-color theme_input_bg #011429;
-@define-color theme_text #ebddf4;
-@define-color theme_text_light #b3a8d1;
-@define-color theme_border #0b3b61;
-@define-color theme_accent #378dfe;
-@define-color theme_selected_text #010b17;
+@define-color theme_bg rgba(46, 52, 64, 0.98);
+@define-color theme_input_bg #222730;
+@define-color theme_text #d8dee9;
+@define-color theme_text_light #d8dee9;
+@define-color theme_border #434c5e;
+@define-color theme_accent #81a1c1;
+@define-color theme_selected_text #2e3440;

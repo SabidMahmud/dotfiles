@@ -1,0 +1,15 @@
+themes {
+  omarchy-ethereal {
+    bg "#060B1E"
+    fg "#ffcead"
+    red "#ED5B5A"
+    green "#92a593"
+    blue "#7d82d9"
+    yellow "#E9BB4F"
+    magenta "#c89dc1"
+    orange "#eb8b54"
+    cyan "#a3bfd1"
+    black "#030610"
+    white "#ffcead"
+  }
+}

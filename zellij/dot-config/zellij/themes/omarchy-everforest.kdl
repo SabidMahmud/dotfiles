@@ -1,0 +1,15 @@
+themes {
+  omarchy-everforest {
+    bg "#2d353b"
+    fg "#d3c6aa"
+    red "#e67e80"
+    green "#a7c080"
+    blue "#7fbbb3"
+    yellow "#dbbc7f"
+    magenta "#d699b6"
+    orange "#e09d7f"
+    cyan "#83c092"
+    black "#181d20"
+    white "#d3c6aa"
+  }
+}

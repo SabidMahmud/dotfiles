@@ -1,0 +1,15 @@
+themes {
+  omarchy-hackerman {
+    bg "#0B0C16"
+    fg "#ddf7ff"
+    red "#50f872"
+    green "#4fe88f"
+    blue "#829dd4"
+    yellow "#50f7d4"
+    magenta "#86a7df"
+    orange "#50f7a3"
+    cyan "#7cf8f7"
+    black "#06060c"
+    white "#ddf7ff"
+  }
+}

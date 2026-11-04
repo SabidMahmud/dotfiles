@@ -1,6 +1,5 @@
-/* Original colorscheme by Josean Martinez */
-@define-color theme_bg_color #010b17;
-@define-color theme_text_color #ebddf4;
-@define-color theme_notif_bg #0b3b61;
-@define-color theme_border_color #135080;
-@define-color theme_accent_color #378dfe;
+@define-color theme_bg_color #2e3440;
+@define-color theme_text_color #d8dee9;
+@define-color theme_notif_bg #222730;
+@define-color theme_border_color #434c5e;
+@define-color theme_accent_color #81a1c1;

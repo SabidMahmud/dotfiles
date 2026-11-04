@@ -1,0 +1,15 @@
+themes {
+  omarchy-last-horizon {
+    bg "#0c0b0c"
+    fg "#FAFCFB"
+    red "#c38b7b"
+    green "#87a9b0"
+    blue "#b59790"
+    yellow "#6B5E73"
+    magenta "#c4d8e2"
+    orange "#6B5E73"
+    cyan "#a5a0b6"
+    black "#060606"
+    white "#e2dddc"
+  }
+}

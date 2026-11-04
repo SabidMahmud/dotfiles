@@ -1,0 +1,15 @@
+themes {
+  omarchy-gruvbox {
+    bg "#282828"
+    fg "#d4be98"
+    red "#ea6962"
+    green "#a9b665"
+    blue "#7daea3"
+    yellow "#d8a657"
+    magenta "#d3869b"
+    orange "#e1875c"
+    cyan "#89b482"
+    black "#161616"
+    white "#d4be98"
+  }
+}

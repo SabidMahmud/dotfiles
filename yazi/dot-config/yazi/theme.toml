@@ -1,13 +1,60 @@
-[manager]
-cwd = { fg = "#15fca2" }
-hovered = { reversed = true }
-preview_hovered = { reversed = true }
-find_keyword = { fg = "#fff383", italic = true }
-find_position = { fg = "#ae81ff", bg = "reset", italic = true }
-marker_selected = { fg = "#52ffcf", bg = "#52ffcf" }
-marker_copied = { fg = "#fff383", bg = "#fff383" }
-marker_cut = { fg = "#ff3a3a", bg = "#ff3a3a" }
-tab_active = { fg = "#010b17", bg = "#378dfe" }
-tab_inactive = { fg = "#ebddf4", bg = "#0b3b61" }
+# Omarchy Nord
+
+[mgr]
+hovered = { fg = "#d8dee9", bg = "#3b4252" }
+preview_hovered = { underline = true }
+cwd = { fg = "#88c0d0" }
+
+# Find
+find_keyword  = { fg = "#2e3440", bg = "#ebcb8b", bold = true }
+find_position = { fg = "#b48ead", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#88c0d0", italic = true }
+
+# Marker
+marker_copied   = { fg = "#a3be8c", bg = "#a3be8c" }
+marker_cut      = { fg = "#bf616a", bg = "#bf616a" }
+marker_marked   = { fg = "#81a1c1", bg = "#81a1c1" }
+marker_selected = { fg = "#ebcb8b", bg = "#ebcb8b" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#2e3440", bg = "#a3be8c" }
+count_cut      = { fg = "#2e3440", bg = "#bf616a" }
+count_selected = { fg = "#2e3440", bg = "#ebcb8b" }
+
+# Border
 border_symbol = "│"
-border_style = { fg = "#135080" }
+border_style  = { fg = "#222730" }
+
+[tabs]
+active   = { fg = "#2e3440", bg = "#88c0d0", bold = true }
+inactive = { fg = "#d8dee9", bg = "#222730" }
+
+[mode]
+normal_main = { fg = "#2e3440", bg = "#81a1c1", bold = true }
+normal_alt  = { fg = "#81a1c1", bg = "#222730" }
+select_main = { fg = "#2e3440", bg = "#ebcb8b", bold = true }
+select_alt  = { fg = "#ebcb8b", bg = "#222730" }
+unset_main  = { fg = "#2e3440", bg = "#bf616a", bold = true }
+unset_alt   = { fg = "#bf616a", bg = "#222730" }
+
+[status]
+perm_sep   = { fg = "#222730" }
+perm_type  = { fg = "#a3be8c" }
+perm_read  = { fg = "#ebcb8b" }
+perm_write = { fg = "#bf616a" }
+perm_exec  = { fg = "#88c0d0" }
+
+progress_label  = { fg = "#d8dee9", bold = true }
+progress_normal = { fg = "#81a1c1", bg = "#222730" }
+progress_error  = { fg = "#bf616a", bg = "#222730" }
+
+[which]
+border          = { fg = "#81a1c1" }
+cols            = 3
+cand            = { fg = "#88c0d0" }
+rest            = { fg = "#4c566a" }
+desc            = { fg = "#d8dee9" }
+separator_style = { fg = "#222730" }
