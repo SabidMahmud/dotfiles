@@ -156,6 +156,7 @@ set -g message-style "bg={colors['accent']},fg={colors['background']},bold"''')
     yazi = (REPO / "themes/catppuccin-mocha/yazi.toml").read_text()
     yazi = re.sub(r"#[\da-fA-F]{6}", lambda match: mapping.get(match[0].lower(), colors["muted"]), yazi)
     write("yazi.toml", yazi.replace("Catppuccin Mocha", title))
+    # Hyprlock uses Hyprlang: preserve the template's ## escape in Pango colours.
     lock = (REPO / "themes/catppuccin-mocha/hyprlock.conf").read_text().replace("Catppuccin Mocha", title)
     lock_mapping = {rgb(reference[key]): colors[target] for key, target in {
         "text": "foreground", "mauve": "accent", "base": "background", "green": "green", "red": "red"

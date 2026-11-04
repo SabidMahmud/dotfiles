@@ -21,7 +21,7 @@ Personal GNU Stow dotfiles for a Sway/Wayland Linux desktop. No build, tests, or
 - `install.sh` runs `sudo` package installs (apt/pacman/dnf) and auto-detects a graphical session; use it with care on headless machines (pass `--desktop` only to force desktop packages).
 - Sway `gaps` config directives only apply to *new* workspaces on `swaymsg reload`; existing workspaces keep their old per-workspace gaps. Update live sessions with `swaymsg "gaps inner all set 2"` / `swaymsg "gaps outer all set 0"` (bare `gaps inner 2` is a no-op over IPC).
 - kitty IPC (`kitten @ --to=unix:@mykitty ...`) only works for kitty instances started after `listen_on` was added to the config; older instances need a config reload (`Ctrl+Shift+F5`) or restart.
-- `sway-autotile` and `wallpaper-preview` are Python 3, not bash.
+- `sway-lock`, `sway-autotile`, `theme-picker`, and `wallpaper-preview` are Python 3, not bash.
 
 ## Conventions
 

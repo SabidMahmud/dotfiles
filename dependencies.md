@@ -42,6 +42,7 @@ These packages are installed automatically if a graphical session (`$WAYLAND_DIS
 | `playerctl` | Command-line media player control (used by Waybar and hotkeys). |
 | `nautilus` | Default graphical file manager (GNOME Files). |
 | `hyprlock` | Fast, GPU-accelerated screen locker (requires separate install on older distros). |
+| `swaylock` | Fallback screen locker; used if Hyprlock is missing, fails to start, or crashes. |
 | `pavucontrol` | PulseAudio/PipeWire GUI volume mixer (launched from Waybar audio widget). |
 | `blueman` | Bluetooth manager GUI and tray applet (`blueman-applet`, `blueman-manager`). |
 | `cliphist` | Wayland clipboard history manager; stores clipboard entries and pipes into `wofi --dmenu` (`Super+V`). |

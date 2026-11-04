@@ -208,6 +208,7 @@ exec_always wl-paste --watch cliphist store
 bindsym $mod+v exec pkill -x wofi || (cliphist list | wofi --dmenu -p "󰅍 Clipboard" | cliphist decode | wl-copy)
 
 # 6. Idle Manager & Screen Lock
+# sway-lock returns after lock confirmation, allowing the later timeout to run.
 exec_always pkill -x swayidle 2>/dev/null; swayidle -w \
     timeout 600 $lock_cmd \
     timeout 900 'swaymsg "output * power off"' \

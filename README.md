@@ -54,7 +54,7 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 - **Dynamic Tiling (`sway-autotile`)**: A background IPC daemon that automatically alternates horizontal and vertical window splits based on the active container's aspect ratio, providing a seamless dwindle-style tiling experience (similar to Hyprland / Omarchy).
 - **Status Bar ([Waybar](https://github.com/Alexays/Waybar))**: Top status bar displaying active workspaces, window title, CPU, memory, battery, audio, network applet, clock, and an interactive power button.
 - **Application Launcher ([Wofi](https://hg.sr.ht/~scoopta/wofi))**: Fast Wayland menu for launching desktop applications (`Super + Space` or `Super + d`).
-- **Screen Locker ([Hyprlock](https://github.com/hyprwm/hyprlock))**: High-performance Wayland screen locker displaying system time, active user, and password authentication (`Super + Escape` or automatic idle lock via `swayidle`).
+- **Screen Locker ([Hyprlock](https://github.com/hyprwm/hyprlock))**: Wayland screen locker displaying the time, date, and password prompt (`Super + Escape` or automatic idle lock via `swayidle`). The `sway-lock` launcher returns after lock confirmation, so later idle actions can run while the screen stays locked. It uses swaylock if Hyprlock is unavailable, fails to start, or crashes.
 - **Power Menu (`sway-powermenu`)**: Wofi-powered dialog for lock, suspend, logout, reboot, and poweroff (`Super + BackSpace`).
 - **Wallpaper Daemon (`sway-wallpaper`)**: Automatically sets and updates the desktop wallpaper with `swaybg`, integrating directly with the active theme selected by `theme-switch`.
 - **Theme and Wallpaper Picker ([Quickshell](https://quickshell.org/))**: An on-demand carousel adapted from Omarchy's image picker. Browse themes, change the current theme's wallpaper, or use `theme browse` to select a wallpaper and apply its matching preset.
@@ -253,6 +253,7 @@ in `~/.cache/dotfiles/theme-picker/` and regenerated when source images change.
 
 - **Core**: Git, [GNU Stow](https://www.gnu.org/software/stow/), Zsh, Python 3, Neovim, Tmux, curl, wget, ripgrep, fzf
 - **Desktop (Sway / Wayland)**: Sway, Waybar, SwayNC, Wofi, Hyprlock, swaybg, swayidle, grim, slurp, wl-clipboard, brightnessctl, playerctl, nautilus, pavucontrol, blueman, cliphist, nwg-displays, kanshi, power-profiles-daemon, JetBrainsMono Nerd Font
+- **Lock launcher**: Python 3 and coreutils (`stdbuf`), with Hyprlock 0.9.6 or swaylock. A small supervisor runs only while locked; concurrent requests share it. Hyprlock readiness uses its compositor-confirmation message; swaylock uses its readiness file descriptor. Startup attempts are bounded, and failure to confirm either locker returns an error.
 
 For a complete breakdown of what each dependency is used for, as well as optional/extended tools (like WezTerm, Zellij, and Yazi), see the **[Dependencies List](dependencies.md)**.
 
