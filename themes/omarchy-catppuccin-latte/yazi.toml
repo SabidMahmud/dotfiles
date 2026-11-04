@@ -1,0 +1,60 @@
+# Omarchy Catppuccin Latte
+
+[mgr]
+hovered = { fg = "#4c4f69", bg = "#dce0e8" }
+preview_hovered = { underline = true }
+cwd = { fg = "#179299" }
+
+# Find
+find_keyword  = { fg = "#eff1f5", bg = "#df8e1d", bold = true }
+find_position = { fg = "#ea76cb", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#179299", italic = true }
+
+# Marker
+marker_copied   = { fg = "#40a02b", bg = "#40a02b" }
+marker_cut      = { fg = "#d20f39", bg = "#d20f39" }
+marker_marked   = { fg = "#1e66f5", bg = "#1e66f5" }
+marker_selected = { fg = "#df8e1d", bg = "#df8e1d" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#eff1f5", bg = "#40a02b" }
+count_cut      = { fg = "#eff1f5", bg = "#d20f39" }
+count_selected = { fg = "#eff1f5", bg = "#df8e1d" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#e3e4e8" }
+
+[tabs]
+active   = { fg = "#eff1f5", bg = "#179299", bold = true }
+inactive = { fg = "#4c4f69", bg = "#e3e4e8" }
+
+[mode]
+normal_main = { fg = "#eff1f5", bg = "#1e66f5", bold = true }
+normal_alt  = { fg = "#1e66f5", bg = "#e3e4e8" }
+select_main = { fg = "#eff1f5", bg = "#df8e1d", bold = true }
+select_alt  = { fg = "#df8e1d", bg = "#e3e4e8" }
+unset_main  = { fg = "#eff1f5", bg = "#d20f39", bold = true }
+unset_alt   = { fg = "#d20f39", bg = "#e3e4e8" }
+
+[status]
+perm_sep   = { fg = "#e3e4e8" }
+perm_type  = { fg = "#40a02b" }
+perm_read  = { fg = "#df8e1d" }
+perm_write = { fg = "#d20f39" }
+perm_exec  = { fg = "#179299" }
+
+progress_label  = { fg = "#4c4f69", bold = true }
+progress_normal = { fg = "#1e66f5", bg = "#e3e4e8" }
+progress_error  = { fg = "#d20f39", bg = "#e3e4e8" }
+
+[which]
+border          = { fg = "#1e66f5" }
+cols            = 3
+cand            = { fg = "#179299" }
+rest            = { fg = "#acb0be" }
+desc            = { fg = "#4c4f69" }
+separator_style = { fg = "#e3e4e8" }

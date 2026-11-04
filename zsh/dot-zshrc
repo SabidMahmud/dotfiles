@@ -78,3 +78,6 @@ function y() {
 
 # --- Aliases ---
 alias theme="theme-switch"
+
+# opencode
+export PATH=/home/mirok/.opencode/bin:$PATH

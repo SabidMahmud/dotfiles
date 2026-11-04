@@ -24,9 +24,9 @@ set $lock_cmd ~/.local/bin/sway-lock
 font pango:JetBrainsMono Nerd Font, CaskaydiaMono Nerd Font 11
 
 ### Appearance & Gaps
-gaps inner 4 
-gaps outer 8 
-default_border pixel 2
+gaps inner 1
+gaps outer 2
+default_border pixel 1
 default_floating_border pixel 2
 smart_gaps off
 smart_borders on
@@ -72,6 +72,10 @@ bindsym $mod+space exec $menu
 bindsym $mod+d exec $menu
 bindsym $mod+b exec x-www-browser || xdg-open https://google.com
 bindsym $mod+Shift+Return exec $term -e yazi
+
+# Appearance gallery (on-demand Quickshell, with a terminal fallback)
+bindsym $mod+Ctrl+Shift+space exec ~/.local/bin/theme-switch
+bindsym $mod+Ctrl+space exec ~/.local/bin/theme-switch wallpaper
 
 # Kill focused window (Omarchy uses Super+Q)
 bindsym $mod+q kill
@@ -188,6 +192,10 @@ exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec systemctl --user start sway-session.target
 
+# OpenBangla input, including native Wayland applications.
+exec fcitx5 -d
+bindsym Ctrl+space exec fcitx5-remote -t
+
 # 4. Tray Applets
 exec nm-applet --indicator
 exec blueman-applet
@@ -200,6 +208,7 @@ exec_always wl-paste --watch cliphist store
 bindsym $mod+v exec pkill -x wofi || (cliphist list | wofi --dmenu -p "󰅍 Clipboard" | cliphist decode | wl-copy)
 
 # 6. Idle Manager & Screen Lock
+# sway-lock returns after lock confirmation, allowing the later timeout to run.
 exec_always pkill -x swayidle 2>/dev/null; swayidle -w \
     timeout 600 $lock_cmd \
     timeout 900 'swaymsg "output * power off"' \

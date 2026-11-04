@@ -1,0 +1,15 @@
+themes {
+  omarchy-rose-pine {
+    bg "#faf4ed"
+    fg "#575279"
+    red "#b4637a"
+    green "#286983"
+    blue "#56949f"
+    yellow "#ea9d34"
+    magenta "#907aa9"
+    orange "#cf8057"
+    cyan "#d7827e"
+    black "#e1dbd5"
+    white "#575279"
+  }
+}

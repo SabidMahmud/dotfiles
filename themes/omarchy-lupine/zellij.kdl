@@ -1,0 +1,15 @@
+themes {
+  omarchy-lupine {
+    bg "#fafafa"
+    fg "#212121"
+    red "#c900c4"
+    green "#4a2fd0"
+    blue "#3264eb"
+    yellow "#026fde"
+    magenta "#8a4ad7"
+    orange "#026fde"
+    cyan "#0c67de"
+    black "#dedede"
+    white "#000000"
+  }
+}

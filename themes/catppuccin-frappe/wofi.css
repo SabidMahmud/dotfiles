@@ -1,0 +1,7 @@
+@define-color theme_bg rgba(48, 52, 70, 0.98);
+@define-color theme_input_bg #292c3c;
+@define-color theme_text #c6d0f5;
+@define-color theme_text_light #c6d0f5;
+@define-color theme_border #51576d;
+@define-color theme_accent #ca9ee6;
+@define-color theme_selected_text #303446;

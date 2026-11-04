@@ -1,0 +1,60 @@
+# Omarchy Flexoki Light
+
+[mgr]
+hovered = { fg = "#100F0F", bg = "#E6E4D9" }
+preview_hovered = { underline = true }
+cwd = { fg = "#3AA99F" }
+
+# Find
+find_keyword  = { fg = "#FFFCF0", bg = "#D0A215", bold = true }
+find_position = { fg = "#CE5D97", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#3AA99F", italic = true }
+
+# Marker
+marker_copied   = { fg = "#879A39", bg = "#879A39" }
+marker_cut      = { fg = "#D14D41", bg = "#D14D41" }
+marker_marked   = { fg = "#205EA6", bg = "#205EA6" }
+marker_selected = { fg = "#D0A215", bg = "#D0A215" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#FFFCF0", bg = "#879A39" }
+count_cut      = { fg = "#FFFCF0", bg = "#D14D41" }
+count_selected = { fg = "#FFFCF0", bg = "#D0A215" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#f2efe4" }
+
+[tabs]
+active   = { fg = "#FFFCF0", bg = "#3AA99F", bold = true }
+inactive = { fg = "#100F0F", bg = "#f2efe4" }
+
+[mode]
+normal_main = { fg = "#FFFCF0", bg = "#205EA6", bold = true }
+normal_alt  = { fg = "#205EA6", bg = "#f2efe4" }
+select_main = { fg = "#FFFCF0", bg = "#D0A215", bold = true }
+select_alt  = { fg = "#D0A215", bg = "#f2efe4" }
+unset_main  = { fg = "#FFFCF0", bg = "#D14D41", bold = true }
+unset_alt   = { fg = "#D14D41", bg = "#f2efe4" }
+
+[status]
+perm_sep   = { fg = "#f2efe4" }
+perm_type  = { fg = "#879A39" }
+perm_read  = { fg = "#D0A215" }
+perm_write = { fg = "#D14D41" }
+perm_exec  = { fg = "#3AA99F" }
+
+progress_label  = { fg = "#100F0F", bold = true }
+progress_normal = { fg = "#205EA6", bg = "#f2efe4" }
+progress_error  = { fg = "#D14D41", bg = "#f2efe4" }
+
+[which]
+border          = { fg = "#205EA6" }
+cols            = 3
+cand            = { fg = "#3AA99F" }
+rest            = { fg = "#B7B5AC" }
+desc            = { fg = "#100F0F" }
+separator_style = { fg = "#f2efe4" }

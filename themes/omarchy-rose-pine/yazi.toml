@@ -1,0 +1,60 @@
+# Omarchy Rose Pine
+
+[mgr]
+hovered = { fg = "#575279", bg = "#f2e9e1" }
+preview_hovered = { underline = true }
+cwd = { fg = "#d7827e" }
+
+# Find
+find_keyword  = { fg = "#faf4ed", bg = "#ea9d34", bold = true }
+find_position = { fg = "#907aa9", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#d7827e", italic = true }
+
+# Marker
+marker_copied   = { fg = "#286983", bg = "#286983" }
+marker_cut      = { fg = "#b4637a", bg = "#b4637a" }
+marker_marked   = { fg = "#56949f", bg = "#56949f" }
+marker_selected = { fg = "#ea9d34", bg = "#ea9d34" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#faf4ed", bg = "#286983" }
+count_cut      = { fg = "#faf4ed", bg = "#b4637a" }
+count_selected = { fg = "#faf4ed", bg = "#ea9d34" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#ede7e1" }
+
+[tabs]
+active   = { fg = "#faf4ed", bg = "#d7827e", bold = true }
+inactive = { fg = "#575279", bg = "#ede7e1" }
+
+[mode]
+normal_main = { fg = "#faf4ed", bg = "#56949f", bold = true }
+normal_alt  = { fg = "#56949f", bg = "#ede7e1" }
+select_main = { fg = "#faf4ed", bg = "#ea9d34", bold = true }
+select_alt  = { fg = "#ea9d34", bg = "#ede7e1" }
+unset_main  = { fg = "#faf4ed", bg = "#b4637a", bold = true }
+unset_alt   = { fg = "#b4637a", bg = "#ede7e1" }
+
+[status]
+perm_sep   = { fg = "#ede7e1" }
+perm_type  = { fg = "#286983" }
+perm_read  = { fg = "#ea9d34" }
+perm_write = { fg = "#b4637a" }
+perm_exec  = { fg = "#d7827e" }
+
+progress_label  = { fg = "#575279", bold = true }
+progress_normal = { fg = "#56949f", bg = "#ede7e1" }
+progress_error  = { fg = "#b4637a", bg = "#ede7e1" }
+
+[which]
+border          = { fg = "#56949f" }
+cols            = 3
+cand            = { fg = "#d7827e" }
+rest            = { fg = "#cecacd" }
+desc            = { fg = "#575279" }
+separator_style = { fg = "#ede7e1" }

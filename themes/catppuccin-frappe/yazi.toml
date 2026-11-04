@@ -1,0 +1,60 @@
+# Catppuccin Frappé
+
+[mgr]
+hovered = { fg = "#c6d0f5", bg = "#414559" }
+preview_hovered = { underline = true }
+cwd = { fg = "#81c8be" }
+
+# Find
+find_keyword  = { fg = "#303446", bg = "#e5c890", bold = true }
+find_position = { fg = "#ca9ee6", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#81c8be", italic = true }
+
+# Marker
+marker_copied   = { fg = "#a6d189", bg = "#a6d189" }
+marker_cut      = { fg = "#e78284", bg = "#e78284" }
+marker_marked   = { fg = "#8caaee", bg = "#8caaee" }
+marker_selected = { fg = "#e5c890", bg = "#e5c890" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#303446", bg = "#a6d189" }
+count_cut      = { fg = "#303446", bg = "#e78284" }
+count_selected = { fg = "#303446", bg = "#e5c890" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#292c3c" }
+
+[tabs]
+active   = { fg = "#303446", bg = "#81c8be", bold = true }
+inactive = { fg = "#c6d0f5", bg = "#292c3c" }
+
+[mode]
+normal_main = { fg = "#303446", bg = "#8caaee", bold = true }
+normal_alt  = { fg = "#8caaee", bg = "#292c3c" }
+select_main = { fg = "#303446", bg = "#e5c890", bold = true }
+select_alt  = { fg = "#e5c890", bg = "#292c3c" }
+unset_main  = { fg = "#303446", bg = "#e78284", bold = true }
+unset_alt   = { fg = "#e78284", bg = "#292c3c" }
+
+[status]
+perm_sep   = { fg = "#292c3c" }
+perm_type  = { fg = "#a6d189" }
+perm_read  = { fg = "#e5c890" }
+perm_write = { fg = "#e78284" }
+perm_exec  = { fg = "#81c8be" }
+
+progress_label  = { fg = "#c6d0f5", bold = true }
+progress_normal = { fg = "#8caaee", bg = "#292c3c" }
+progress_error  = { fg = "#e78284", bg = "#292c3c" }
+
+[which]
+border          = { fg = "#8caaee" }
+cols            = 3
+cand            = { fg = "#81c8be" }
+rest            = { fg = "#737994" }
+desc            = { fg = "#c6d0f5" }
+separator_style = { fg = "#292c3c" }

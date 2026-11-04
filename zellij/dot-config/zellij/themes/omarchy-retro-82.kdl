@@ -1,0 +1,15 @@
+themes {
+  omarchy-retro-82 {
+    bg "#05182e"
+    fg "#f6dcac"
+    red "#f85525"
+    green "#028391"
+    blue "#3f8f8a"
+    yellow "#e97b3c"
+    magenta "#3f8f8a"
+    orange "#faa968"
+    cyan "#8cbfb8"
+    black "#020c17"
+    white "#f6dcac"
+  }
+}

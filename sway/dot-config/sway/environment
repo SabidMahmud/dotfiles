@@ -1,0 +1,4 @@
+# Input methods for GTK/Qt applications and XWayland.
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx

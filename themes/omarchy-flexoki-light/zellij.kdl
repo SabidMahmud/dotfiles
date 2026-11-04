@@ -1,0 +1,15 @@
+themes {
+  omarchy-flexoki-light {
+    bg "#FFFCF0"
+    fg "#100F0F"
+    red "#D14D41"
+    green "#879A39"
+    blue "#205EA6"
+    yellow "#D0A215"
+    magenta "#CE5D97"
+    orange "#d0772b"
+    cyan "#3AA99F"
+    black "#e5e2d8"
+    white "#100F0F"
+  }
+}

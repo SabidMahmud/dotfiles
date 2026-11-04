@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="$base"/>
+  <circle cx="1370" cy="320" r="108" fill="$peach"/>
+  <path d="M0 690 310 440 580 680 960 350 1320 740 1650 470 1920 700V1080H0Z" fill="$surface0"/>
+  <path d="m960 350-93 156 98-45 108 65Z" fill="$lavender"/>
+  <path d="M0 810 360 630 710 870 1190 570 1570 840 1920 620V1080H0Z" fill="$surface1"/>
+  <path d="M0 940Q290 790 580 960T1170 900T1920 890V1080H0Z" fill="$mantle"/>
+  <path d="M0 1030Q340 880 760 1030T1510 990T1920 970V1080H0Z" fill="$crust"/>
+</svg>

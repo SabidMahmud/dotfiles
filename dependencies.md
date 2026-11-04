@@ -42,6 +42,7 @@ These packages are installed automatically if a graphical session (`$WAYLAND_DIS
 | `playerctl` | Command-line media player control (used by Waybar and hotkeys). |
 | `nautilus` | Default graphical file manager (GNOME Files). |
 | `hyprlock` | Fast, GPU-accelerated screen locker (requires separate install on older distros). |
+| `swaylock` | Fallback screen locker; used if Hyprlock is missing, fails to start, or crashes. |
 | `pavucontrol` | PulseAudio/PipeWire GUI volume mixer (launched from Waybar audio widget). |
 | `blueman` | Bluetooth manager GUI and tray applet (`blueman-applet`, `blueman-manager`). |
 | `cliphist` | Wayland clipboard history manager; stores clipboard entries and pipes into `wofi --dmenu` (`Super+V`). |
@@ -64,5 +65,14 @@ These are standalone modern tools that heavily enhance the workflow, but often n
 | **Scrcpy** | Available in most package managers (Low-latency Android screen mirroring and remote control) |
 | **LocalSend** | [Install Guide](https://localsend.org/) (AirDrop alternative for cross-platform local file sharing) |
 | **Gum** | [Install Guide](https://github.com/charmbracelet/gum#installation) (Optional fallback for `theme-switch` UI) |
+| **Quickshell** | [Install Guide](https://quickshell.org/docs/v0.3.0/guide/install-setup/) (Graphical theme and wallpaper gallery; falls back to the terminal picker when unavailable) |
+| **ImageMagick** | Available as `ImageMagick` on Fedora or `imagemagick` on Debian/Arch (Optional cached gallery thumbnails; Qt provides size-limited previews without it) |
 | **Mise** | [Install Guide](https://mise.jdx.dev/getting-started.html) (Dev environment manager, replaces asdf/nvm/pyenv) |
+
+The Quickshell picker needs Qt Quick Controls, Qt Wayland, and Qt image-format
+plugins for the wallpaper types you use. On Fedora, install it with
+`sudo dnf install quickshell qt6-qtimageformats ImageMagick`. If Quickshell is
+not in your distribution's repositories, follow the upstream installation
+guide above. The bootstrap script leaves this optional dependency to a separate
+installation so it does not add third-party repositories automatically.
 
