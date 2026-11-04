@@ -1,0 +1,60 @@
+# Omarchy Kanagawa
+
+[mgr]
+hovered = { fg = "#dcd7ba", bg = "#223249" }
+preview_hovered = { underline = true }
+cwd = { fg = "#6a9589" }
+
+# Find
+find_keyword  = { fg = "#1f1f28", bg = "#c0a36e", bold = true }
+find_position = { fg = "#957fb8", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#6a9589", italic = true }
+
+# Marker
+marker_copied   = { fg = "#76946a", bg = "#76946a" }
+marker_cut      = { fg = "#c34043", bg = "#c34043" }
+marker_marked   = { fg = "#dcd7ba", bg = "#dcd7ba" }
+marker_selected = { fg = "#c0a36e", bg = "#c0a36e" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#1f1f28", bg = "#76946a" }
+count_cut      = { fg = "#1f1f28", bg = "#c34043" }
+count_selected = { fg = "#1f1f28", bg = "#c0a36e" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#17171e" }
+
+[tabs]
+active   = { fg = "#1f1f28", bg = "#6a9589", bold = true }
+inactive = { fg = "#dcd7ba", bg = "#17171e" }
+
+[mode]
+normal_main = { fg = "#1f1f28", bg = "#dcd7ba", bold = true }
+normal_alt  = { fg = "#dcd7ba", bg = "#17171e" }
+select_main = { fg = "#1f1f28", bg = "#c0a36e", bold = true }
+select_alt  = { fg = "#c0a36e", bg = "#17171e" }
+unset_main  = { fg = "#1f1f28", bg = "#c34043", bold = true }
+unset_alt   = { fg = "#c34043", bg = "#17171e" }
+
+[status]
+perm_sep   = { fg = "#17171e" }
+perm_type  = { fg = "#76946a" }
+perm_read  = { fg = "#c0a36e" }
+perm_write = { fg = "#c34043" }
+perm_exec  = { fg = "#6a9589" }
+
+progress_label  = { fg = "#dcd7ba", bold = true }
+progress_normal = { fg = "#dcd7ba", bg = "#17171e" }
+progress_error  = { fg = "#c34043", bg = "#17171e" }
+
+[which]
+border          = { fg = "#dcd7ba" }
+cols            = 3
+cand            = { fg = "#6a9589" }
+rest            = { fg = "#54546D" }
+desc            = { fg = "#dcd7ba" }
+separator_style = { fg = "#17171e" }

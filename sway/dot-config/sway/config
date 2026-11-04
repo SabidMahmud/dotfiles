@@ -73,6 +73,10 @@ bindsym $mod+d exec $menu
 bindsym $mod+b exec x-www-browser || xdg-open https://google.com
 bindsym $mod+Shift+Return exec $term -e yazi
 
+# Appearance gallery (on-demand Quickshell, with a terminal fallback)
+bindsym $mod+Ctrl+Shift+space exec ~/.local/bin/theme-switch
+bindsym $mod+Ctrl+space exec ~/.local/bin/theme-switch wallpaper
+
 # Kill focused window (Omarchy uses Super+Q)
 bindsym $mod+q kill
 bindsym $mod+Shift+q kill

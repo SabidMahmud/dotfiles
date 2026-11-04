@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="$base"/>
+  <path d="M1040-100C680 110 1470 290 1200 580S1020 870 1430 1180H2020V-100Z" fill="$mantle"/>
+  <path d="M1300-100C850 170 1740 300 1380 640S1310 980 1610 1180H2020V-100Z" fill="$surface0"/>
+  <path d="M1530-100C1060 240 1960 300 1580 720S1600 990 1750 1180H2020V-100Z" fill="$blue" fill-opacity=".6"/>
+  <path d="M1770-100C1280 260 2120 400 1820 800S1770 1010 1890 1180H2020V-100Z" fill="$teal" fill-opacity=".7"/>
+  <path d="M1120-100C760 110 1550 290 1280 580S1100 870 1510 1180" fill="none" stroke="$lavender" stroke-opacity=".55" stroke-width="2"/>
+</svg>

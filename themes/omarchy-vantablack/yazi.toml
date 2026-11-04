@@ -1,0 +1,60 @@
+# Omarchy Vantablack
+
+[mgr]
+hovered = { fg = "#ffffff", bg = "#1a1a1a" }
+preview_hovered = { underline = true }
+cwd = { fg = "#b0b0b0" }
+
+# Find
+find_keyword  = { fg = "#000000", bg = "#cecece", bold = true }
+find_position = { fg = "#9b9b9b", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#b0b0b0", italic = true }
+
+# Marker
+marker_copied   = { fg = "#b6b6b6", bg = "#b6b6b6" }
+marker_cut      = { fg = "#a4a4a4", bg = "#a4a4a4" }
+marker_marked   = { fg = "#8d8d8d", bg = "#8d8d8d" }
+marker_selected = { fg = "#cecece", bg = "#cecece" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#000000", bg = "#b6b6b6" }
+count_cut      = { fg = "#000000", bg = "#a4a4a4" }
+count_selected = { fg = "#000000", bg = "#cecece" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#090909" }
+
+[tabs]
+active   = { fg = "#000000", bg = "#b0b0b0", bold = true }
+inactive = { fg = "#ffffff", bg = "#090909" }
+
+[mode]
+normal_main = { fg = "#000000", bg = "#8d8d8d", bold = true }
+normal_alt  = { fg = "#8d8d8d", bg = "#090909" }
+select_main = { fg = "#000000", bg = "#cecece", bold = true }
+select_alt  = { fg = "#cecece", bg = "#090909" }
+unset_main  = { fg = "#000000", bg = "#a4a4a4", bold = true }
+unset_alt   = { fg = "#a4a4a4", bg = "#090909" }
+
+[status]
+perm_sep   = { fg = "#090909" }
+perm_type  = { fg = "#b6b6b6" }
+perm_read  = { fg = "#cecece" }
+perm_write = { fg = "#a4a4a4" }
+perm_exec  = { fg = "#b0b0b0" }
+
+progress_label  = { fg = "#ffffff", bold = true }
+progress_normal = { fg = "#8d8d8d", bg = "#090909" }
+progress_error  = { fg = "#a4a4a4", bg = "#090909" }
+
+[which]
+border          = { fg = "#8d8d8d" }
+cols            = 3
+cand            = { fg = "#b0b0b0" }
+rest            = { fg = "#7a7a7a" }
+desc            = { fg = "#ffffff" }
+separator_style = { fg = "#090909" }

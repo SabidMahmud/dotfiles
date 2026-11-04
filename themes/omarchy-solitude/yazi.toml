@@ -1,0 +1,60 @@
+# Omarchy Solitude
+
+[mgr]
+hovered = { fg = "#cacccc", bg = "#101315" }
+preview_hovered = { underline = true }
+cwd = { fg = "#707070" }
+
+# Find
+find_keyword  = { fg = "#101315", bg = "#d9dbdc", bold = true }
+find_position = { fg = "#aeaeae", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#707070", italic = true }
+
+# Marker
+marker_copied   = { fg = "#9fa5a9", bg = "#9fa5a9" }
+marker_cut      = { fg = "#565d60", bg = "#565d60" }
+marker_marked   = { fg = "#798186", bg = "#798186" }
+marker_selected = { fg = "#d9dbdc", bg = "#d9dbdc" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#101315", bg = "#9fa5a9" }
+count_cut      = { fg = "#101315", bg = "#565d60" }
+count_selected = { fg = "#101315", bg = "#d9dbdc" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#0c0e10" }
+
+[tabs]
+active   = { fg = "#101315", bg = "#707070", bold = true }
+inactive = { fg = "#cacccc", bg = "#0c0e10" }
+
+[mode]
+normal_main = { fg = "#101315", bg = "#798186", bold = true }
+normal_alt  = { fg = "#798186", bg = "#0c0e10" }
+select_main = { fg = "#101315", bg = "#d9dbdc", bold = true }
+select_alt  = { fg = "#d9dbdc", bg = "#0c0e10" }
+unset_main  = { fg = "#101315", bg = "#565d60", bold = true }
+unset_alt   = { fg = "#565d60", bg = "#0c0e10" }
+
+[status]
+perm_sep   = { fg = "#0c0e10" }
+perm_type  = { fg = "#9fa5a9" }
+perm_read  = { fg = "#d9dbdc" }
+perm_write = { fg = "#565d60" }
+perm_exec  = { fg = "#707070" }
+
+progress_label  = { fg = "#cacccc", bold = true }
+progress_normal = { fg = "#798186", bg = "#0c0e10" }
+progress_error  = { fg = "#565d60", bg = "#0c0e10" }
+
+[which]
+border          = { fg = "#798186" }
+cols            = 3
+cand            = { fg = "#707070" }
+rest            = { fg = "#4b4e55" }
+desc            = { fg = "#cacccc" }
+separator_style = { fg = "#0c0e10" }

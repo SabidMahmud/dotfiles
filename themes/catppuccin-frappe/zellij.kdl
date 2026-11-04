@@ -1,0 +1,15 @@
+themes {
+  catppuccin-frappe {
+    bg "#414559"
+    fg "#c6d0f5"
+    red "#e78284"
+    green "#a6d189"
+    blue "#8caaee"
+    yellow "#e5c890"
+    magenta "#f4b8e4"
+    orange "#ef9f76"
+    cyan "#99d1db"
+    black "#232634"
+    white "#c6d0f5"
+  }
+}

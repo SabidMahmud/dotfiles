@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="$base"/>
+  <circle cx="490" cy="350" r="135" fill="$yellow"/>
+  <path d="M0 700Q400 380 890 690T1920 510V1080H0Z" fill="$surface0"/>
+  <path d="M0 810Q620 930 1170 600Q1550 370 1920 730V1080H0Z" fill="$peach" fill-opacity=".42"/>
+  <path d="M0 730Q420 550 900 890T1920 800V1080H0Z" fill="$surface1"/>
+  <path d="M0 1020Q450 770 1030 970T1920 890V1080H0Z" fill="$mantle"/>
+  <path d="M60 1000Q500 830 960 972" fill="none" stroke="$rosewater" stroke-opacity=".45" stroke-width="2"/>
+</svg>

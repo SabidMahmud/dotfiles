@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="$base"/>
+  <g transform="translate(1040 180)">
+    <path d="M0 240A240 240 0 0 1 240 0V240Z" fill="$mauve"/>
+    <rect x="240" width="240" height="240" fill="$surface0"/>
+    <circle cx="360" cy="120" r="80" fill="$base"/>
+    <path d="M480 0H720V240A240 240 0 0 1 480 0Z" fill="$peach"/>
+    <rect y="240" width="240" height="240" fill="$surface0"/>
+    <path d="M0 480A240 240 0 0 1 240 240V480Z" fill="$teal"/>
+    <path d="M240 240H480V480Z" fill="$surface1"/>
+    <path d="M480 480A240 240 0 0 1 720 240V480Z" fill="$blue"/>
+    <path d="M0 480H240V720A240 240 0 0 1 0 480Z" fill="$surface1"/>
+    <path d="M240 480H480A240 240 0 0 1 240 720Z" fill="$yellow"/>
+    <rect x="480" y="480" width="240" height="240" fill="$surface0"/>
+    <circle cx="600" cy="600" r="80" fill="$base"/>
+  </g>
+</svg>

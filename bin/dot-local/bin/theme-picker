@@ -1,0 +1,342 @@
+#!/usr/bin/env python3
+"""On-demand Quickshell gallery and its JSON/thumbnail backend."""
+
+import argparse
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import signal
+import shlex
+import shutil
+import subprocess
+import sys
+import tempfile
+
+
+REPO = Path(os.environ.get("DOTFILES_DIR", Path(__file__).resolve().parents[3])).resolve()
+THEMES = REPO / "themes"
+CONFIG = Path.home() / ".config"
+CACHE = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")) / "dotfiles/theme-picker"
+EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
+FALLBACK = {
+    "base": "#1e1e2e", "mantle": "#181825", "surface0": "#313244",
+    "surface1": "#45475a", "text": "#cdd6f4", "subtext0": "#a6adc8",
+    "accent": "#cba6f7",
+}
+
+
+def read_text(path):
+    try:
+        return path.read_text().strip()
+    except (OSError, UnicodeError):
+        return ""
+
+
+def theme_path(name):
+    # Names are directory basenames, never paths supplied to a shell.
+    if not name or Path(name).name != name or name in {".", ".."}:
+        raise ValueError("Select a theme from the gallery.")
+    path = THEMES / name
+    if not path.is_dir() or path.resolve().parent != THEMES.resolve():
+        raise ValueError(f"Theme '{name}' is no longer available.")
+    return path
+
+
+def wallpapers(theme):
+    directory = theme_path(theme)
+    images = sorted(
+        (path for path in (directory / "wallpapers").glob("*")
+         if path.is_file() and path.suffix.lower() in EXTENSIONS),
+        key=lambda path: path.name.casefold(),
+    )
+    if not images:
+        images = sorted(path for path in directory.glob("background.*")
+                        if path.is_file() and path.suffix.lower() in EXTENSIONS)
+    return images
+
+
+def saved_wallpaper(theme):
+    images = wallpapers(theme)
+    saved = read_text(CONFIG / f"current-wallpaper-{theme}")
+    for image in images:
+        if saved and image.resolve() == Path(saved).resolve():
+            return image
+    return images[0] if images else None
+
+
+def theme_preview(theme):
+    directory = theme_path(theme)
+    for extension in ("png", "jpg", "jpeg", "webp"):
+        preview = directory / ("preview." + extension)
+        if preview.is_file():
+            return preview
+    return saved_wallpaper(theme)
+
+
+def label(name):
+    return re.sub(r"^\d+[-_ ]+", "", name).replace("-", " ").replace("_", " ").title().replace("Frappe", "Frappé")
+
+
+def palette(theme):
+    result = dict(FALLBACK)
+    if not theme:
+        return result
+    colors = dict(re.findall(r"@define-color\s+(\w+)\s+(#[\da-fA-F]{6})\s*;",
+                             read_text(theme_path(theme) / "waybar.css")))
+    result.update({key: colors[key] for key in result if key in colors})
+    result["accent"] = colors.get("accent", colors.get("mauve", colors.get("blue", result["accent"])))
+    return result
+
+
+def thumbnail_path(image):
+    stat = image.stat()
+    key = f"v2:{image.resolve()}:{stat.st_size}:{stat.st_mtime_ns}"
+    return CACHE / (hashlib.sha256(key.encode()).hexdigest() + ".jpg")
+
+
+def item(identifier, title, image, active, colors, subtitle, preset=""):
+    cached = thumbnail_path(image) if image else None
+    return {
+        "id": identifier, "label": title, "subtitle": subtitle, "isActive": active,
+        "image": (cached if cached and cached.is_file() else image).as_uri() if image else "",
+        "preview": image.as_uri() if image else "",
+        "preset": preset, "presetLabel": label(preset),
+        "wallpaper": str(image.resolve()) if image else "",
+        "swatch1": colors["base"], "swatch2": colors["accent"],
+        "swatch3": colors["text"], "swatch4": colors["surface1"],
+    }
+
+
+def catalogue(mode):
+    current = read_text(CONFIG / "current-theme")
+    try:
+        theme_path(current)
+    except ValueError:
+        current = ""
+    colors = palette(current)
+    rows = []
+    if mode in {"themes", "all-wallpapers"}:
+        for directory in sorted(THEMES.iterdir(), key=lambda path: path.name.casefold()):
+            if not directory.is_dir():
+                continue
+            try:
+                images = wallpapers(directory.name)
+                if mode == "themes":
+                    rows.append(item(directory.name, label(directory.name), theme_preview(directory.name),
+                                     directory.name == current, palette(directory.name),
+                                     f"{len(images)} wallpaper{'s' if len(images) != 1 else ''}"))
+                else:
+                    saved = saved_wallpaper(directory.name) if directory.name == current else None
+                    for image in images:
+                        identifier = json.dumps({"theme": directory.name, "wallpaper": str(image.resolve())},
+                                                separators=(",", ":"))
+                        rows.append(item(identifier, label(image.stem), image,
+                                         directory.name == current and image == saved,
+                                         palette(directory.name), label(directory.name) + " / " + image.name,
+                                         preset=directory.name))
+            except (ValueError, OSError):
+                continue
+    elif current:
+        saved = saved_wallpaper(current)
+        for image in wallpapers(current):
+            rows.append(item(str(image.resolve()), label(image.stem), image,
+                             image == saved, colors, image.name))
+    monitor = ""
+    if os.environ.get("SWAYSOCK") and shutil.which("swaymsg"):
+        try:
+            outputs = subprocess.run(["swaymsg", "-t", "get_outputs", "-r"],
+                                     capture_output=True, text=True, timeout=2, check=True)
+            monitor = next((output["name"] for output in json.loads(outputs.stdout)
+                            if output.get("focused")), "")
+        except (OSError, subprocess.SubprocessError, ValueError, KeyError):
+            pass
+    return {"items": rows, "currentTheme": current, "currentLabel": label(current),
+            "palette": colors, "monitor": monitor}
+
+
+def cache_thumbnails(mode):
+    # The gallery opens first. Thumbnails stream in afterwards, one at a time.
+    converter = shutil.which("magick") or shutil.which("convert")
+    if converter is None:
+        return  # Qt still displays size-limited previews without this optional tool.
+    def stop(signum, frame):
+        raise SystemExit(128 + signum)
+    signal.signal(signal.SIGTERM, stop)
+    CACHE.mkdir(parents=True, exist_ok=True)
+    for row in catalogue(mode)["items"]:
+        if not row["preview"]:
+            continue
+        from urllib.parse import unquote, urlparse
+        image = Path(unquote(urlparse(row["preview"]).path))
+        try:
+            destination = thumbnail_path(image)
+            if not destination.is_file():
+                with tempfile.NamedTemporaryFile(dir=CACHE, suffix=".jpg", delete=False) as temporary:
+                    output = Path(temporary.name)
+                try:
+                    process = subprocess.Popen(
+                        [converter, "-limit", "thread", "1", str(image), "-auto-orient",
+                         "-thumbnail", "960x600^", "-gravity", "center", "-extent", "960x600",
+                         "-strip", "-quality", "85", str(output)],
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                    )
+                    try:
+                        process.wait(timeout=20)
+                    finally:
+                        if process.poll() is None:
+                            process.kill()
+                            process.wait()
+                    if process.returncode != 0:
+                        continue
+                    output.replace(destination)
+                finally:
+                    output.unlink(missing_ok=True)
+            print(json.dumps({"id": row["id"], "image": destination.as_uri()}), flush=True)
+        except (OSError, subprocess.SubprocessError):
+            continue
+
+
+def validated_wallpaper(theme, identifier):
+    selected = Path(identifier).resolve()
+    if selected not in [path.resolve() for path in wallpapers(theme)]:
+        raise ValueError("This wallpaper is no longer available. Reopen the gallery to refresh it.")
+    return selected
+
+
+def apply(mode, identifier):
+    if mode == "themes":
+        theme_path(identifier)
+        arguments = [identifier]
+    elif mode == "all-wallpapers":
+        try:
+            choice = json.loads(identifier)
+            owner = choice["theme"]
+            wallpaper = choice["wallpaper"]
+            if not isinstance(owner, str) or not isinstance(wallpaper, str):
+                raise ValueError
+        except (ValueError, KeyError, TypeError):
+            raise ValueError("Select a wallpaper and its matching preset from the gallery.") from None
+        selected = validated_wallpaper(owner, wallpaper)
+        if read_text(CONFIG / "current-theme") == owner:
+            arguments = ["wallpaper", str(selected)]
+        else:
+            # One switch applies the preset with this exact wallpaper, without an
+            # intermediate image or changing remembered state before validation.
+            arguments = [owner, str(selected)]
+    else:
+        current = read_text(CONFIG / "current-theme")
+        selected = validated_wallpaper(current, identifier)
+        arguments = ["wallpaper", str(selected)]
+    result = subprocess.run(["bash", str(REPO / "bin/dot-local/bin/theme-switch"), "--cli", *arguments],
+                            capture_output=True, text=True)
+    if result.returncode:
+        message = (result.stderr or result.stdout).strip().splitlines()
+        raise ValueError(message[-1] if message else "Could not apply the selection. Try again.")
+    return {"ok": True}
+
+
+def choose(mode):
+    if mode != "all-wallpapers":
+        raise ValueError("Use theme --cli or theme --cli wallpaper for the other terminal pickers.")
+    rows = catalogue(mode)["items"]
+    if not rows:
+        raise ValueError("No wallpapers found in the theme collection.")
+    choices = [f"{index + 1}\t{row['presetLabel']} / {row['label']}\t{row['wallpaper']}"
+               for index, row in enumerate(rows)]
+    if shutil.which("fzf"):
+        preview = "python3 " + shlex.quote(str(REPO / "bin/dot-local/bin/wallpaper-preview")) + " {3}"
+        result = subprocess.run(
+            ["fzf", "--delimiter=\t", "--with-nth=2", "--prompt=Wallpaper + preset > ",
+             "--height=100%", "--reverse", "--preview-window=right:65%", "--preview=" + preview],
+            input="\n".join(choices) + "\n", stdout=subprocess.PIPE, text=True,
+        )
+        if result.returncode in {1, 130}:
+            return 0
+        if result.returncode:
+            raise ValueError("The wallpaper picker could not open. Run it inside a terminal.")
+        selection = result.stdout.split("\t", 1)[0].strip()
+    elif shutil.which("gum"):
+        result = subprocess.run(["gum", "choose", "--header=Wallpaper + matching preset",
+                                 *[entry.split("\t")[0] + ". " + entry.split("\t")[1] for entry in choices]],
+                                stdout=subprocess.PIPE, text=True)
+        if result.returncode:
+            return 0
+        selection = result.stdout.split(".", 1)[0].strip()
+    else:
+        if not sys.stdin.isatty():
+            raise ValueError("Open a terminal and run theme --cli browse.")
+        for index, row in enumerate(rows, 1):
+            print(f"{index}. {row['presetLabel']} / {row['label']}")
+        try:
+            selection = input("Wallpaper number (blank to cancel): ").strip()
+        except (EOFError, KeyboardInterrupt):
+            return 0
+    if not selection:
+        return 0
+    if not selection.isdigit() or not 1 <= int(selection) <= len(rows):
+        raise ValueError("Select a wallpaper from the list.")
+    row = rows[int(selection) - 1]
+    apply(mode, row["id"])
+    print(f"Applied {row['label']} with {row['presetLabel']}.")
+    return 0
+
+
+def launch(mode):
+    executable = shutil.which("qs") or shutil.which("quickshell")
+    if executable is None:
+        raise ValueError("Quickshell is not installed. Install it, or use theme --cli.")
+    if not os.environ.get("WAYLAND_DISPLAY") and not os.environ.get("DISPLAY"):
+        raise ValueError("No graphical session found. Use theme --cli from this terminal.")
+    CACHE.mkdir(parents=True, exist_ok=True)
+    # Hold the lock for the lifetime of the picker, with no persistent service.
+    qml = str(REPO / "quickshell/dot-config/quickshell/theme-picker/shell.qml")
+    with (CACHE / "picker.lock").open("w") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            try:
+                subprocess.run([executable, "ipc", "--path", qml, "call", "appearance", "setMode", mode],
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=3)
+            except subprocess.TimeoutExpired:
+                pass  # A picker that is still opening already owns the keyboard.
+            return 0
+        environment = dict(os.environ, DOTFILES_DIR=str(REPO), THEME_PICKER_MODE=mode,
+                           THEME_PICKER_BACKEND=str(Path(__file__).resolve()))
+        return subprocess.call([executable, "--no-duplicate", "--path", qml],
+                               env=environment)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("mode", choices=("themes", "wallpapers", "all-wallpapers"), nargs="?", default="themes")
+    action = parser.add_mutually_exclusive_group()
+    action.add_argument("--list", action="store_true", help="Print the gallery catalogue as JSON")
+    action.add_argument("--cache", action="store_true", help="Stream cached thumbnail URLs as JSON lines")
+    action.add_argument("--apply", metavar="ID", help="Apply a theme name or wallpaper path")
+    action.add_argument("--choose", action="store_true", help="Choose a wallpaper and matching preset in a terminal")
+    args = parser.parse_args()
+    try:
+        if args.list:
+            print(json.dumps(catalogue(args.mode)))
+        elif args.cache:
+            cache_thumbnails(args.mode)
+        elif args.apply is not None:
+            print(json.dumps(apply(args.mode, args.apply)))
+        elif args.choose:
+            return choose(args.mode)
+        else:
+            return launch(args.mode)
+    except (OSError, ValueError) as error:
+        if args.list or args.apply is not None:
+            print(json.dumps({"ok": False, "error": str(error)}))
+        else:
+            print(f"theme-picker: {error}", file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,15 @@
+themes {
+  omarchy-tokyo-night {
+    bg "#1a1b26"
+    fg "#a9b1d6"
+    red "#f7768e"
+    green "#9ece6a"
+    blue "#7aa2f7"
+    yellow "#e0af68"
+    magenta "#ad8ee6"
+    orange "#eb927b"
+    cyan "#449dab"
+    black "#0e0e14"
+    white "#c0caf5"
+  }
+}

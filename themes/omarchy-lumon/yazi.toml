@@ -1,0 +1,60 @@
+# Omarchy Lumon
+
+[mgr]
+hovered = { fg = "#d6e2ee", bg = "#1b2d40" }
+preview_hovered = { underline = true }
+cwd = { fg = "#b4e4f6" }
+
+# Find
+find_keyword  = { fg = "#16242d", bg = "#6fa4c9", bold = true }
+find_position = { fg = "#8bc9eb", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#b4e4f6", italic = true }
+
+# Marker
+marker_copied   = { fg = "#5e95bc", bg = "#5e95bc" }
+marker_cut      = { fg = "#4d86b0", bg = "#4d86b0" }
+marker_marked   = { fg = "#8bc9eb", bg = "#8bc9eb" }
+marker_selected = { fg = "#6fa4c9", bg = "#6fa4c9" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#16242d", bg = "#5e95bc" }
+count_cut      = { fg = "#16242d", bg = "#4d86b0" }
+count_selected = { fg = "#16242d", bg = "#6fa4c9" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#101b21" }
+
+[tabs]
+active   = { fg = "#16242d", bg = "#b4e4f6", bold = true }
+inactive = { fg = "#d6e2ee", bg = "#101b21" }
+
+[mode]
+normal_main = { fg = "#16242d", bg = "#8bc9eb", bold = true }
+normal_alt  = { fg = "#8bc9eb", bg = "#101b21" }
+select_main = { fg = "#16242d", bg = "#6fa4c9", bold = true }
+select_alt  = { fg = "#6fa4c9", bg = "#101b21" }
+unset_main  = { fg = "#16242d", bg = "#4d86b0", bold = true }
+unset_alt   = { fg = "#4d86b0", bg = "#101b21" }
+
+[status]
+perm_sep   = { fg = "#101b21" }
+perm_type  = { fg = "#5e95bc" }
+perm_read  = { fg = "#6fa4c9" }
+perm_write = { fg = "#4d86b0" }
+perm_exec  = { fg = "#b4e4f6" }
+
+progress_label  = { fg = "#d6e2ee", bold = true }
+progress_normal = { fg = "#8bc9eb", bg = "#101b21" }
+progress_error  = { fg = "#4d86b0", bg = "#101b21" }
+
+[which]
+border          = { fg = "#8bc9eb" }
+cols            = 3
+cand            = { fg = "#b4e4f6" }
+rest            = { fg = "#304860" }
+desc            = { fg = "#d6e2ee" }
+separator_style = { fg = "#101b21" }

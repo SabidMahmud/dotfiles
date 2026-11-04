@@ -1,0 +1,60 @@
+# Omarchy Gruvbox
+
+[mgr]
+hovered = { fg = "#d4be98", bg = "#3c3836" }
+preview_hovered = { underline = true }
+cwd = { fg = "#89b482" }
+
+# Find
+find_keyword  = { fg = "#282828", bg = "#d8a657", bold = true }
+find_position = { fg = "#d3869b", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#89b482", italic = true }
+
+# Marker
+marker_copied   = { fg = "#a9b665", bg = "#a9b665" }
+marker_cut      = { fg = "#ea6962", bg = "#ea6962" }
+marker_marked   = { fg = "#7daea3", bg = "#7daea3" }
+marker_selected = { fg = "#d8a657", bg = "#d8a657" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#282828", bg = "#a9b665" }
+count_cut      = { fg = "#282828", bg = "#ea6962" }
+count_selected = { fg = "#282828", bg = "#d8a657" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#1e1e1e" }
+
+[tabs]
+active   = { fg = "#282828", bg = "#89b482", bold = true }
+inactive = { fg = "#d4be98", bg = "#1e1e1e" }
+
+[mode]
+normal_main = { fg = "#282828", bg = "#7daea3", bold = true }
+normal_alt  = { fg = "#7daea3", bg = "#1e1e1e" }
+select_main = { fg = "#282828", bg = "#d8a657", bold = true }
+select_alt  = { fg = "#d8a657", bg = "#1e1e1e" }
+unset_main  = { fg = "#282828", bg = "#ea6962", bold = true }
+unset_alt   = { fg = "#ea6962", bg = "#1e1e1e" }
+
+[status]
+perm_sep   = { fg = "#1e1e1e" }
+perm_type  = { fg = "#a9b665" }
+perm_read  = { fg = "#d8a657" }
+perm_write = { fg = "#ea6962" }
+perm_exec  = { fg = "#89b482" }
+
+progress_label  = { fg = "#d4be98", bold = true }
+progress_normal = { fg = "#7daea3", bg = "#1e1e1e" }
+progress_error  = { fg = "#ea6962", bg = "#1e1e1e" }
+
+[which]
+border          = { fg = "#7daea3" }
+cols            = 3
+cand            = { fg = "#89b482" }
+rest            = { fg = "#665c54" }
+desc            = { fg = "#d4be98" }
+separator_style = { fg = "#1e1e1e" }

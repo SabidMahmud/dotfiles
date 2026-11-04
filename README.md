@@ -12,6 +12,14 @@
 
 Personal configuration files for a Linux development environment and Sway (Wayland) desktop, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
+Much of this desktop's workflow and visual direction comes from
+[Omarchy](https://omarchy.org/), created by
+[David Heinemeier Hansson (DHH)](https://dhh.dk/) and developed with the Omarchy
+community. The bundled `omarchy-*` themes, wallpapers, and previews come from
+that project, with local adaptations for Sway and the applications configured
+here. See [Credits and attribution](#credits-and-attribution) for the sources
+and preserved license notices.
+
 ## Contents
 
 | Package | Description |
@@ -21,11 +29,13 @@ Personal configuration files for a Linux development environment and Sway (Wayla
 | `git` | Git global configuration and aliases (`.gitconfig`) |
 | `nvim` | Neovim configuration built on [LazyVim](https://www.lazyvim.org/) |
 | `alacritty` | Alacritty terminal emulator configuration |
+| `kitty` | Kitty terminal emulator configuration and theme-switching support |
 | `wezterm` | WezTerm terminal emulator configuration (GPU-accelerated, Zellij integration, slim tiling padding) |
 | `tmux` | Tmux terminal multiplexer configuration |
 | `zellij` | Zellij terminal multiplexer configuration and themes |
 | `sway` | Sway Wayland tiling window manager (Omarchy-inspired dynamic tiling) |
 | `waybar` | Waybar status bar configuration (fully themeable via `theme-switch`) |
+| `quickshell` | Omarchy-style theme and wallpaper carousel, including automatic preset matching |
 | `wofi` | Wofi Wayland application launcher and power menu styling |
 | `swaync` | SwayNotificationCenter styling and configuration (with system audio alerts) |
 | `hyprlock` | Hyprlock fast Wayland screen locker configuration |
@@ -34,8 +44,8 @@ Personal configuration files for a Linux development environment and Sway (Wayla
 | `lazygit` | Lazygit terminal UI configuration |
 | `lazydocker` | Lazydocker terminal UI configuration |
 | `mise` | mise-en-place dev environment tool configuration |
-| `yazi` | Yazi terminal file manager configuration and Gruvbox theme |
-| `bin` | Custom CLI utilities including `theme-switch`, `sway-lock`, `sway-autotile`, `sway-powermenu`, `sway-wallpaper`, `sway-maximize`, `wallpaper-preview`, and `brightness-step` |
+| `yazi` | Yazi terminal file manager configuration and theme-switching support |
+| `bin` | Custom CLI utilities including `theme-switch`, `theme-picker`, `sway-lock`, `sway-autotile`, `sway-powermenu`, `sway-wallpaper`, `sway-maximize`, `wallpaper-preview`, and `brightness-step` |
 
 ## Desktop Environment (Sway & Wayland)
 
@@ -47,6 +57,7 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 - **Screen Locker ([Hyprlock](https://github.com/hyprwm/hyprlock))**: High-performance Wayland screen locker displaying system time, active user, and password authentication (`Super + Escape` or automatic idle lock via `swayidle`).
 - **Power Menu (`sway-powermenu`)**: Wofi-powered dialog for lock, suspend, logout, reboot, and poweroff (`Super + BackSpace`).
 - **Wallpaper Daemon (`sway-wallpaper`)**: Automatically sets and updates the desktop wallpaper with `swaybg`, integrating directly with the active theme selected by `theme-switch`.
+- **Theme and Wallpaper Picker ([Quickshell](https://quickshell.org/))**: An on-demand carousel adapted from Omarchy's image picker. Browse themes, change the current theme's wallpaper, or use `theme browse` to select a wallpaper and apply its matching preset.
 - **File Explorers**:
   - **TUI (Terminal)**: [Yazi](https://yazi-rs.github.io/) bound directly to `Super + Shift + Return`.
   - **GUI**: **GNOME Files (`nautilus`)** configured as the default directory handler (`inode/directory`), accessible via launcher or running `nautilus` / `xdg-open .`.
@@ -55,7 +66,7 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 
 | Keybinding | Action |
 | :--- | :--- |
-| `Super + Return` | Open terminal (`wezterm` running Zellij) |
+| `Super + Return` | Open terminal (`kitty`) |
 | `Super + Space` or `Super + d` | Application launcher (`wofi`) |
 | `Super + Shift + Return` | Terminal file manager (`yazi`) |
 | `Super + b` | Open default web browser |
@@ -78,6 +89,8 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 | `Super + v` | Clipboard history picker (`cliphist` + `wofi`) |
 | `Super + Shift + d` | Display manager (`nwg-displays`) |
 | `Super + Shift + n` | Toggle notification panel (`swaync`) |
+| `Super + Ctrl + Shift + Space` | Open the theme gallery |
+| `Super + Ctrl + Space` | Open the current theme's wallpaper gallery |
 
 ## Ecosystem & Android Integration
 
@@ -98,17 +111,60 @@ Run the interactive menu:
 theme
 ```
 
+In a graphical session with [Quickshell](https://quickshell.org/) installed,
+this opens an Omarchy-style carousel: a large angled preview in the centre,
+narrow image slices on each side, and the selected name underneath. Select
+an image, then press Enter or click the centre preview or Apply. The gallery
+stays open so you can compare selections; Escape or Close
+exits the picker process. It does not run a background service.
+
+Use Themes, Wallpapers, or All wallpapers (`Ctrl+1`, `Ctrl+2`, or `Ctrl+3`) to switch views.
+Left / Right or Tab / Shift+Tab browse the carousel; type to filter, and use
+`Ctrl+F` to focus search. On Sway, the gallery
+opens on your focused monitor. The existing theme-switching script applies
+the colours and remembers each theme's selected wallpaper.
+
+For a wallpaper-first workflow, open **All wallpapers** or run:
+
+```sh
+theme browse
+# alias: theme all-wallpapers
+```
+
+This shows wallpapers grouped by preset and displays each image's matching
+theme. **Apply wallpaper + theme** applies that preset with the exact selected
+image; if its preset is already active, it changes only the wallpaper.
+The gallery stays open for comparison. Filter by wallpaper or theme name.
+The existing Wallpapers view continues to change only the current theme's
+wallpaper. Use `theme --cli browse` for the terminal version.
+
+Set `THEME_PICKER_REDUCED_MOTION=1` to disable the brief carousel transitions.
+
+The terminal picker remains available when Quickshell is missing or there is
+no graphical session. You can also choose the interface explicitly:
+
+```sh
+theme --cli
+theme --cli wallpaper
+theme --gui
+```
+
+Install Quickshell using the [dependency instructions](dependencies.md), then
+run `stow --dotfiles -R --target "$HOME" bin quickshell` from the repo root
+to link the new picker files. The Sway shortcuts are `Super+Ctrl+Shift+Space`
+for themes and `Super+Ctrl+Space` for wallpapers.
+
 Or specify a theme directly:
 
 ```sh
 theme gruvbox
-theme catppuccin
+theme catppuccin-mocha
 theme tokyo-night
 ```
 
 The switcher simultaneously updates:
 
-- Terminal emulators (Alacritty, WezTerm)
+- Terminal emulators (Alacritty, WezTerm, Kitty)
 - Terminal multiplexers (Zellij, Tmux — reloads live if running)
 - Neovim colorscheme
 - Waybar, Wofi, and SwayNC styling
@@ -117,7 +173,59 @@ The switcher simultaneously updates:
 - Screen locker colors (Hyprlock)
 - Desktop wallpaper and accent color (supports Sway via `swaybg`, Hyprland, GNOME, and X11)
 
-Available themes: `catppuccin`, `coolnight` (Original colorscheme by Josean Martinez), `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `solarized-dark`, `tokyo-night`.
+Available themes: `catppuccin`, `catppuccin-latte`, `catppuccin-frappe`, `catppuccin-macchiato`, `catppuccin-mocha`, `coolnight` (Original colorscheme by Josean Martinez), `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `solarized-dark`, `tokyo-night`, plus the 22 `omarchy-*` themes below.
+
+### Catppuccin Flavours
+
+All four [official Catppuccin palettes](https://catppuccin.com/palette/) are
+available as separate themes, with matching colours across all supported apps:
+
+| Theme | Appearance | Base colour |
+| --- | --- | --- |
+| `catppuccin-latte` | Light | `#eff1f5` |
+| `catppuccin-frappe` | Muted dark | `#303446` |
+| `catppuccin-macchiato` | Medium dark | `#24273a` |
+| `catppuccin-mocha` | Deep dark | `#1e1e2e` |
+
+Each includes five original 4K wallpapers: mountains, dunes, waves, orbits,
+and geometric tiles, rendered in that flavour's palette. Switching to Latte
+also selects the light desktop preference; the other flavours select dark.
+The existing `catppuccin` entry retains its previous configuration.
+
+```sh
+theme catppuccin-latte
+theme wallpaper
+```
+
+The theme picker discovers these directories automatically; no reinstall or
+Stow update is needed. Wallpaper sources and regeneration instructions are in
+[`assets/catppuccin/`](assets/catppuccin/README.md).
+
+### Omarchy Collection
+
+The **22 stock themes and 92 wallpapers** in this collection are imported from
+[Omarchy v4.0.6](https://github.com/omacom/omarchy/releases/tag/v4.0.6).
+Credit goes to **DHH, the Omarchy contributors, and the original theme designers
+and wallpaper artists** whose work the project brings together.
+
+They are available as separate `omarchy-*` entries. Type `omarchy` in the theme
+picker to browse the collection. Omarchy's original theme previews appear in
+the carousel, and Wallpapers lists every background bundled with the selected
+theme. The existing custom themes remain separate.
+
+```sh
+theme omarchy-ethereal
+theme omarchy-retro-82
+theme omarchy-flexoki-light
+theme wallpaper
+```
+
+All supported apps have matching configs. Imported light themes also select
+the light desktop preference. Neovim retains upstream plugin specifications
+with a palette fallback for plugins that are not installed yet.
+
+See the [collection inventory and provenance](assets/omarchy/README.md) for
+theme names, wallpaper counts, the pinned source commit, and import details.
 
 ### Multiple Wallpapers Per Theme
 
@@ -129,7 +237,10 @@ theme wallpaper
 theme -w
 ```
 
-A live image preview is shown in the fzf picker. For best results (high-resolution terminal previews), install `chafa` (`sudo apt install chafa`).
+Quickshell displays a large selection preview surrounded by neighbouring images. With the
+terminal picker (`theme --cli wallpaper`), `fzf` shows a live preview through
+`chafa` (`sudo apt install chafa`). Optional ImageMagick thumbnails are cached
+in `~/.cache/dotfiles/theme-picker/` and regenerated when source images change.
 
 ## Requirements
 
@@ -210,6 +321,9 @@ dotfiles/
 │   └── dot-config/waybar/
 │       ├── config.jsonc       # symlinked to → ~/.config/waybar/config.jsonc
 │       └── style.css          # symlinked to → ~/.config/waybar/style.css
+├── quickshell/
+│   └── dot-config/quickshell/theme-picker/
+│       └── shell.qml          # on-demand theme and wallpaper carousel
 ├── wofi/
 │   └── dot-config/wofi/
 │       ├── config             # symlinked to → ~/.config/wofi/config
@@ -220,6 +334,7 @@ dotfiles/
 ├── bin/
 │   └── dot-local/bin/
 │       ├── theme-switch       # symlinked to → ~/.local/bin/theme-switch
+│       ├── theme-picker       # Quickshell launcher and preset/wallpaper backend
 │       ├── sway-lock          # symlinked to → ~/.local/bin/sway-lock
 │       ├── sway-autotile      # symlinked to → ~/.local/bin/sway-autotile
 │       ├── sway-maximize      # symlinked to → ~/.local/bin/sway-maximize
@@ -246,6 +361,22 @@ dotfiles/
         └── wallpapers/
 ```
 
+## Credits and attribution
+
+- **[Omarchy](https://github.com/omacom/omarchy), created by [DHH](https://dhh.dk/), and its contributors:** the upstream source for the imported `omarchy-*` themes, colour palettes, wallpapers, previews, and theme assets. This repository adapts that collection to its Sway desktop. The [collection documentation](assets/omarchy/README.md) records the release and pinned commit; the [import manifest](assets/omarchy/manifest.json) maps every imported file to its upstream path and checksum.
+- **[Omarchy's Quickshell image picker](https://github.com/omacom/omarchy/blob/84b3f2872b5023c13967543ed4a98b08fcac5b21/shell/plugins/image-picker/ImagePicker.qml):** the source of the angled carousel layout, overlapping previews, and image-mask treatment adapted for this repository's picker. Its [upstream copyright and MIT notice](quickshell/dot-config/quickshell/theme-picker/OMARCHY-LICENSE) are preserved alongside the implementation.
+- **[Catppuccin](https://catppuccin.com/) and its community:** the four official palettes used by the separately named Latte, Frappé, Macchiato, and Mocha themes. Their [palette source and license](assets/catppuccin/README.md) are documented separately. The additional geometric wallpapers for those four variants were generated for this repository.
+
+Individual theme designs and wallpaper artwork remain the work of their
+original creators. Omarchy is credited as the upstream project and curator of
+the imported collection. The local work here covers app-specific adaptations,
+Stow integration, theme-switching utilities, and wallpaper-to-preset matching.
+
 ## License
 
-MIT
+This repository's own configurations and utilities are MIT-licensed.
+Third-party code, themes, palettes, and artwork retain their respective
+copyrights and license terms. Preserved upstream notices are available for
+[the Omarchy collection](assets/omarchy/LICENSE),
+[the adapted Omarchy carousel](quickshell/dot-config/quickshell/theme-picker/OMARCHY-LICENSE),
+and [the Catppuccin palettes](assets/catppuccin/LICENSE).

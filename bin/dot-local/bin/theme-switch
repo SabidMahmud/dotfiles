@@ -6,10 +6,64 @@ set -e
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 THEMES_DIR="$DOTFILES_DIR/themes"
 
+PICKER_UI=auto
+case "${1:-}" in
+    --cli) PICKER_UI=cli; shift ;;
+    --gui) PICKER_UI=gui; shift ;;
+    --help|-h)
+        echo 'Usage: theme-switch [--gui|--cli] [THEME [IMAGE]|wallpaper [IMAGE]|browse]'
+        echo 'Without arguments, open the theme gallery. Use wallpaper for the active theme.'
+        echo 'Use browse to choose from all wallpapers and apply the matching preset.'
+        exit 0
+        ;;
+esac
+
 if [ ! -d "$THEMES_DIR" ]; then
     echo "Error: Themes directory not found at $THEMES_DIR"
     exit 1
 fi
+
+# Only interactive selection opens a gallery; direct theme/image commands stay scriptable.
+PICKER_MODE=''
+case "${1:-}" in
+    '') PICKER_MODE=themes ;;
+    browse|all-wallpapers) PICKER_MODE=all-wallpapers ;;
+    -w|--wallpaper|wallpaper|wallpapers)
+        if [ -z "${2:-}" ]; then PICKER_MODE=wallpapers; fi
+        ;;
+esac
+if [ -n "$PICKER_MODE" ] && [ "$PICKER_UI" != cli ]; then
+    if [ "$PICKER_UI" = gui ] || { { [ -n "$WAYLAND_DISPLAY" ] || [ -n "$DISPLAY" ]; } && { command -v qs &>/dev/null || command -v quickshell &>/dev/null; }; }; then
+        exec python3 "$DOTFILES_DIR/bin/dot-local/bin/theme-picker" "$PICKER_MODE"
+    fi
+    # A Sway shortcut has no terminal attached. Open the CLI fallback in a terminal.
+    if [ ! -t 0 ] && { [ -n "$WAYLAND_DISPLAY" ] || [ -n "$DISPLAY" ]; }; then
+        if command -v kitty &>/dev/null; then
+            exec kitty -e bash "$DOTFILES_DIR/bin/dot-local/bin/theme-switch" --cli "$@"
+        elif command -v foot &>/dev/null; then
+            exec foot bash "$DOTFILES_DIR/bin/dot-local/bin/theme-switch" --cli "$@"
+        elif command -v alacritty &>/dev/null; then
+            exec alacritty -e bash "$DOTFILES_DIR/bin/dot-local/bin/theme-switch" --cli "$@"
+        fi
+    fi
+fi
+
+if [ "$PICKER_MODE" = all-wallpapers ]; then
+    exec python3 "$DOTFILES_DIR/bin/dot-local/bin/theme-picker" all-wallpapers --choose
+fi
+
+resolve_wallpaper() {
+    local THEME_DIR="$1" REQUESTED="$2" RESOLVED CANDIDATE
+    RESOLVED=$(realpath -e -- "$REQUESTED") || return 1
+    while IFS= read -r -d '' CANDIDATE; do
+        if [ "$(realpath -- "$CANDIDATE")" = "$RESOLVED" ]; then
+            printf '%s\n' "$RESOLVED"
+            return 0
+        fi
+    done < <(find "$THEME_DIR" -maxdepth 2 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) -print0)
+    echo "Error: Wallpaper does not belong to theme '$(basename "$THEME_DIR")'." >&2
+    return 1
+}
 
 apply_wallpaper() {
     local WALLPAPER="$1"
@@ -25,10 +79,24 @@ apply_wallpaper() {
         gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER"
         gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER"
         gsettings set org.gnome.desktop.background picture-options 'zoom'
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+        local COLOR_SCHEME='prefer-dark'
+        local GTK_SUFFIX='-dark'
+        if [ "$THEME" = 'catppuccin-latte' ] || [ -f "$THEMES_DIR/$THEME/light.mode" ]; then
+            COLOR_SCHEME='prefer-light'
+            GTK_SUFFIX=''
+        fi
+        gsettings set org.gnome.desktop.interface color-scheme "$COLOR_SCHEME"
 
         case "$THEME" in
-            catppuccin)  ACCENT="magenta" ;;
+            omarchy-*)
+                ACCENT=$(cat "$THEMES_DIR/$THEME/gtk-accent" 2>/dev/null || true)
+                case "$ACCENT" in
+                    blue|teal|green|yellow|orange|red|pink|purple|slate) ;;
+                    *) ACCENT='' ;;
+                esac
+                ;;
+            catppuccin|catppuccin-latte|catppuccin-frappe|catppuccin-macchiato|catppuccin-mocha)
+                         ACCENT="magenta" ;;
             everforest)  ACCENT="bark" ;;
             gruvbox)     ACCENT="sage" ;;
             kanagawa)    ACCENT="purple" ;;
@@ -44,7 +112,7 @@ apply_wallpaper() {
 
         if [ -n "$ACCENT" ]; then
             gsettings set org.gnome.desktop.interface accent-color "$ACCENT" 2>/dev/null || true
-            gsettings set org.gnome.desktop.interface gtk-theme "Yaru-$ACCENT-dark" 2>/dev/null || true
+            gsettings set org.gnome.desktop.interface gtk-theme "Yaru-$ACCENT$GTK_SUFFIX" 2>/dev/null || true
             gsettings set org.gnome.desktop.interface icon-theme "Yaru-$ACCENT" 2>/dev/null || true
         fi
     fi
@@ -70,7 +138,7 @@ apply_wallpaper() {
     fi
 }
 
-if [[ "$1" == "-w" || "$1" == "--wallpaper" || "$1" == "wallpaper" || "$1" == "wallpapers" ]]; then
+if [[ "${1:-}" == "-w" || "${1:-}" == "--wallpaper" || "${1:-}" == "wallpaper" || "${1:-}" == "wallpapers" ]]; then
     if [ ! -f "$HOME/.config/current-theme" ]; then
         echo "Error: No theme currently active. Switch to a theme first."
         exit 1
@@ -78,6 +146,14 @@ if [[ "$1" == "-w" || "$1" == "--wallpaper" || "$1" == "wallpaper" || "$1" == "w
     THEME=$(cat "$HOME/.config/current-theme")
     SELECTED_DIR="$THEMES_DIR/$THEME"
     WALLPAPER_DIR="$SELECTED_DIR/wallpapers"
+
+    if [ -n "${2:-}" ]; then
+        WALLPAPER=$(resolve_wallpaper "$SELECTED_DIR" "$2") || exit 1
+        apply_wallpaper "$WALLPAPER" "$THEME"
+        echo "$WALLPAPER" > "$HOME/.config/current-wallpaper-$THEME"
+        echo "==> Successfully switched wallpaper to $(basename "$WALLPAPER")!"
+        exit 0
+    fi
     
     if [ ! -d "$WALLPAPER_DIR" ]; then
         echo "No 'wallpapers' directory found for theme '$THEME'."
@@ -110,8 +186,6 @@ if [[ "$1" == "-w" || "$1" == "--wallpaper" || "$1" == "wallpaper" || "$1" == "w
             --preview='wallpaper-preview "$FZF_WP_DIR/{}"')
     elif command -v gum &>/dev/null; then
         WP_NAME=$(gum choose "${AVAILABLE_WALLPAPERS[@]}" --header "Select Wallpaper for $THEME:" --height 14)
-    elif command -v fzf &>/dev/null; then
-        WP_NAME=$(printf "%s\n" "${AVAILABLE_WALLPAPERS[@]}" | fzf --prompt="Select Wallpaper > " --height=14 --reverse)
     else
         echo "Select a wallpaper for $THEME:"
         select opt in "${AVAILABLE_WALLPAPERS[@]}"; do
@@ -139,7 +213,7 @@ if [ ${#AVAILABLE_THEMES[@]} -eq 0 ]; then
     exit 1
 fi
 
-THEME="$1"
+THEME="${1:-}"
 if [ -z "$THEME" ]; then
     if command -v fzf &>/dev/null; then
         export FZF_THEMES_DIR="$THEMES_DIR"
@@ -170,6 +244,12 @@ SELECTED_DIR="$THEMES_DIR/$THEME"
 if [ ! -d "$SELECTED_DIR" ]; then
     echo "Error: Theme '$THEME' does not exist in $THEMES_DIR"
     exit 1
+fi
+
+# Validate the requested image before changing any app configs or remembered state.
+REQUESTED_WALLPAPER=''
+if [ -n "${2:-}" ]; then
+    REQUESTED_WALLPAPER=$(resolve_wallpaper "$SELECTED_DIR" "$2") || exit 1
 fi
 
 echo "==> Applying theme: $THEME"
@@ -255,8 +335,8 @@ fi
 
 
 
-WALLPAPER=""
-if [ -f "$HOME/.config/current-wallpaper-$THEME" ]; then
+WALLPAPER="$REQUESTED_WALLPAPER"
+if [ -z "$WALLPAPER" ] && [ -f "$HOME/.config/current-wallpaper-$THEME" ]; then
     SAVED_WP=$(cat "$HOME/.config/current-wallpaper-$THEME")
     if [ -f "$SAVED_WP" ]; then
         WALLPAPER="$SAVED_WP"

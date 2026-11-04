@@ -64,5 +64,14 @@ These are standalone modern tools that heavily enhance the workflow, but often n
 | **Scrcpy** | Available in most package managers (Low-latency Android screen mirroring and remote control) |
 | **LocalSend** | [Install Guide](https://localsend.org/) (AirDrop alternative for cross-platform local file sharing) |
 | **Gum** | [Install Guide](https://github.com/charmbracelet/gum#installation) (Optional fallback for `theme-switch` UI) |
+| **Quickshell** | [Install Guide](https://quickshell.org/docs/v0.3.0/guide/install-setup/) (Graphical theme and wallpaper gallery; falls back to the terminal picker when unavailable) |
+| **ImageMagick** | Available as `ImageMagick` on Fedora or `imagemagick` on Debian/Arch (Optional cached gallery thumbnails; Qt provides size-limited previews without it) |
 | **Mise** | [Install Guide](https://mise.jdx.dev/getting-started.html) (Dev environment manager, replaces asdf/nvm/pyenv) |
+
+The Quickshell picker needs Qt Quick Controls, Qt Wayland, and Qt image-format
+plugins for the wallpaper types you use. On Fedora, install it with
+`sudo dnf install quickshell qt6-qtimageformats ImageMagick`. If Quickshell is
+not in your distribution's repositories, follow the upstream installation
+guide above. The bootstrap script leaves this optional dependency to a separate
+installation so it does not add third-party repositories automatically.
 
