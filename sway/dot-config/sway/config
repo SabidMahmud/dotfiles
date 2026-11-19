@@ -238,3 +238,7 @@ for_window [app_id="flameshot" title="^flameshot$"] fullscreen disable, move abs
 # Show Me The Key (screenkey overlay for Wayland)
 for_window [app_id="showmethekey-gtk"] floating enable, sticky enable, border none
 for_window [app_id="one.alynx.showmethekey"] floating enable, sticky enable, border none
+
+# Obsidian (0.95 opacity to match terminal transparency)
+for_window [app_id="(?i)obsidian"] opacity 0.95
+for_window [class="(?i)obsidian"] opacity 0.95
