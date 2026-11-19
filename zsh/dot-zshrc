@@ -1,3 +1,11 @@
+# --- WezTerm Shell Integration Safeguard ---
+# Disable /etc/profile.d/wezterm.sh hooks when not in WezTerm or inside Neovim terminal
+if [[ -n "$NVIM" || -z "$WEZTERM_PANE" ]]; then
+    export WEZTERM_SHELL_SKIP_ALL=1
+    precmd_functions=(${precmd_functions:#__wezterm*})
+    preexec_functions=(${preexec_functions:#__wezterm*})
+fi
+
 # --- Editor ---
 export EDITOR="nvim"
 export SUDO_EDITOR="$EDITOR"

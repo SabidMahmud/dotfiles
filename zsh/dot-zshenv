@@ -1,0 +1,7 @@
+# ~/.zshenv — sourced for all zsh shells (interactive, non-interactive, scripts, nvim terminal)
+
+# Prevent system-wide wezterm integration (/etc/profile.d/wezterm.sh) from leaking
+# raw OSC 1337 escape codes when outside WezTerm or inside Neovim's terminal.
+if [[ -n "$NVIM" || -z "$WEZTERM_PANE" ]]; then
+    export WEZTERM_SHELL_SKIP_ALL=1
+fi
