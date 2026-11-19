@@ -1,60 +1,38 @@
-# Catppuccin Macchiato
-
+# Solarized Osaka theme for Yazi
 [mgr]
-hovered = { fg = "#cad3f5", bg = "#363a4f" }
-preview_hovered = { underline = true }
-cwd = { fg = "#8bd5ca" }
+cwd = { fg = "#32b9aa" }
 
 # Find
-find_keyword  = { fg = "#24273a", bg = "#eed49f", bold = true }
-find_position = { fg = "#c6a0f6", bg = "reset", bold = true }
+find_keyword  = { fg = "#031219", bg = "#d49a0a", bold = true }
+find_position = { fg = "#8987d3", bg = "reset", bold = true }
 
 # Symlink
-symlink_target = { fg = "#8bd5ca", italic = true }
+symlink_target = { fg = "#32b9aa", italic = true }
 
 # Marker
-marker_copied   = { fg = "#a6da95", bg = "#a6da95" }
-marker_cut      = { fg = "#ed8796", bg = "#ed8796" }
-marker_marked   = { fg = "#8aadf4", bg = "#8aadf4" }
-marker_selected = { fg = "#eed49f", bg = "#eed49f" }
+marker_copied   = { fg = "#94b109", bg = "#94b109" }
+marker_cut      = { fg = "#f86265", bg = "#f86265" }
+marker_marked   = { fg = "#529ef9", bg = "#529ef9" }
+marker_selected = { fg = "#d49a0a", bg = "#d49a0a" }
 marker_symbol   = "│"
 
 # Count
-count_copied   = { fg = "#24273a", bg = "#a6da95" }
-count_cut      = { fg = "#24273a", bg = "#ed8796" }
-count_selected = { fg = "#24273a", bg = "#eed49f" }
+count_copied   = { fg = "#031219", bg = "#94b109" }
+count_cut      = { fg = "#031219", bg = "#f86265" }
+count_selected = { fg = "#031219", bg = "#d49a0a" }
 
 # Border
 border_symbol = "│"
-border_style  = { fg = "#1e2030" }
+border_style  = { fg = "#002831" }
 
 [tabs]
-active   = { fg = "#24273a", bg = "#8bd5ca", bold = true }
-inactive = { fg = "#cad3f5", bg = "#1e2030" }
+active   = { fg = "#031219", bg = "#32b9aa", bold = true }
+inactive = { fg = "#91a8aa", bg = "#002831" }
 
 [mode]
-normal_main = { fg = "#24273a", bg = "#8aadf4", bold = true }
-normal_alt  = { fg = "#8aadf4", bg = "#1e2030" }
-select_main = { fg = "#24273a", bg = "#eed49f", bold = true }
-select_alt  = { fg = "#eed49f", bg = "#1e2030" }
-unset_main  = { fg = "#24273a", bg = "#ed8796", bold = true }
-unset_alt   = { fg = "#ed8796", bg = "#1e2030" }
-
-[status]
-perm_sep   = { fg = "#1e2030" }
-perm_type  = { fg = "#a6da95" }
-perm_read  = { fg = "#eed49f" }
-perm_write = { fg = "#ed8796" }
-perm_exec  = { fg = "#8bd5ca" }
-
-progress_label  = { fg = "#cad3f5", bold = true }
-progress_normal = { fg = "#8aadf4", bg = "#1e2030" }
-progress_error  = { fg = "#ed8796", bg = "#1e2030" }
-
-[which]
-border          = { fg = "#8aadf4" }
-cols            = 3
-cand            = { fg = "#8bd5ca" }
-rest            = { fg = "#6e738d" }
-desc            = { fg = "#cad3f5" }
-separator_style = { fg = "#1e2030" }
+normal_main = { fg = "#031219", bg = "#529ef9", bold = true }
+normal_alt  = { fg = "#529ef9", bg = "#002831" }
+select_main = { fg = "#031219", bg = "#d49a0a", bold = true }
+select_alt  = { fg = "#d49a0a", bg = "#002831" }
+unset_main  = { fg = "#031219", bg = "#f86265", bold = true }
+unset_alt   = { fg = "#f86265", bg = "#002831" }
