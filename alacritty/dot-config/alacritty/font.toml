@@ -1,4 +1,5 @@
+# Active font configuration (managed by font-switch)
 [font]
-normal = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
-bold = { family = "JetBrainsMono Nerd Font Mono", style = "Bold" }
-italic = { family = "JetBrainsMono Nerd Font Mono", style = "Italic" }
+normal = { family = "Hack Nerd Font", style = "Regular" }
+bold = { family = "Hack Nerd Font", style = "Bold" }
+italic = { family = "Hack Nerd Font", style = "Italic" }

@@ -23,6 +23,17 @@ if success and type(theme) == "table" and theme.colors then
 	config.colors = theme.colors
 end
 
+-- Load font configuration (managed by font-switch)
+local font_ok, font_cfg = pcall(require, "font")
+if font_ok and type(font_cfg) == "table" then
+	if font_cfg.font then
+		config.font = wezterm.font(font_cfg.font)
+	end
+	if font_cfg.font_size then
+		config.font_size = font_cfg.font_size
+	end
+end
+
 config.keys = {
 	{ key = "F11", action = wezterm.action.ToggleFullScreen },
 }

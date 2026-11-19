@@ -1,11 +1,11 @@
 @import url("theme.css");
+@import url("font.css");
 
 /* =============================================================================
    Waybar — Solid Block / Material Dashboard
    ============================================================================= */
 
 * {
-    font-family: "JetBrainsMono Nerd Font", "CaskaydiaMono Nerd Font", monospace;
     font-size: 13px;
     font-weight: 500;
     min-height: 0;

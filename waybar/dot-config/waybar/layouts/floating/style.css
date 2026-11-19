@@ -1,7 +1,7 @@
 @import url("theme.css");
+@import url("font.css");
 
 * {
-    font-family: "JetBrainsMono Nerd Font", "CaskaydiaMono Nerd Font", monospace;
     font-size: 13px;
     font-weight: 600;
     min-height: 0;

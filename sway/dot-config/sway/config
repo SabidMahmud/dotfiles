@@ -20,8 +20,8 @@ set $menu pkill -x wofi || wofi --show drun
 # Screen Locker (hyprlock with swaylock fallback)
 set $lock_cmd ~/.local/bin/sway-lock
 
-# Font
-font pango:JetBrainsMono Nerd Font, CaskaydiaMono Nerd Font 11
+# Font (managed by font-switch via ~/.config/sway/font)
+include font
 
 ### Appearance & Gaps
 gaps inner 1
@@ -76,6 +76,7 @@ bindsym $mod+Shift+Return exec $term -e yazi
 # Appearance gallery (on-demand Quickshell, with a terminal fallback)
 bindsym $mod+Ctrl+Shift+space exec ~/.local/bin/theme-switch
 bindsym $mod+Ctrl+space exec ~/.local/bin/theme-switch wallpaper
+bindsym $mod+Ctrl+f exec ~/.local/bin/font-switch
 
 # Kill focused window (Omarchy uses Super+Q)
 bindsym $mod+q kill

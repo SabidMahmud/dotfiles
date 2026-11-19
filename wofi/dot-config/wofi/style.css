@@ -1,6 +1,7 @@
 /* GTK3 resolves @import relative to CWD, not the CSS file location.
    install.sh patches the username in this path on first run. */
 @import url('/home/mirok/.config/wofi/theme.css');
+@import url('/home/mirok/.config/wofi/font.css');
 /* portable fallback (only works on GTK4): @import url('./theme.css'); */
 
 window {
@@ -8,7 +9,6 @@ window {
     border: 2px solid @theme_accent;
     border-radius: 0px;
     background-color: @theme_bg;
-    font-family: "JetBrainsMono Nerd Font", "CaskaydiaMono Nerd Font", monospace;
     font-size: 15px;
     font-weight: 700;
     color: @theme_text;

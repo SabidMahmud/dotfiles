@@ -1,0 +1,4 @@
+/* Active font configuration (managed by font-switch) */
+* {
+    font-family: "Hack Nerd Font", monospace;
+}

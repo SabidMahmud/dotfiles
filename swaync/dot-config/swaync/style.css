@@ -1,4 +1,5 @@
 @import 'theme.css';
+@import 'font.css';
 
 /* Required: makes the popup notification window background transparent
    so GTK doesn't draw its own grey/white frame behind the notification */
@@ -23,7 +24,6 @@ blankwindow {
 }
 
 * {
-  font-family: "JetBrainsMono Nerd Font", sans-serif;
   color: @theme_text_color;
 }
 
