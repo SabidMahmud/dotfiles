@@ -1,0 +1,38 @@
+# Solarized Osaka theme for Yazi
+[mgr]
+cwd = { fg = "#32b9aa" }
+
+# Find
+find_keyword  = { fg = "#031219", bg = "#d49a0a", bold = true }
+find_position = { fg = "#8987d3", bg = "reset", bold = true }
+
+# Symlink
+symlink_target = { fg = "#32b9aa", italic = true }
+
+# Marker
+marker_copied   = { fg = "#94b109", bg = "#94b109" }
+marker_cut      = { fg = "#f86265", bg = "#f86265" }
+marker_marked   = { fg = "#529ef9", bg = "#529ef9" }
+marker_selected = { fg = "#d49a0a", bg = "#d49a0a" }
+marker_symbol   = "│"
+
+# Count
+count_copied   = { fg = "#031219", bg = "#94b109" }
+count_cut      = { fg = "#031219", bg = "#f86265" }
+count_selected = { fg = "#031219", bg = "#d49a0a" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#002831" }
+
+[tabs]
+active   = { fg = "#031219", bg = "#32b9aa", bold = true }
+inactive = { fg = "#91a8aa", bg = "#002831" }
+
+[mode]
+normal_main = { fg = "#031219", bg = "#529ef9", bold = true }
+normal_alt  = { fg = "#529ef9", bg = "#002831" }
+select_main = { fg = "#031219", bg = "#d49a0a", bold = true }
+select_alt  = { fg = "#d49a0a", bg = "#002831" }
+unset_main  = { fg = "#031219", bg = "#f86265", bold = true }
+unset_alt   = { fg = "#f86265", bg = "#002831" }

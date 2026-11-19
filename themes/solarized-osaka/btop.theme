@@ -1,0 +1,42 @@
+# Bashtop / btop theme: Solarized Osaka (craftzdog)
+theme[main_bg]="#031219"
+theme[main_fg]="#91a8aa"
+theme[title]="#f0ebdc"
+theme[hi_fg]="#529ef9"
+theme[selected_bg]="#002831"
+theme[selected_fg]="#fdf7e7"
+theme[inactive_fg]="#6e8b95"
+theme[graph_text]="#7895a0"
+theme[proc_misc]="#32b9aa"
+
+# Box outlines
+theme[cpu_box]="#002831"
+theme[mem_box]="#002831"
+theme[net_box]="#002831"
+theme[proc_box]="#002831"
+theme[div_line]="#002831"
+
+# Temperature graph
+theme[temp_start]="#94b109"
+theme[temp_mid]="#d49a0a"
+theme[temp_end]="#f86265"
+
+# CPU graph
+theme[cpu_start]="#94b109"
+theme[cpu_mid]="#d49a0a"
+theme[cpu_end]="#f86265"
+
+# Memory graph
+theme[mem_start]="#94b109"
+theme[mem_mid]="#529ef9"
+theme[mem_end]="#f8579a"
+
+# Network graph
+theme[net_start]="#94b109"
+theme[net_mid]="#529ef9"
+theme[net_end]="#f8579a"
+
+# Process list
+theme[process_start]="#529ef9"
+theme[process_mid]="#32b9aa"
+theme[process_end]="#94b109"

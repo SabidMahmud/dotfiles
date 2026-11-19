@@ -1,0 +1,16 @@
+// Solarized Osaka Zellij Colors
+themes {
+    solarized-osaka {
+        fg "#91a8aa"
+        bg "#002831"
+        black "#031219"
+        red "#f86265"
+        green "#94b109"
+        yellow "#d49a0a"
+        blue "#529ef9"
+        magenta "#f8579a"
+        cyan "#32b9aa"
+        white "#f0ebdc"
+        orange "#fb5c41"
+    }
+}

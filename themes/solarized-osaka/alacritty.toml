@@ -1,0 +1,48 @@
+# Solarized Osaka (craftzdog vivid) theme for Alacritty
+# Upstream: https://github.com/craftzdog/solarized-osaka.nvim
+
+[colors.primary]
+background = "#031219"
+foreground = "#91a8aa"
+dim_foreground = "#6e8b95"
+bright_foreground = "#fdf7e7"
+
+[colors.cursor]
+text = "#002831"
+cursor = "#91a8aa"
+
+[colors.vi_mode_cursor]
+text = "#002831"
+cursor = "#9fb2b2"
+
+[colors.selection]
+text = "#9fb2b2"
+background = "#002831"
+
+[colors.normal]
+black = "#002831"
+red = "#f86265"
+green = "#94b109"
+yellow = "#d49a0a"
+blue = "#529ef9"
+magenta = "#f8579a"
+cyan = "#32b9aa"
+white = "#f0ebdc"
+
+[colors.bright]
+black = "#6e8b95"
+red = "#fb5c41"
+green = "#6e8b95"
+yellow = "#7895a0"
+blue = "#91a8aa"
+magenta = "#8987d3"
+cyan = "#9fb2b2"
+white = "#fdf7e7"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#c94c16"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#f55350"

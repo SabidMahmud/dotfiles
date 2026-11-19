@@ -105,7 +105,7 @@ apply_wallpaper() {
             osaka-jade)  ACCENT="green" ;;
             ristretto)   ACCENT="grey" ;;
             rose-pine)   ACCENT="red" ;;
-            solarized-dark) ACCENT="teal" ;;
+            solarized-dark|solarized-osaka|craftzdog) ACCENT="teal" ;;
             tokyo-night) ACCENT="purple" ;;
             *)           ACCENT="" ;;
         esac

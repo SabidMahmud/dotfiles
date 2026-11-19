@@ -1,0 +1,15 @@
+themes {
+  omarchy-vantablack {
+    bg "#000000"
+    fg "#ffffff"
+    red "#a4a4a4"
+    green "#b6b6b6"
+    blue "#8d8d8d"
+    yellow "#cecece"
+    magenta "#9b9b9b"
+    orange "#b9b9b9"
+    cyan "#b0b0b0"
+    black "#070707"
+    white "#ffffff"
+  }
+}

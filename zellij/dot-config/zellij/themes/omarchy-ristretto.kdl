@@ -1,0 +1,15 @@
+themes {
+  omarchy-ristretto {
+    bg "#2c2525"
+    fg "#e6d9db"
+    red "#fd6883"
+    green "#adda78"
+    blue "#f38d70"
+    yellow "#f9cc6c"
+    magenta "#a8a9eb"
+    orange "#fb9a77"
+    cyan "#85dacc"
+    black "#181414"
+    white "#e6d9db"
+  }
+}
