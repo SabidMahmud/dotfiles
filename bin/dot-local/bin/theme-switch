@@ -323,6 +323,12 @@ fi
 if [ -f "$SELECTED_DIR/hyprlock.conf" ]; then
     mkdir -p "$HOME/.config/hypr"
     cp "$SELECTED_DIR/hyprlock.conf" "$HOME/.config/hypr/hyprlock.conf"
+    if [ -f "$HOME/.config/current-font" ]; then
+        ACTIVE_FONT=$(cat "$HOME/.config/current-font" 2>/dev/null || true)
+        if [ -n "$ACTIVE_FONT" ]; then
+            sed -i "s/font_family = .*/font_family = $ACTIVE_FONT/" "$HOME/.config/hypr/hyprlock.conf"
+        fi
+    fi
 fi
 
 if [ -f "$SELECTED_DIR/waybar.css" ]; then

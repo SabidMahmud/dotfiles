@@ -1,0 +1,329 @@
+#!/usr/bin/env bash
+# font-switch — Unified Linux Desktop Font Switcher
+# Changes systemwide and terminal fonts across Kitty, Alacritty, WezTerm, Sway, Waybar, Wofi, SwayNC, Hyprlock, and GTK.
+
+set -e
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+
+# Default fallback values
+DEFAULT_FONT="JetBrainsMono Nerd Font"
+DEFAULT_TERM_SIZE=14
+DEFAULT_UI_SIZE=11
+
+# State persistence files
+CURRENT_FONT_FILE="$HOME/.config/current-font"
+CURRENT_SIZE_FILE="$HOME/.config/current-font-size"
+
+CURRENT_FONT="$DEFAULT_FONT"
+if [ -f "$CURRENT_FONT_FILE" ]; then
+    SAVED_FONT="$(cat "$CURRENT_FONT_FILE" 2>/dev/null || true)"
+    if [ -n "$SAVED_FONT" ]; then
+        CURRENT_FONT="$SAVED_FONT"
+    fi
+fi
+
+CURRENT_TERM_SIZE="$DEFAULT_TERM_SIZE"
+if [ -f "$CURRENT_SIZE_FILE" ]; then
+    SAVED_SIZE="$(cat "$CURRENT_SIZE_FILE" 2>/dev/null || true)"
+    if [[ "$SAVED_SIZE" =~ ^[0-9]+$ ]]; then
+        CURRENT_TERM_SIZE="$SAVED_SIZE"
+    fi
+fi
+
+# Discover available Nerd Fonts on the system
+get_available_fonts() {
+    local -A seen
+    local fonts=()
+
+    # Curated prioritized list of popular programming fonts
+    local curated=(
+        "Hack Nerd Font"
+        "JetBrainsMono Nerd Font"
+        "Hack Nerd Font Mono"
+        "JetBrainsMono Nerd Font Mono"
+        "JetBrainsMonoNL Nerd Font"
+        "JetBrainsMonoNL Nerd Font Mono"
+        "CaskaydiaMono Nerd Font"
+        "FiraCode Nerd Font"
+        "MesloLGS Nerd Font"
+        "SauceCodePro Nerd Font"
+    )
+
+    for font in "${curated[@]}"; do
+        if fc-list : family 2>/dev/null | grep -Fxiq "$font" || fc-list : family 2>/dev/null | grep -Fq "$font"; then
+            if [[ -z "${seen[$font]:-}" ]]; then
+                fonts+=("$font")
+                seen["$font"]=1
+            fi
+        fi
+    done
+
+    # Dynamic discovery of any other installed Nerd Fonts
+    while IFS= read -r line; do
+        IFS=',' read -ra split_fonts <<< "$line"
+        for font in "${split_fonts[@]}"; do
+            font="$(echo "$font" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+            if [[ "$font" =~ [Nn]erd\ [Ff]ont ]] && [[ ! "$font" =~ Propo ]] && [[ -z "${seen[$font]:-}" ]]; then
+                fonts+=("$font")
+                seen["$font"]=1
+            fi
+        done
+    done < <(fc-list : family 2>/dev/null | grep -i "nerd font" | sort -u)
+
+    printf '%s\n' "${fonts[@]}"
+}
+
+# Resolve aliases / shorthand
+resolve_font() {
+    local query="$1"
+    local match=""
+
+    case "${query,,}" in
+        hack) match="Hack Nerd Font" ;;
+        hack-mono|hackmono) match="Hack Nerd Font Mono" ;;
+        jetbrains|jetbrainsmono) match="JetBrainsMono Nerd Font" ;;
+        jetbrains-mono|jetbrainsmonomono) match="JetBrainsMono Nerd Font Mono" ;;
+        fira|firacode) match="FiraCode Nerd Font" ;;
+        cascadia|caskaydia) match="CaskaydiaMono Nerd Font" ;;
+    esac
+
+    if [ -n "$match" ]; then
+        echo "$match"
+        return 0
+    fi
+
+    # Exact case-insensitive match
+    while IFS= read -r font; do
+        if [[ "${font,,}" == "${query,,}" ]]; then
+            echo "$font"
+            return 0
+        fi
+    done < <(get_available_fonts)
+
+    # Substring match
+    while IFS= read -r font; do
+        if [[ "${font,,}" =~ ${query,,} ]]; then
+            echo "$font"
+            return 0
+        fi
+    done < <(get_available_fonts)
+
+    # Return as-is if no resolution
+    echo "$query"
+}
+
+# Parse CLI options
+PICKER_UI="auto"
+case "${1:-}" in
+    --cli) PICKER_UI="cli"; shift ;;
+    --gui) PICKER_UI="gui"; shift ;;
+    --list|-l)
+        echo "Available fonts:"
+        get_available_fonts | sed 's/^/  - /'
+        exit 0
+        ;;
+    --current|-c)
+        echo "Current font: $CURRENT_FONT (${CURRENT_TERM_SIZE}pt)"
+        exit 0
+        ;;
+    --help|-h)
+        echo "Usage: font-switch [--cli|--gui] [FONT_NAME] [FONT_SIZE]"
+        echo "       font-switch --list"
+        echo "       font-switch --current"
+        echo ""
+        echo "Options:"
+        echo "  --cli        Force interactive CLI picker (fzf/gum)"
+        echo "  --gui        Force GUI picker (wofi)"
+        echo "  -l, --list   List available Nerd Fonts"
+        echo "  -c, --current Show active font and size"
+        echo "  -h, --help   Show this help message"
+        echo ""
+        echo "Examples:"
+        echo "  font-switch \"Hack Nerd Font\" 14"
+        echo "  font-switch hack 14"
+        echo "  font-switch jetbrains"
+        echo "  font-switch --gui"
+        exit 0
+        ;;
+esac
+
+TARGET_FONT=""
+if [ -n "${1:-}" ]; then
+    TARGET_FONT="$(resolve_font "$1")"
+    shift
+fi
+
+# Size argument
+TARGET_SIZE="$CURRENT_TERM_SIZE"
+if [ -n "${1:-}" ] && [[ "$1" =~ ^[0-9]+$ ]]; then
+    TARGET_SIZE="$1"
+fi
+
+if [ -z "$TARGET_FONT" ]; then
+    mapfile -t AVAILABLE < <(get_available_fonts)
+    if [ ${#AVAILABLE[@]} -eq 0 ]; then
+        echo "Error: No Nerd Fonts detected on the system." >&2
+        exit 1
+    fi
+
+    USE_GUI=false
+    if [ "$PICKER_UI" = "gui" ]; then
+        USE_GUI=true
+    elif [ "$PICKER_UI" = "auto" ] && [ ! -t 0 ] && { [ -n "$WAYLAND_DISPLAY" ] || [ -n "$DISPLAY" ]; }; then
+        USE_GUI=true
+    fi
+
+    if [ "$USE_GUI" = true ] && command -v wofi &>/dev/null; then
+        SELECTED=$(printf "%s\n" "${AVAILABLE[@]}" | wofi --dmenu -p "󰛖 Select Font" -i)
+        if [ -z "$SELECTED" ]; then
+            exit 0
+        fi
+        TARGET_FONT="$SELECTED"
+    elif command -v fzf &>/dev/null; then
+        TARGET_FONT=$(printf "%s\n" "${AVAILABLE[@]}" | fzf \
+            --prompt="Select Font (current: $CURRENT_FONT) > " \
+            --height=40% \
+            --reverse \
+            --border)
+    elif command -v gum &>/dev/null; then
+        TARGET_FONT=$(gum choose "${AVAILABLE[@]}" --header "Select Font (current: $CURRENT_FONT):")
+    else
+        echo "Select a font (current: $CURRENT_FONT):"
+        select opt in "${AVAILABLE[@]}"; do
+            TARGET_FONT="$opt"
+            break
+        done
+    fi
+
+    if [ -z "$TARGET_FONT" ]; then
+        echo "No font selected."
+        exit 0
+    fi
+fi
+
+# Calculate UI font size proportionally (e.g. Sway titlebars, GTK, SwayNC)
+UI_FONT_SIZE=$(( TARGET_SIZE - 3 ))
+if [ "$UI_FONT_SIZE" -lt 9 ]; then
+    UI_FONT_SIZE=9
+fi
+
+echo "==> Applying font: $TARGET_FONT (Terminal: ${TARGET_SIZE}pt, UI: ${UI_FONT_SIZE}pt)"
+
+# 1. Kitty
+mkdir -p "$HOME/.config/kitty"
+cat << EOF > "$HOME/.config/kitty/font.conf"
+# Active font configuration (managed by font-switch)
+font_family      $TARGET_FONT
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+font_size        ${TARGET_SIZE}.0
+EOF
+
+# 2. Alacritty
+mkdir -p "$HOME/.config/alacritty"
+cat << EOF > "$HOME/.config/alacritty/font.toml"
+# Active font configuration (managed by font-switch)
+[font]
+normal = { family = "$TARGET_FONT", style = "Regular" }
+bold = { family = "$TARGET_FONT", style = "Bold" }
+italic = { family = "$TARGET_FONT", style = "Italic" }
+EOF
+
+cat << EOF > "$HOME/.config/alacritty/font-size.toml"
+# Active font size configuration (managed by font-switch)
+[font]
+size = $TARGET_SIZE
+EOF
+
+# 3. WezTerm
+mkdir -p "$HOME/.config/wezterm"
+cat << EOF > "$HOME/.config/wezterm/font.lua"
+-- Active font configuration (managed by font-switch)
+return {
+    font = "$TARGET_FONT",
+    font_size = ${TARGET_SIZE}.0,
+}
+EOF
+
+# 4. Sway
+mkdir -p "$HOME/.config/sway"
+cat << EOF > "$HOME/.config/sway/font"
+# Active font configuration (managed by font-switch)
+font pango:$TARGET_FONT $UI_FONT_SIZE
+EOF
+
+# 5. Waybar
+mkdir -p "$HOME/.config/waybar"
+cat << EOF > "$HOME/.config/waybar/font.css"
+/* Active font configuration (managed by font-switch) */
+* {
+    font-family: "$TARGET_FONT", monospace;
+}
+EOF
+
+# 6. Wofi
+mkdir -p "$HOME/.config/wofi"
+cat << EOF > "$HOME/.config/wofi/font.css"
+/* Active font configuration (managed by font-switch) */
+window {
+    font-family: "$TARGET_FONT", monospace;
+}
+EOF
+
+# 7. SwayNC
+mkdir -p "$HOME/.config/swaync"
+cat << EOF > "$HOME/.config/swaync/font.css"
+/* Active font configuration (managed by font-switch) */
+* {
+    font-family: "$TARGET_FONT", sans-serif;
+}
+EOF
+
+# 8. Hyprlock (if present)
+if [ -f "$HOME/.config/hypr/hyprlock.conf" ]; then
+    sed -i "s/font_family = .*/font_family = $TARGET_FONT/" "$HOME/.config/hypr/hyprlock.conf"
+fi
+
+# 9. GTK (org.gnome.desktop.interface monospace-font-name)
+if command -v gsettings &>/dev/null; then
+    gsettings set org.gnome.desktop.interface monospace-font-name "$TARGET_FONT $UI_FONT_SIZE" 2>/dev/null || true
+fi
+
+# 10. Persist state
+mkdir -p "$HOME/.config"
+echo "$TARGET_FONT" > "$CURRENT_FONT_FILE"
+echo "$TARGET_SIZE" > "$CURRENT_SIZE_FILE"
+
+# 11. Live reload running applications
+# Sway
+if command -v swaymsg &>/dev/null; then
+    swaymsg reload 2>/dev/null || true
+fi
+
+# Waybar
+if command -v killall &>/dev/null; then
+    killall -SIGUSR2 waybar 2>/dev/null || true
+fi
+
+# SwayNC
+if command -v swaync-client &>/dev/null; then
+    swaync-client -rs 2>/dev/null || true
+fi
+
+# Kitty
+if pgrep -x kitty &>/dev/null; then
+    kitten @ --to=unix:@mykitty load-config 2>/dev/null || killall -SIGUSR1 kitty 2>/dev/null || true
+fi
+
+# Touch file watchers for WezTerm and Alacritty
+touch "$HOME/.config/wezterm/wezterm.lua" 2>/dev/null || true
+touch "$HOME/.config/alacritty/alacritty.toml" 2>/dev/null || true
+
+# Notification
+if command -v notify-send &>/dev/null; then
+    notify-send "Font Switcher" "Switched font to $TARGET_FONT (${TARGET_SIZE}pt)" -i preferences-desktop-font 2>/dev/null || true
+fi
+
+echo "==> Successfully switched font to $TARGET_FONT (${TARGET_SIZE}pt)!"
