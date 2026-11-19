@@ -297,13 +297,10 @@ echo "$TARGET_FONT" > "$CURRENT_FONT_FILE"
 echo "$TARGET_SIZE" > "$CURRENT_SIZE_FILE"
 
 # 11. Live reload running applications
-# Sway
-if command -v swaymsg &>/dev/null; then
-    swaymsg reload 2>/dev/null || true
-fi
-
-# Waybar
-if command -v killall &>/dev/null; then
+# Sway & Waybar (Sway automatically restarts its managed bar on reload)
+if command -v swaymsg &>/dev/null && swaymsg reload 2>/dev/null; then
+    : # Sway reloads configuration and cleanly restarts its managed bar (waybar)
+elif command -v killall &>/dev/null; then
     killall -SIGUSR2 waybar 2>/dev/null || true
 fi
 
