@@ -51,6 +51,7 @@ These packages are installed automatically if a graphical session (`$WAYLAND_DIS
 | `power-profiles-daemon` | CPU power profile manager (performance / balanced / power-saver). Integrated into Waybar — click to cycle profiles. Also used by Omarchy. |
 | `kdeconnect` (or `valent`) | Android device integration (notifications, clipboard sync, caller ID, media control). Valent is recommended for Sway as a lightweight GTK alternative. |
 | `chafa` | *Optional, but highly recommended*: True-color terminal image renderer for high-res `fzf` wallpaper previews. |
+| `showmethekey` | Screenkey alternative for Wayland (`showmethekey-gtk`), displays typed keys on screen during recordings or presentations (`Super+Shift+K`). |
 
 ## Extended Tools
 These are standalone modern tools that heavily enhance the workflow, but often need to be installed manually because they are either not in standard repositories or require specific versions.

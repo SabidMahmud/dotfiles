@@ -233,3 +233,8 @@ bindsym $mod+Shift+d exec nwg-displays
 # Flameshot rules
 for_window [app_id="flameshot"] floating enable, border pixel 0
 for_window [app_id="flameshot" title="^flameshot$"] fullscreen disable, move absolute position 0 0
+
+# Show Me The Key (screenkey overlay for Wayland)
+bindsym $mod+Shift+k exec pkill -x showmethekey-gtk || showmethekey-gtk
+for_window [app_id="showmethekey-gtk"] floating enable, sticky enable, border none
+for_window [app_id="one.alynx.showmethekey"] floating enable, sticky enable, border none
