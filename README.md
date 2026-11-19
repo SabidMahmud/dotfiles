@@ -89,7 +89,6 @@ The graphical environment is built on [Sway](https://swaywm.org/) with an Omarch
 | `Super + v` | Clipboard history picker (`cliphist` + `wofi`) |
 | `Super + Shift + d` | Display manager (`nwg-displays`) |
 | `Super + Shift + n` | Toggle notification panel (`swaync`) |
-| `Super + Shift + k` | Toggle screencast keycaster (`showmethekey-gtk`) |
 | `Super + Ctrl + Shift + Space` | Open the theme gallery |
 | `Super + Ctrl + Space` | Open the current theme's wallpaper gallery |
 
