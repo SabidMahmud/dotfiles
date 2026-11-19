@@ -173,7 +173,7 @@ The switcher simultaneously updates:
 - Screen locker colors (Hyprlock)
 - Desktop wallpaper and accent color (supports Sway via `swaybg`, Hyprland, GNOME, and X11)
 
-Available themes: `catppuccin`, `catppuccin-latte`, `catppuccin-frappe`, `catppuccin-macchiato`, `catppuccin-mocha`, `coolnight` (Original colorscheme by Josean Martinez), `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `solarized-dark`, `tokyo-night`, plus the 22 `omarchy-*` themes below.
+Available themes: `catppuccin`, `catppuccin-latte`, `catppuccin-frappe`, `catppuccin-macchiato`, `catppuccin-mocha`, `coolnight` (Original colorscheme by Josean Martinez), `everforest`, `gruvbox`, `kanagawa`, `matte-black`, `nord`, `osaka-jade`, `ristretto`, `rose-pine`, `solarized-dark`, `solarized-osaka` (Craftzdog's Solarized Osaka / Vivid), `tokyo-night`, plus the 22 `omarchy-*` themes below.
 
 ### Catppuccin Flavours
 
@@ -371,15 +371,9 @@ dotfiles/
 
 ## Credits and attribution
 
-- **[Omarchy](https://github.com/omacom/omarchy), created by [DHH](https://dhh.dk/), and its contributors:** the upstream source for the imported `omarchy-*` themes, colour palettes, wallpapers, previews, and theme assets. This repository adapts that collection to its Sway desktop. The [collection documentation](assets/omarchy/README.md) records the release and pinned commit; the [import manifest](assets/omarchy/manifest.json) maps every imported file to its upstream path and checksum.
-- **[Omarchy's Quickshell image picker](https://github.com/omacom/omarchy/blob/84b3f2872b5023c13967543ed4a98b08fcac5b21/shell/plugins/image-picker/ImagePicker.qml):** the source of the angled carousel layout, overlapping previews, and image-mask treatment adapted for this repository's picker. Its [upstream copyright and MIT notice](quickshell/dot-config/quickshell/theme-picker/OMARCHY-LICENSE) are preserved alongside the implementation.
-- **[Catppuccin](https://catppuccin.com/) and its community:** the four official palettes used by the separately named Latte, Frappé, Macchiato, and Mocha themes. Their [palette source and license](assets/catppuccin/README.md) are documented separately. The additional geometric wallpapers for those four variants were generated for this repository.
-- **[CozyPixels](https://github.com/SleepyCatHey/CozyPixels), curated by [SleepyCatHey](https://github.com/SleepyCatHey), and the original wallpaper artists:** the additional Catppuccin wallpapers from Characters & People, Pixel Art, and Seasonal & Weather. The [collection documentation](assets/cozypixels/README.md) records the pinned source, deduplication, GIF conversion, and preserved license notice. CozyPixels notes that some original artist credits are unknown; this repository claims no authorship of the imported artwork.
+This repository builds upon, adapts, and integrates themes, palettes, and utilities from several open-source creators and communities, including **[craftzdog](https://github.com/craftzdog)** (Solarized Osaka & tmux styling), **[DHH](https://dhh.dk/) & [Omarchy](https://github.com/omacom/omarchy)**, the **[Catppuccin](https://catppuccin.com/)** community, **[CozyPixels](https://github.com/SleepyCatHey/CozyPixels)**, and **[Josean Martinez](https://github.com/josean-dev)**.
 
-Individual theme designs and wallpaper artwork remain the work of their
-original creators. Omarchy is credited as the upstream project and curator of
-the imported collection. The local work here covers app-specific adaptations,
-Stow integration, theme-switching utilities, and wallpaper-to-preset matching.
+For detailed project acknowledgments, upstream links, and asset provenance, see **[CREDITS.md](CREDITS.md)**.
 
 ## License
 
