@@ -45,7 +45,7 @@ and preserved license notices.
 | `lazydocker` | Lazydocker terminal UI configuration |
 | `mise` | mise-en-place dev environment tool configuration |
 | `yazi` | Yazi terminal file manager configuration and theme-switching support |
-| `bin` | Custom CLI utilities including `theme-switch`, `theme-picker`, `sway-lock`, `sway-autotile`, `sway-powermenu`, `sway-wallpaper`, `sway-maximize`, `wallpaper-preview`, and `brightness-step` |
+| `bin` | Custom CLI utilities including `font-switch`, `theme-switch`, `theme-picker`, `sway-lock`, `sway-autotile`, `sway-powermenu`, `sway-wallpaper`, `sway-maximize`, `wallpaper-preview`, and `brightness-step` |
 
 ## Desktop Environment (Sway & Wayland)
 
@@ -153,6 +153,39 @@ Install Quickshell using the [dependency instructions](dependencies.md), then
 run `stow --dotfiles -R --target "$HOME" bin quickshell` from the repo root
 to link the new picker files. The Sway shortcuts are `Super+Ctrl+Shift+Space`
 for themes and `Super+Ctrl+Space` for wallpapers.
+
+## Font Switcher
+
+A unified desktop font switcher is included and symlinked to `~/.local/bin/font-switch` (aliased as `font`). It synchronizes font families and proportional sizes across terminals, desktop window manager, status bar, and launcher, and reloads them live.
+
+Supported targets:
+- **Terminals**: Kitty (`font.conf`), Alacritty (`font.toml`, `font-size.toml`), WezTerm (`font.lua`)
+- **Desktop & Compositor**: Sway (`~/.config/sway/font` via `include font`)
+- **Status Bar & UI**: Waybar (`font.css`), SwayNC (`font.css`), Wofi (`font.css`), Hyprlock
+- **GTK Applications**: Monospace font setting via `gsettings`
+
+Run the interactive font picker:
+
+```sh
+font
+```
+
+Or switch directly by name (shorthand names like `hack` or `jetbrains` are supported) with optional size:
+
+```sh
+# Switch font directly
+font "Hack Nerd Font" 14
+font hack 14
+font jetbrains 14
+
+# List detected Nerd Fonts
+font --list
+
+# Show active font and size
+font --current
+```
+
+Keyboard shortcut on Sway: `Super + Ctrl + f` opens the graphical font menu (`wofi`).
 
 Or specify a theme directly:
 
@@ -341,6 +374,7 @@ dotfiles/
 │       └── hyprlock.conf      # symlinked to → ~/.config/hypr/hyprlock.conf
 ├── bin/
 │   └── dot-local/bin/
+│       ├── font-switch        # symlinked to → ~/.local/bin/font-switch
 │       ├── theme-switch       # symlinked to → ~/.local/bin/theme-switch
 │       ├── theme-picker       # Quickshell launcher and preset/wallpaper backend
 │       ├── sway-lock          # symlinked to → ~/.local/bin/sway-lock

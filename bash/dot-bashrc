@@ -10,6 +10,7 @@ export SUDO_EDITOR="$EDITOR"
 # Ensure ~/.local/bin is in PATH
 export PATH="$HOME/.local/bin:$PATH"
 
-# Theme switcher shortcut
+# Theme & Font switcher shortcuts
 alias theme="theme-switch"
+alias font="font-switch"
 

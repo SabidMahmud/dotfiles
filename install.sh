@@ -115,11 +115,12 @@ stow_packages() {
 
     # GTK3 resolves @import paths relative to CWD, not the CSS file.
     # Patch the wofi style.css with the actual $HOME path so the theme
-    # import works regardless of username on this machine.
+    # and font imports work regardless of username on this machine.
     local wofi_style="$HOME/.config/wofi/style.css"
     if [ -f "$wofi_style" ]; then
         echo "==> Patching wofi/style.css with actual \$HOME path..."
         sed -i "s|@import url('/home/[^/]*/\.config/wofi/theme\.css')|@import url('$HOME/.config/wofi/theme.css')|g" "$wofi_style"
+        sed -i "s|@import url('/home/[^/]*/\.config/wofi/font\.css')|@import url('$HOME/.config/wofi/font.css')|g" "$wofi_style"
     fi
 }
 
