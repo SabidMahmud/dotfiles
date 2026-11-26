@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # brightness-step — Fast, unprivileged backlight control using systemd-logind.
-# Usage: brightness-step [+5|-5|VALUE]
+# Usage: brightness-step [+5|-5|VALUE|--device]
 
 set -e
 
@@ -14,14 +14,18 @@ if [ -z "$DIR" ] || [ ! -d "$DIR" ]; then
     exit 1
 fi
 
+ARG="${1:-+5}"
+if [[ "$ARG" == --device ]]; then
+    printf '%s\n' "$DIR"
+    exit 0
+fi
+
 DEVICE=$(basename "$DIR")
 MAX=$(cat "$DIR/max_brightness")
 CUR=$(cat "$DIR/brightness")
 
 STEP=$(( MAX * 5 / 100 ))
 if [ "$STEP" -lt 1 ]; then STEP=1; fi
-
-ARG="${1:-+5}"
 
 if [[ "$ARG" == +* ]]; then
     DELTA="${ARG#+}"

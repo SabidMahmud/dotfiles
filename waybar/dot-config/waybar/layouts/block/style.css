@@ -103,6 +103,7 @@ window#waybar.empty #window {
 #battery,
 #bluetooth,
 #network,
+#custom-vnstat,
 #cpu,
 #memory,
 #custom-power,
@@ -123,6 +124,7 @@ window#waybar.empty #window {
 #battery:hover,
 #bluetooth:hover,
 #network:hover,
+#custom-vnstat:hover,
 #cpu:hover,
 #memory:hover,
 #tray:hover,
@@ -176,6 +178,7 @@ window#waybar.empty #window {
 #bluetooth.disabled, #bluetooth.off { color: @overlay0; }
 #network { color: @teal; }
 #network.disconnected { color: @red; }
+#custom-vnstat { color: @teal; }
 #cpu { color: @peach; }
 #memory { color: @green; }
 

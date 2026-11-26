@@ -1,0 +1,9 @@
+{
+    "custom/vnstat": {
+        "exec": "exec python3 \"$HOME/.config/waybar/custom_modules/vnstat.py\"",
+        "return-type": "json",
+        "format": "{text}",
+        "restart-interval": 5,
+        "escape": true
+    }
+}
