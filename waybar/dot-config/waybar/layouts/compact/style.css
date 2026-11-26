@@ -1,0 +1,129 @@
+@import url("theme.css");
+@import url("font.css");
+
+* {
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 0;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+window#waybar {
+    background-color: @base;
+    color: @text;
+    border-bottom: 1px solid @surface0;
+}
+
+.modules-left { margin-left: 7px; }
+.modules-right { margin-right: 7px; }
+
+#workspaces button {
+    min-width: 20px;
+    padding: 0 2px;
+    margin: 3px 1px;
+    border-radius: 4px;
+    color: @subtext0;
+    background-color: transparent;
+}
+
+#workspaces button:hover {
+    color: @text;
+    background-color: @surface0;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: @base;
+    background-color: @blue;
+    font-weight: 700;
+}
+
+#workspaces button.urgent {
+    color: @base;
+    background-color: @red;
+}
+
+#media { margin-left: 10px; }
+#custom-media-animation { color: @teal; }
+#custom-media-now-playing { padding: 0 7px; }
+#custom-media-time { color: @subtext0; }
+
+#clock {
+    padding: 0 10px;
+    font-weight: 700;
+}
+
+#notifications,
+#audio,
+#connectivity,
+#system,
+#device {
+    background-color: @surface0;
+    margin: 3px 0;
+    padding: 0 2px;
+    border-radius: 5px;
+}
+
+#tray,
+#custom-notification,
+#pulseaudio,
+#pulseaudio-microphone,
+#bluetooth,
+#network,
+#custom-vnstat,
+#custom-system,
+#cpu,
+#memory,
+#backlight,
+#battery,
+#custom-power-profile,
+#custom-power,
+#mode {
+    padding: 0 5px;
+    border-radius: 3px;
+}
+
+#custom-notification:hover,
+#pulseaudio:hover,
+#pulseaudio-microphone:hover,
+#bluetooth:hover,
+#network:hover,
+#custom-vnstat:hover,
+#custom-system:hover,
+#cpu:hover,
+#memory:hover,
+#backlight:hover,
+#battery:hover,
+#custom-power-profile:hover,
+#custom-power:hover {
+    background-color: mix(@surface0, @text, 0.12);
+}
+
+#custom-notification.notification,
+#battery.warning:not(.charging) { color: @yellow; }
+
+#pulseaudio.muted,
+#pulseaudio-microphone.source-muted,
+#network.disconnected { color: @red; }
+
+#battery.critical:not(.charging),
+#mode {
+    color: @base;
+    background-color: @red;
+    font-weight: 700;
+}
+
+#bluetooth.disabled,
+#bluetooth.off { color: @subtext0; }
+
+tooltip {
+    color: @text;
+    background-color: @base;
+    border: 1px solid @surface0;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+tooltip label { color: @text; }

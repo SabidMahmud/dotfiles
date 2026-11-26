@@ -1,4 +1,5 @@
 {
+    "include": "custom_modules/vnstat.json",
     "layer": "bottom",
     "position": "top",
     "height": 28,
@@ -24,6 +25,7 @@
         "backlight",
         "bluetooth",
         "network",
+        "custom/vnstat",
         "cpu",
         "memory",
         "battery",
@@ -130,11 +132,12 @@
                 "󰕾"
             ]
         },
-        "scroll-step": 2,
+        "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 2%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-",
         "ignored-sinks": [
             "Easy Effects Sink"
         ],
-        "on-click": "pavucontrol",
+        "on-click": "bash \"$HOME/.config/waybar/custom_modules/open-controls.sh\" sound",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
     "pulseaudio/slider": {
@@ -153,11 +156,11 @@
         "format": "{format_source}",
         "format-source": " {volume}%",
         "format-source-muted": " Muted",
-        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click": "bash \"$HOME/.config/waybar/custom_modules/open-controls.sh\" sound",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
         "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
-        "scroll-step": 5,
-        "tooltip-format": "Microphone: {volume}%"
+        "tooltip-format": "Microphone {source_volume}%\n{source_desc}\nScroll to adjust level\nLeft-click for sound controls\nRight-click to toggle mute"
     },
     "backlight": {
         "format": "{icon} {percent}%",

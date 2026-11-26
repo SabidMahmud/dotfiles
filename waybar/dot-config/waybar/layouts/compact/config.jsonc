@@ -1,0 +1,99 @@
+{
+    "include": "layouts/block/config.jsonc",
+    "name": "compact",
+    "spacing": 6,
+    "modules-right": [
+        "sway/mode",
+        "group/notifications",
+        "group/audio",
+        "group/connectivity",
+        "group/system",
+        "group/device"
+    ],
+    "group/notifications": {
+        "orientation": "horizontal",
+        "modules": ["tray", "custom/notification"]
+    },
+    "group/audio": {
+        "orientation": "horizontal",
+        "modules": ["pulseaudio", "pulseaudio#microphone"]
+    },
+    "group/connectivity": {
+        "orientation": "horizontal",
+        "modules": ["bluetooth", "network", "custom/vnstat"]
+    },
+    "group/system": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 120,
+            "transition-left-to-right": false
+        },
+        "modules": ["custom/system", "cpu", "memory"]
+    },
+    "group/device": {
+        "orientation": "horizontal",
+        "modules": ["backlight", "battery", "custom/power-profile", "custom/power"]
+    },
+    "tray": {
+        "icon-size": 15,
+        "spacing": 5
+    },
+    "custom/notification": {
+        "tooltip": true,
+        "tooltip-format": "Notifications"
+    },
+    "clock": {
+        "format": "{:%a %d %b · %I:%M %p}",
+        "tooltip-format": "<b>{:%A, %d %B %Y}</b>\n<tt>{calendar}</tt>"
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-muted": "󰝟",
+        "tooltip-format": "Speaker {volume}%\nScroll to adjust volume\nLeft-click for sound controls\nRight-click to toggle mute"
+    },
+    "pulseaudio#microphone": {
+        "format-source": "",
+        "format-source-muted": ""
+    },
+    "network": {
+        "format-wifi": "󰤨",
+        "format-disconnected": "󰤭",
+        "on-click": "bash \"$HOME/.config/waybar/custom_modules/open-controls.sh\" network"
+    },
+    "bluetooth": {
+        "on-click": "bash \"$HOME/.config/waybar/custom_modules/open-controls.sh\" bluetooth",
+        "on-click-right": "blueman-manager"
+    },
+    "custom/vnstat": {
+        "exec": "exec python3 \"$HOME/.config/waybar/custom_modules/vnstat.py\" --compact",
+        "min-length": 11
+    },
+    "custom/system": {
+        "format": "",
+        "tooltip-format": "System monitor",
+        "on-click": "wezterm -e btop"
+    },
+    "cpu": {
+        "format": "CPU {usage}%",
+        "tooltip-format": "CPU {usage}%"
+    },
+    "memory": {
+        "format": "RAM {percentage}%"
+    },
+    "backlight": {
+        "format": "{icon}",
+        "tooltip-format": "Brightness {percent}%\nClick for the brightness slider",
+        "on-click": "bash \"$HOME/.config/waybar/custom_modules/open-controls.sh\" brightness"
+    },
+    "custom/power-profile": {
+        "exec": "exec python3 \"$HOME/.config/waybar/custom_modules/power-profile.py\"",
+        "return-type": "json",
+        "restart-interval": 30,
+        "escape": true,
+        "on-click": "bash \"$HOME/.config/waybar/custom_modules/open-controls.sh\" power"
+    },
+    "custom/power": {
+        "tooltip": true,
+        "tooltip-format": "Power menu"
+    }
+}

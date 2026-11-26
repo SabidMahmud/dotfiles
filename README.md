@@ -336,6 +336,46 @@ Apply your preferred theme:
 theme gruvbox
 ```
 
+### Waybar layouts
+
+Run `waybar-layout compact` for the laptop layout with grouped controls and
+CPU and RAM on hover. Run `waybar-layout block` to switch back to the solid
+block layout.
+
+On Compact, click the network, speaker, Bluetooth, brightness, or power profile
+icon to open quick controls. The panel provides Wi-Fi networks, speaker and
+microphone levels, audio output selection, paired Bluetooth devices, display
+brightness, and available power profiles. Use the settings button in each
+supported section for full configuration and Bluetooth pairing. The quick
+controls use Quickshell 0.3.2 with its NetworkManager, PipeWire, Bluetooth, and
+UPower modules.
+The power profile icon uses PyGObject to follow the power profiles service.
+
+### Waybar network usage on Fedora
+
+The vnStat module updates speeds every two seconds. Compact shows download
+speed on the bar and upload speed on hover. The tooltip also shows today's
+and this month's totals and the interfaces included. Waybar reads vnStat's
+saved totals once a minute. New usage appears after the daemon saves it,
+normally every five minutes with vnStat's default settings.
+
+On a fresh setup, register the physical Wi-Fi and Ethernet interfaces before
+starting the service. Use `vnstat --iflist` to find their names. Replace the
+example names below with yours and run one `--add` command per adapter.
+
+```sh
+sudo dnf install vnstat
+sudo -u vnstat vnstatd --initdb --noadd
+sudo -u vnstat vnstat --add -i wlp1s0
+sudo -u vnstat vnstat --add -i enp5s0
+sudo systemctl enable --now vnstat.service
+killall -SIGUSR2 waybar
+```
+
+Waybar sums the interfaces recorded in vnStat's database. Use
+`vnstat --dbiflist` to see what's included. Register physical adapters to
+avoid counting the same traffic on a VPN tunnel or container bridge.
+
 ## Machine-local Configuration
 
 Secrets, API keys, and anything machine-specific must never be committed. The `~/.zshrc` sources `~/.zshrc.local` if it exists. Create this file on each machine after installation:
